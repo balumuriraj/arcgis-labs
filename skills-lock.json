@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "skills": {
+    "arcgis-charts": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "92ce292e8ca62c459a0a1947eabc5b4a210733fbc05180a9f57100e58837e35d"
+    },
+    "arcgis-core-maps": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "311c66a3a35e24cbf702c154b4cc11ebaf495e1bfa703cfc8d8d161449b48a58"
+    },
+    "arcgis-interaction": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "4ffa1b4f3bd921e560091cbe2508340e0f69cba54e7674981649e579600d8e0e"
+    },
+    "arcgis-performance": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "e62cc07bf6f1a25671bcb8295ffce14f249db8c52a0f57d538fdefa7c15293da"
+    },
+    "arcgis-popup-templates": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "8e636d0fdb049ed088a1b502deeb612bb7d184c8f963d597cb5db2ee5b9fb8b5"
+    },
+    "arcgis-rest-services": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "d62f6789c9832a5a60b9f813483eb20329e49ba471c1843c1188ab39899d1a24"
+    },
+    "arcgis-smart-mapping": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "b196937786bcb2f32493c74baebe24a565b793a8bab5aa14334d254a6a9e7c98"
+    },
+    "arcgis-visualization": {
+      "source": "saschabrunnerch/arcgis-maps-sdk-js-ai-context",
+      "sourceType": "github",
+      "computedHash": "361cb963c6846f91276712cf4914ebc625ff8747bebef8bffcdc5d152c2314b1"
+    },
+    "turborepo": {
+      "source": "vercel/turborepo",
+      "sourceType": "github",
+      "computedHash": "91cd3ff61d51a0eeb1f32a7958beca409ecd1c932dcbd492a2f6118523405c42"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "3462ec83f862abb2d532953df33a4dbf87f4616849da5d4b5cc7c13601aaf997"
+    }
+  }
+}
