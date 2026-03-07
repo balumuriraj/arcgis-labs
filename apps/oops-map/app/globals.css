@@ -47,3 +47,62 @@ body {
   cursor: pointer;
 }
 
+.oops-report-content p {
+  margin: 0.75rem 0;
+}
+
+.oops-report-content h1,
+.oops-report-content h2,
+.oops-report-content h3,
+.oops-report-content h4 {
+  margin: 1.25rem 0 0.5rem;
+}
+
+.oops-report-content blockquote {
+  margin: 0.5rem 0 0.5rem 1rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid currentColor;
+  opacity: 0.85;
+}
+
+.oops-report-content ul,
+.oops-report-content ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.oops-report-content li {
+  margin: 0.25rem 0;
+}
+
+.oops-report-content hr {
+  margin: 1rem 0;
+  border: none;
+  border-top: 1px solid rgba(var(--gray-rgb), 0.15);
+}
+
+.oops-report-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  font-size: 0.9em;
+}
+
+.oops-report-content th,
+.oops-report-content td {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(var(--gray-rgb), 0.2);
+  text-align: left;
+}
+
+.oops-report-content th {
+  font-weight: 600;
+  background: rgba(var(--gray-rgb), 0.06);
+}
+
+.oops-report-content img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 0.5rem 0;
+}
+

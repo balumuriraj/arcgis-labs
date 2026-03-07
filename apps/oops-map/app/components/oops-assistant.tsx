@@ -164,6 +164,7 @@ interface OopsAssistantProps {
   mapView: MapView | null;
   onApplyPersona: (persona: RoastPersona) => void;
   onReconfigure: (portalUrl: string, webmapId: string) => void;
+  onGoHome: () => void;
 }
 
 function scoreStyle(score: number): React.CSSProperties {
@@ -188,6 +189,7 @@ export function OopsAssistant({
   mapView,
   onApplyPersona,
   onReconfigure,
+  onGoHome,
 }: OopsAssistantProps) {
   const [score, setScore] = useState(0);
   const [roastAttemptCount, setRoastAttemptCount] = useState(0);
@@ -315,6 +317,14 @@ export function OopsAssistant({
             </div>
           </calcite-notice>
         ) : null}
+
+        <calcite-action
+          slot="header-actions-end"
+          icon="home"
+          text="Home"
+          title="Back to setup"
+          onClick={onGoHome}
+        ></calcite-action>
 
         <calcite-chip
           slot="header-actions-end"
@@ -531,7 +541,8 @@ export function OopsAssistant({
 
               {reportContent ? (
                 <div
-                  style={{ lineHeight: "1.6" }}
+                  style={{ lineHeight: "1.7" }}
+                  className="oops-report-content"
                   dangerouslySetInnerHTML={{
                     __html: marked.parse(reportContent) as string,
                   }}

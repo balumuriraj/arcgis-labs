@@ -57,13 +57,21 @@ async function generateReport(
 
   const foundList =
     foundSignals.length > 0
-      ? foundSignals.map((s) => `- ${s.criterionId} (${s.severity}): ${s.verdictReason}`).join("\n")
-      : "- None. They found absolutely nothing.";
+      ? [
+          "| Flaw | Severity | Description |",
+          "|------|----------|-------------|",
+          ...foundSignals.map((s) => `| ${s.criterionId} | ${s.severity} | ${s.verdictReason} |`),
+        ].join("\n")
+      : "_None. They found absolutely nothing._";
 
   const missedList =
     missedSignals.length > 0
-      ? missedSignals.map((s) => `- ${s.criterionId} (${s.severity}): ${s.verdictReason}`).join("\n")
-      : "- None. Somehow they caught everything.";
+      ? [
+          "| Flaw | Severity | Description |",
+          "|------|----------|-------------|",
+          ...missedSignals.map((s) => `| ${s.criterionId} | ${s.severity} | ${s.verdictReason} |`),
+        ].join("\n")
+      : "_None. Somehow they caught everything._";
 
   const promptText = [
     PERSONA_PROMPTS[persona].trim(),
@@ -79,10 +87,11 @@ async function generateReport(
     "",
     "In your post-game roast:",
     "1. Give a full map quality roast in your persona voice.",
-    "2. Call out what the player caught — praise or mock accordingly.",
-    "3. Call out what they missed — rub it in.",
-    "4. End with a verdict on their performance as a map critic.",
-    "5. Never swear at, curse at, or directly verbally abuse the player. Keep any mockery clean and aimed at the map or the specific guesses.",
+    "2. Present the issues the player caught in a markdown table with columns: Flaw | Severity | Description.",
+    "3. Present the issues the player missed in a markdown table with columns: Flaw | Severity | Description.",
+    "4. Roast or praise accordingly based on each table.",
+    "5. End with a verdict on their performance as a map critic.",
+    "6. Never swear at, curse at, or directly verbally abuse the player. Keep any mockery clean and aimed at the map or the specific guesses.",
     "",
     formatRoastGifList(persona, "verdict"),
     "",

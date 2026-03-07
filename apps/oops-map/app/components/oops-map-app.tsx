@@ -103,6 +103,13 @@ export function OopsMapApp() {
                 setReloadKey((k) => k + 1);
               }}
               onReconfigure={handleSetupComplete}
+              onGoHome={() => {
+                const url = new URL(window.location.href);
+                url.searchParams.delete("webmap");
+                window.history.replaceState({}, "", url.toString());
+                setWebmapId("");
+                setSetupDone(false);
+              }}
             />
           )}
         </calcite-shell-panel>
