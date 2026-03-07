@@ -1,7 +1,7 @@
 import type MapView from "@arcgis/core/views/MapView.js";
 import type { CritiqueCriterionId } from "./constants";
 
-export type CritiqueIntent = "critique" | "non_critique" | "end_session";
+export type CritiqueIntent = "critique" | "end_session";
 export type CritiqueVerdict = "valid" | "invalid" | "not_applicable";
 export type CritiqueSeverity = "low" | "medium" | "high" | "none";
 export type CritiqueCriterionOrNone = CritiqueCriterionId | "none";
@@ -34,7 +34,6 @@ export interface VisibleLayerSummary {
   url: string | null;
   renderer: string | null;
   rendererSummary: string | null;
-  rendererJsonSnippet: string | null;
   rendererSymbol: string | null;
   definitionExpression: string | null;
   opacity: number | null;
@@ -47,6 +46,8 @@ export interface VisibleLayerSummary {
   featureCount: number | null;
   minScale: number | null;
   maxScale: number | null;
+  numericFieldNames: string[];
+  rendererFields: string[];
 }
 
 export interface CritiqueEvidenceItem {

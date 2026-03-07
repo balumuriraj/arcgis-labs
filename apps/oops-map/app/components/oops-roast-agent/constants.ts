@@ -1,9 +1,5 @@
 export const MAX_FIELD_PREVIEW = 12;
 export const MAX_ROAST_ATTEMPTS = 3;
-export const MAX_RENDERER_JSON_DEPTH = 4;
-export const MAX_RENDERER_JSON_KEYS = 14;
-export const MAX_RENDERER_JSON_ITEMS = 10;
-export const MAX_RENDERER_JSON_CHARS = 900;
 
 export const POINTS_BY_SEVERITY = {
   low: 6,
@@ -13,9 +9,9 @@ export const POINTS_BY_SEVERITY = {
 
 export const RANK_THRESHOLDS = {
   novice: 4,
-  intermediate: 14,
-  senior: 26,
-  legendary: 36,
+  intermediate: 12,
+  senior: 24,
+  legendary: 34,
 } as const;
 
 export const FULL_CONFIDENCE_THRESHOLD = 0.85;
@@ -41,6 +37,8 @@ export const CRITIQUE_CRITERION_IDS = [
   "renderer.default_or_generic",
   "filter.suspicious_definition",
   "visual.opacity_legibility",
+  "renderer.numeric_field_categorical",
+  "visual.basemap_contrast",
 ] as const;
 
 export type CritiqueCriterionId = (typeof CRITIQUE_CRITERION_IDS)[number];
@@ -101,6 +99,22 @@ export const KEYWORDS_BY_CRITERION: Record<CritiqueCriterionId, string[]> = {
     "faded",
     "hard to see",
     "legibility",
+  ],
+  "renderer.numeric_field_categorical": [
+    "continuous field",
+    "integer field",
+    "numeric field",
+    "class breaks",
+    "wrong renderer",
+    "categorical",
+  ],
+  "visual.basemap_contrast": [
+    "dark basemap",
+    "basemap",
+    "contrast",
+    "background",
+    "dark background",
+    "light symbol",
   ],
   "scale.no_scale_dependency": [
     "scale",

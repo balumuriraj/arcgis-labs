@@ -25,6 +25,7 @@ function getUrlParam(key: string) {
   return new URLSearchParams(window.location.search).get(key);
 }
 import { OopsAssistant } from "./oops-assistant";
+import { OopsIntroScene } from "./oops-intro-scene";
 import { OopsStepper } from "./oops-stepper";
 import type { RoastPersona } from "./oops-roast-agent/types";
 
@@ -32,7 +33,9 @@ import type { RoastPersona } from "./oops-roast-agent/types";
 // const DEFAULT_WEBMAP_ID = "956580a5b5a54addba6958b6ff876c74";
 
 export function OopsMapApp() {
-  const [portalUrl, setPortalUrl] = useState(() => getUrlParam("portal") ?? "https://www.arcgis.com");
+  const [portalUrl, setPortalUrl] = useState(
+    () => getUrlParam("portal") ?? "https://www.arcgis.com",
+  );
   const [webmapId, setWebmapId] = useState(() => getUrlParam("webmap") ?? "");
   const [persona, setPersona] = useState<RoastPersona>(
     () => (getUrlParam("persona") as RoastPersona) ?? "cartographer",
@@ -48,11 +51,16 @@ export function OopsMapApp() {
     if (portal) esriConfig.portalUrl = portal;
   }, []);
 
-  const handleSetupComplete = (newPortalUrl: string, itemId: string, newPersona?: RoastPersona) => {
+  const handleSetupComplete = (
+    newPortalUrl: string,
+    itemId: string,
+    newPersona?: RoastPersona,
+  ) => {
     esriConfig.portalUrl = newPortalUrl;
     const url = new URL(window.location.href);
     url.searchParams.set("portal", newPortalUrl);
     url.searchParams.set("webmap", itemId);
+    if (newPersona) url.searchParams.set("persona", newPersona);
     window.history.replaceState({}, "", url.toString());
     setPortalUrl(newPortalUrl);
     setWebmapId(itemId);
@@ -100,17 +108,21 @@ export function OopsMapApp() {
         </calcite-shell-panel>
 
         <calcite-panel>
-          <arcgis-map
-            key={`${webmapId}-${reloadKey}`}
-            id="arcgis-map"
-            item-id={webmapId}
-            basemap={webmapId ? undefined : "dark-gray-vector"}
-            // zoom={2}
-            // center={[-98, 39]}
-            onarcgisViewReadyChange={handleMapViewReady}
-          >
-            <arcgis-legend slot="top-left"></arcgis-legend>
-          </arcgis-map>
+          {webmapId ? (
+            <arcgis-map
+              key={`${webmapId}-${reloadKey}`}
+              id="arcgis-map"
+              item-id={webmapId}
+              basemap={webmapId ? undefined : "dark-gray-vector"}
+              // zoom={2}
+              // center={[-98, 39]}
+              onarcgisViewReadyChange={handleMapViewReady}
+            >
+              <arcgis-legend slot="top-left"></arcgis-legend>
+            </arcgis-map>
+          ) : (
+            <OopsIntroScene />
+          )}
         </calcite-panel>
       </calcite-shell>
     </main>

@@ -17,6 +17,7 @@ import "@esri/calcite-components/components/calcite-dialog";
 import type MapView from "@arcgis/core/views/MapView";
 import { marked } from "marked";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { PERSONA_OPTIONS } from "./oops-roast-agent/personas";
 
 const ROAST_MESSAGES: Record<RoastPersona, string[]> = {
   cartographer: [
@@ -115,7 +116,10 @@ const YOUR_TURN_MESSAGES: Record<RoastPersona, string> = {
   hr: "👇 Your turn. Please identify a visual compliance violation in this deliverable before we have to discuss your severance package. 🚪📉",
 };
 
-const BUTTON_LABELS: Record<RoastPersona, { tryAgain: string; endGame: string }> = {
+const BUTTON_LABELS: Record<
+  RoastPersona,
+  { tryAgain: string; endGame: string }
+> = {
   cartographer: {
     tryAgain: "🗺️ Map Another Disaster",
     endGame: "🏳️ Surrender to Default Symbology",
@@ -142,14 +146,7 @@ const BUTTON_LABELS: Record<RoastPersona, { tryAgain: string; endGame: string }>
   },
 };
 
-// Replace these with your preferred GIF URLs
-const ROAST_GIF_POOL = [
-  "https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif", // This is fine dog
-  "https://media.giphy.com/media/3og0IFrHkIglEOg8Ba/giphy.gif", // Picard facepalm
-  "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif", // Judge Judy dismissive
-  "https://media.giphy.com/media/5t9IcXiBCyw60XPpGu/giphy.gif", // Trash fire
-  "https://media.giphy.com/media/H4uE6w9G1uK4M/giphy.gif", // Accordion disaster guy
-];
+import { pickRoastGif } from "../support/utils";
 import { OopsRoastAgent } from "./oops-roast-agent";
 import { MAX_ROAST_ATTEMPTS } from "./oops-roast-agent/constants";
 import {
@@ -171,9 +168,9 @@ interface OopsAssistantProps {
 
 function scoreStyle(score: number): React.CSSProperties {
   const color =
-    score >= 30
+    score >= 24
       ? "var(--calcite-color-status-success)"
-      : score >= 15
+      : score >= 8
         ? "var(--calcite-color-status-warning)"
         : "var(--calcite-color-status-danger)";
   return {
@@ -205,16 +202,19 @@ export function OopsAssistant({
     useState<RoastPersona>(initialPersona);
   const [pendingPortalUrl, setPendingPortalUrl] = useState(portalUrl);
   const [pendingWebmapId, setPendingWebmapId] = useState(webmapId);
-  const [layers, setLayers] = useState<Array<{ id: string; title: string }>>(
-    [],
-  );
   const assistantRef = useRef<HTMLArcgisAssistantElement>(null);
   const stylePopoverRef = useRef<HTMLCalcitePopoverElement>(null);
   const settingsPopoverRef = useRef<HTMLCalcitePopoverElement>(null);
 
   useEffect(() => {
     setRoastTurnHandler(
-      ({ pointsAwarded, sessionClosed: closed, countAttempt, criterionId, signals: s }) => {
+      ({
+        pointsAwarded,
+        sessionClosed: closed,
+        countAttempt,
+        criterionId,
+        signals: s,
+      }) => {
         setScore((score) => score + pointsAwarded);
         if (countAttempt) setRoastAttemptCount((c) => c + 1);
         if (criterionId) setFoundCriterionIds((ids) => [...ids, criterionId]);
@@ -233,15 +233,6 @@ export function OopsAssistant({
     if (selected?.value) setPendingPersona(selected.value as RoastPersona);
   };
 
-  useEffect(() => {
-    if (!mapView) return;
-    const extracted =
-      mapView.map?.layers
-        .toArray()
-        .map((l) => ({ id: l.id, title: l.title ?? l.id })) ?? [];
-    setLayers(extracted);
-  }, [mapView]);
-
   const roastMessage = useMemo(() => {
     const messages = ROAST_MESSAGES[persona];
     return messages[Math.floor(Math.random() * messages.length)];
@@ -249,9 +240,13 @@ export function OopsAssistant({
   }, [persona, reloadKey]);
 
   const roastGif = useMemo(() => {
-    return ROAST_GIF_POOL[Math.floor(Math.random() * ROAST_GIF_POOL.length)];
+    return pickRoastGif(persona, "verdict");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reloadKey]);
+  }, [persona, reloadKey]);
+
+  const activePersonaOption =
+    PERSONA_OPTIONS.find((option) => option.value === persona) ??
+    PERSONA_OPTIONS[0]!;
 
   const handleApplyPersona = () => {
     setPersona(pendingPersona);
@@ -266,303 +261,344 @@ export function OopsAssistant({
 
   return (
     <>
-    <arcgis-assistant
-      heading={"OopsMap"}
-      description={"Roast your map"}
-      key={`${webmapId}-${reloadKey}`}
-      reference-element="arcgis-map"
-      ref={assistantRef}
-      // log-enabled
-    >
-      <arcgis-assistant-agent
-        agent={OopsRoastAgent}
-        context={{
-          mapView,
-          persona,
-          score,
-          roastAttemptCount,
-          sessionClosed,
-          foundCriterionIds,
-        }}
-      ></arcgis-assistant-agent>
-
-      <calcite-card>
-        <img
-          slot="thumbnail"
-          alt="map roast reaction"
-          src={roastGif}
-          style={{ width: "100%", maxHeight: "160px", objectFit: "cover" }}
-        />
-        <span slot="heading">{ROAST_HEADINGS[persona]}</span>
-        <span slot="description">
-          {roastMessage}
-          <br /> {YOUR_TURN_MESSAGES[persona]}
-        </span>
-      </calcite-card>
-
-      {assistantRef.current?.messages?.length === 0 ? (
-        <calcite-notice
-          slot="entry-message"
-          open
-          color="blue"
-          width="full"
-          closable
-        >
-          {/* <div slot="title">How to play</div> */}
-          <div slot="message">
-            You get <strong>{MAX_ROAST_ATTEMPTS} shots 🎯</strong> to roast this
-            map 🗺️. Be specific—vague complaining earns you nothing but my
-            disdain 🙄. If your critique survives my elite judgment ⚖️, I'll
-            award you Roast Points 🔥. After 3 turns ⏳, I deliver the final
-            verdict and we can all go wash our eyes 🧼👀.
-          </div>
-        </calcite-notice>
-      ) : null}
-
-      <calcite-chip
-        slot="header-actions-end"
-        icon="exclamation-mark-triangle"
-        label="Score"
-        style={scoreStyle(score)}
+      <arcgis-assistant
+        heading={"OopsMap"}
+        description={"Roast your map"}
+        key={`${webmapId}-${reloadKey}`}
+        reference-element="arcgis-map"
+        ref={assistantRef}
+        // log-enabled
       >
-        {score} pts
-      </calcite-chip>
-
-      <calcite-action
-        slot="header-actions-end"
-        id="settings-action"
-        icon="gear"
-        text="Settings"
-      ></calcite-action>
-
-      <calcite-popover
-        slot="header-actions-end"
-        referenceElement="settings-action"
-        label="Settings"
-        placement="bottom-end"
-        ref={settingsPopoverRef}
-      >
-        <div
-          style={{
-            padding: "0.75rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.75rem",
-            minWidth: "280px",
+        <arcgis-assistant-agent
+          agent={OopsRoastAgent}
+          context={{
+            mapView,
+            persona,
+            score,
+            roastAttemptCount,
+            sessionClosed,
+            foundCriterionIds,
           }}
-        >
-          <calcite-label>
-            Portal URL
-            <calcite-input
-              type="text"
-              value={pendingPortalUrl}
-              placeholder="https://www.arcgis.com"
-              oncalciteInputInput={(e: CustomEvent) =>
-                setPendingPortalUrl((e.target as HTMLInputElement).value)
-              }
-            />
-          </calcite-label>
-          <calcite-label>
-            Web Map Item ID
-            <calcite-input
-              type="text"
-              value={pendingWebmapId}
-              placeholder="e.g. 680ecd73ae634c8a823984a2d49d29b7"
-              oncalciteInputInput={(e: CustomEvent) =>
-                setPendingWebmapId((e.target as HTMLInputElement).value.trim())
-              }
-            />
-          </calcite-label>
-          <calcite-button
+        ></arcgis-assistant-agent>
+
+        <calcite-card>
+          {/* Slotted calcite-card thumbnail requires a direct img element. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            slot="thumbnail"
+            alt="map roast reaction"
+            src={roastGif}
+            style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
+          />
+          <span slot="heading">{ROAST_HEADINGS[persona]}</span>
+          <span slot="description">
+            {roastMessage}
+            <br /> {YOUR_TURN_MESSAGES[persona]}
+          </span>
+        </calcite-card>
+
+        {assistantRef.current?.messages?.length === 0 ? (
+          <calcite-notice
+            slot="entry-message"
+            open
+            color="blue"
             width="full"
-            disabled={!pendingPortalUrl || !pendingWebmapId || undefined}
-            onClick={() => {
-              if (settingsPopoverRef.current)
-                settingsPopoverRef.current.open = false;
-              onReconfigure(pendingPortalUrl, pendingWebmapId);
+            closable
+          >
+            {/* <div slot="title">How to play</div> */}
+            <div slot="message">
+              You get <strong>{MAX_ROAST_ATTEMPTS} shots 🎯</strong> to roast
+              this map 🗺️. Be specific—vague complaining earns you nothing but
+              my disdain 🙄. If your critique survives my elite judgment ⚖️,
+              I&apos;ll award you Roast Points 🔥. After 3 turns ⏳, I deliver
+              the final verdict and we can all go wash our eyes 🧼👀.
+            </div>
+          </calcite-notice>
+        ) : null}
+
+        <calcite-chip
+          slot="header-actions-end"
+          icon="exclamation-mark-triangle"
+          label="Score"
+          style={scoreStyle(score)}
+        >
+          {score} pts
+        </calcite-chip>
+
+        <calcite-action
+          slot="entry-actions-start"
+          id="settings-action"
+          icon="gear"
+          text="Settings"
+        ></calcite-action>
+
+        <calcite-popover
+          slot="entry-actions-start"
+          referenceElement="settings-action"
+          label="Settings"
+          placement="bottom-start"
+          ref={settingsPopoverRef}
+          auto-close
+        >
+          <div
+            style={{
+              padding: "0.75rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+              minWidth: "280px",
             }}
           >
+            <calcite-label>
+              Portal URL
+              <calcite-input
+                type="text"
+                value={pendingPortalUrl}
+                placeholder="https://www.arcgis.com"
+                oncalciteInputInput={(e: CustomEvent) =>
+                  setPendingPortalUrl((e.target as HTMLInputElement).value)
+                }
+              />
+            </calcite-label>
+            <calcite-label>
+              Web Map Item ID
+              <calcite-input
+                type="text"
+                value={pendingWebmapId}
+                placeholder="e.g. 680ecd73ae634c8a823984a2d49d29b7"
+                oncalciteInputInput={(e: CustomEvent) =>
+                  setPendingWebmapId(
+                    (e.target as HTMLInputElement).value.trim(),
+                  )
+                }
+              />
+            </calcite-label>
+            <calcite-button
+              width="full"
+              disabled={!pendingPortalUrl || !pendingWebmapId || undefined}
+              onClick={() => {
+                if (settingsPopoverRef.current)
+                  settingsPopoverRef.current.open = false;
+                onReconfigure(pendingPortalUrl, pendingWebmapId);
+              }}
+            >
+              Apply
+            </calcite-button>
+          </div>
+        </calcite-popover>
+
+        <calcite-button
+          slot="header-actions-end"
+          id="style-picker-action"
+          iconEnd="chevron-down"
+          label={`${activePersonaOption.emoji} ${activePersonaOption.label}`}
+          title={`${activePersonaOption.emoji} ${activePersonaOption.label}`}
+          appearance="outline-fill"
+          kind="neutral"
+          round
+        >{`${activePersonaOption.emoji}`}</calcite-button>
+
+        <calcite-popover
+          slot="header-actions-end"
+          referenceElement="style-picker-action"
+          label={`${activePersonaOption.emoji} ${activePersonaOption.label}`}
+          placement="bottom-end"
+          ref={stylePopoverRef}
+          auto-close
+        >
+          <calcite-list
+            label="styles"
+            selection-mode="single"
+            style={{ maxWidth: "300px" }}
+            oncalciteListChange={handlePersonaChange}
+          >
+            {PERSONA_OPTIONS.map(({ value, label, emoji, description }) => (
+              <calcite-list-item
+                key={value}
+                label={`${emoji} ${label}`}
+                description={description}
+                value={value}
+                selected={pendingPersona === value || undefined}
+              />
+            ))}
+          </calcite-list>
+          <calcite-button width="full" onClick={handleApplyPersona}>
             Apply
           </calcite-button>
-        </div>
-      </calcite-popover>
+        </calcite-popover>
 
-      <calcite-action
-        slot="header-actions-end"
-        id="style-picker-action"
-        icon="effects"
-        text="Choose a style"
-      ></calcite-action>
-
-      <calcite-popover
-        slot="header-actions-end"
-        referenceElement="style-picker-action"
-        label="Choose a style"
-        placement="bottom-end"
-        ref={stylePopoverRef}
-      >
-        <calcite-list
-          label="styles"
-          selection-mode="single"
-          oncalciteListChange={handlePersonaChange}
-        >
-          <calcite-list-item
-            label="Cartographer"
-            value="cartographer"
-            selected={pendingPersona === "cartographer" || undefined}
-          />
-          <calcite-list-item
-            label="Chef"
-            value="chef"
-            selected={pendingPersona === "chef" || undefined}
-          />
-          <calcite-list-item
-            label="Movie Critic"
-            value="movie"
-            selected={pendingPersona === "movie" || undefined}
-          />
-          <calcite-list-item
-            label="Detective"
-            value="detective"
-            selected={pendingPersona === "detective" || undefined}
-          />
-          <calcite-list-item
-            label="Sports Commentator"
-            value="sports"
-            selected={pendingPersona === "sports" || undefined}
-          />
-          <calcite-list-item
-            label="HR Manager"
-            value="hr"
-            selected={pendingPersona === "hr" || undefined}
-          />
-        </calcite-list>
-        <calcite-button width="full" onClick={handleApplyPersona}>
-          Apply
-        </calcite-button>
-      </calcite-popover>
-
-      <calcite-action
-        slot="entry-actions-start"
-        id="layer-picker-action"
-        icon="layers"
-        text="Target layer"
-      />
-      <calcite-popover
-        slot="entry-actions-start"
-        referenceElement="layer-picker-action"
-        label="Target layer"
-        placement="top-start"
-        auto-close
-      >
-        <calcite-list label="layers" selection-mode="single">
-          {layers.map((layer, index) => (
-            <calcite-list-item
-              key={layer.id}
-              label={layer.title}
-              value={layer.id}
-              selected={index === 0}
-            />
-          ))}
-        </calcite-list>
-      </calcite-popover>
-
-      {sessionClosed ? (
-        <div slot="footer-content" style={{ display: "flex", gap: "0.5rem", padding: "0.5rem" }}>
-          <calcite-button width="full" appearance="outline" onClick={() => onApplyPersona(persona)}>
-            {BUTTON_LABELS[persona].tryAgain}
-          </calcite-button>
-          <calcite-button
-            width="full"
-            loading={isGeneratingReport || undefined}
-            disabled={isGeneratingReport || undefined}
-            onClick={async () => {
-              setIsGeneratingReport(true);
-              await assistantRef.current?.submitMessage("end game");
-              const msgs = assistantRef.current?.messages;
-              if (msgs && msgs.length > 0) {
-                const lastMsg = msgs.getItemAt(msgs.length - 1);
-                if (lastMsg?.role === "assistant") {
-                  setReportContent((lastMsg as { role: string; content?: string }).content ?? null);
-                }
-              }
-              setIsGeneratingReport(false);
-              setIsReportOpen(true);
-            }}
-          >
-            {BUTTON_LABELS[persona].endGame}
-          </calcite-button>
-        </div>
-      ) : (
-        <calcite-progress
-          slot="footer-content"
-          type="determinate"
-          value={(roastAttemptCount / MAX_ROAST_ATTEMPTS) * 100}
-          text={`${roastAttemptCount} of ${MAX_ROAST_ATTEMPTS} roasts used`}
+        {/* <calcite-action
+          slot="entry-actions-start"
+          id="layer-picker-action"
+          icon="layers"
+          text="Target layer"
         />
-      )}
-    </arcgis-assistant>
-
-    {(() => {
-      const foundSignals = signals.filter((s) => foundCriterionIds.includes(s.criterionId));
-      const missedSignals = signals.filter((s) => !foundCriterionIds.includes(s.criterionId));
-      const rank = computeRank(score);
-      const rankColor = score >= 26 ? "green" : score >= 14 ? "yellow" : "red";
-      return (
-        <calcite-dialog
-          open={isReportOpen || undefined}
-          heading="Oops Report"
-          modal
-          oncalciteDialogClose={() => setIsReportOpen(false)}
+        <calcite-popover
+          slot="entry-actions-start"
+          referenceElement="layer-picker-action"
+          label="Target layer"
+          placement="top-start"
+          auto-close
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", padding: "0.5rem" }}>
-            <calcite-notice open color={rankColor} width="full">
-              <div slot="message">
-                Final Score: <strong>{score} pts</strong> — <em>{rank}</em>
-              </div>
-            </calcite-notice>
-
-            {reportContent ? (
-              <div
-                style={{ lineHeight: "1.6" }}
-                dangerouslySetInnerHTML={{ __html: marked.parse(reportContent) as string }}
+          <calcite-list label="layers" selection-mode="single">
+            {layers.map((layer, index) => (
+              <calcite-list-item
+                key={layer.id}
+                label={layer.title}
+                value={layer.id}
+                selected={index === 0}
               />
-            ) : (
-              <>
-                <h3 style={{ margin: 0 }}>Issues You Found ({foundSignals.length})</h3>
-                {foundSignals.length === 0 ? (
-                  <p style={{ margin: 0, fontStyle: "italic" }}>You found nothing. Impressive in the worst way.</p>
-                ) : (
-                  foundSignals.map((s) => (
-                    <calcite-notice key={s.criterionId} open color="green" width="full">
-                      <div slot="title">{s.criterionId} — {s.layerTitle}</div>
-                      <div slot="message">{s.verdictReason}</div>
-                    </calcite-notice>
-                  ))
-                )}
+            ))}
+          </calcite-list>
+        </calcite-popover> */}
 
-                <h3 style={{ margin: 0 }}>Issues You Missed ({missedSignals.length})</h3>
-                {missedSignals.length === 0 ? (
-                  <p style={{ margin: 0, fontStyle: "italic" }}>You caught everything. Suspicious.</p>
-                ) : (
-                  missedSignals.map((s) => (
-                    <calcite-notice key={s.criterionId} open color="red" width="full">
-                      <div slot="title">{s.criterionId} ({s.severity}) — {s.layerTitle}</div>
-                      <div slot="message">{s.verdictReason}</div>
-                      {s.recommendedFix && <div slot="message">Fix: {s.recommendedFix}</div>}
-                    </calcite-notice>
-                  ))
-                )}
-              </>
-            )}
+        {sessionClosed ? (
+          <div
+            slot="footer-content"
+            style={{ display: "flex", gap: "0.5rem", padding: "0.5rem" }}
+          >
+            <calcite-button
+              width="full"
+              appearance="outline"
+              onClick={() => onApplyPersona(persona)}
+            >
+              {BUTTON_LABELS[persona].tryAgain}
+            </calcite-button>
+            <calcite-button
+              width="full"
+              loading={isGeneratingReport || undefined}
+              disabled={isGeneratingReport || undefined}
+              onClick={async () => {
+                setIsGeneratingReport(true);
+                await assistantRef.current?.submitMessage("end game");
+                const msgs = assistantRef.current?.messages;
+                if (msgs && msgs.length > 0) {
+                  const lastMsg = msgs.getItemAt(msgs.length - 1);
+                  if (lastMsg?.role === "assistant") {
+                    setReportContent(
+                      (lastMsg as { role: string; content?: string }).content ??
+                        null,
+                    );
+                  }
+                }
+                setIsGeneratingReport(false);
+                setIsReportOpen(true);
+              }}
+            >
+              {BUTTON_LABELS[persona].endGame}
+            </calcite-button>
           </div>
+        ) : (
+          <calcite-progress
+            slot="footer-content"
+            type="determinate"
+            value={(roastAttemptCount / MAX_ROAST_ATTEMPTS) * 100}
+            text={`${roastAttemptCount} of ${MAX_ROAST_ATTEMPTS} roasts used`}
+          />
+        )}
+      </arcgis-assistant>
 
-          <calcite-button slot="footer-end" onClick={() => setIsReportOpen(false)}>
-            Close
-          </calcite-button>
-        </calcite-dialog>
-      );
-    })()}
+      {(() => {
+        const foundSignals = signals.filter((s) =>
+          foundCriterionIds.includes(s.criterionId),
+        );
+        const missedSignals = signals.filter(
+          (s) => !foundCriterionIds.includes(s.criterionId),
+        );
+        const rank = computeRank(score);
+        const rankColor =
+          score >= 26 ? "green" : score >= 14 ? "yellow" : "red";
+        return (
+          <calcite-dialog
+            open={isReportOpen || undefined}
+            heading="Oops Report"
+            modal
+            oncalciteDialogClose={() => setIsReportOpen(false)}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                padding: "0.5rem",
+              }}
+            >
+              <calcite-notice open color={rankColor} width="full">
+                <div slot="message">
+                  Final Score: <strong>{score} pts</strong> — <em>{rank}</em>
+                </div>
+              </calcite-notice>
+
+              {reportContent ? (
+                <div
+                  style={{ lineHeight: "1.6" }}
+                  dangerouslySetInnerHTML={{
+                    __html: marked.parse(reportContent) as string,
+                  }}
+                />
+              ) : (
+                <>
+                  <h3 style={{ margin: 0 }}>
+                    Issues You Found ({foundSignals.length})
+                  </h3>
+                  {foundSignals.length === 0 ? (
+                    <p style={{ margin: 0, fontStyle: "italic" }}>
+                      You found nothing. Impressive in the worst way.
+                    </p>
+                  ) : (
+                    foundSignals.map((s) => (
+                      <calcite-notice
+                        key={s.criterionId}
+                        open
+                        color="green"
+                        width="full"
+                      >
+                        <div slot="title">
+                          {s.criterionId} — {s.layerTitle}
+                        </div>
+                        <div slot="message">{s.verdictReason}</div>
+                      </calcite-notice>
+                    ))
+                  )}
+
+                  <h3 style={{ margin: 0 }}>
+                    Issues You Missed ({missedSignals.length})
+                  </h3>
+                  {missedSignals.length === 0 ? (
+                    <p style={{ margin: 0, fontStyle: "italic" }}>
+                      You caught everything. Suspicious.
+                    </p>
+                  ) : (
+                    missedSignals.map((s) => (
+                      <calcite-notice
+                        key={s.criterionId}
+                        open
+                        color="red"
+                        width="full"
+                      >
+                        <div slot="title">
+                          {s.criterionId} ({s.severity}) — {s.layerTitle}
+                        </div>
+                        <div slot="message">{s.verdictReason}</div>
+                        {s.recommendedFix && (
+                          <div slot="message">Fix: {s.recommendedFix}</div>
+                        )}
+                      </calcite-notice>
+                    ))
+                  )}
+                </>
+              )}
+            </div>
+
+            <calcite-button
+              slot="footer-end"
+              onClick={() => setIsReportOpen(false)}
+            >
+              Close
+            </calcite-button>
+          </calcite-dialog>
+        );
+      })()}
     </>
   );
 }

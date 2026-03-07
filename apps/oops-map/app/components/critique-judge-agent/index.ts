@@ -18,26 +18,24 @@ async function judgeUserCritique(
     config,
   );
 
+  const context = getRoastContext(config);
+  const persona = context?.persona ?? "cartographer";
+
   // Sub-agent mode: state fields are pre-populated by the orchestrator.
   // Standalone mode: fall back to extracting from context + messages.
   let userMessage = state.userMessage;
   let layers = state.visibleLayers;
   let signals = state.critiqueSignals;
-  let score = state.score;
-  let attempts = state.attempts;
 
   if (!userMessage) {
     userMessage = getLatestUserMessage(state.messages)?.trim() ?? "";
   }
 
   if (layers.length === 0) {
-    const context = getRoastContext(config);
     if (context?.mapView) {
       layers = await summarizeVisibleLayers(context.mapView);
       signals = buildCritiqueSignals(layers);
     }
-    score = context?.score ?? 0;
-    attempts = context?.roastAttemptCount ?? 0;
   }
 
   if (!userMessage || layers.length === 0) {
@@ -47,15 +45,13 @@ async function judgeUserCritique(
     };
   }
 
-  const evaluation = await evaluateCritique(userMessage, layers, signals, score, attempts);
+  const evaluation = await evaluateCritique(userMessage, layers, signals, persona);
 
   // Build a human-readable summary for standalone use.
   const judgeReason = normalizeJudgeExplanation(evaluation.verdictReason);
   const lines: string[] = [evaluation.roastReply];
 
-  if (evaluation.intent === "non_critique") {
-    lines.push(`Non-roast turn detected. ${judgeReason}`);
-  } else if (evaluation.intent === "end_session") {
+  if (evaluation.intent === "end_session") {
     lines.push("End session requested.");
   } else if (evaluation.verdict === "valid") {
     lines.push(`Critique accepted. Criterion: ${evaluation.criterionId}. Severity: ${evaluation.severity}.`);
@@ -83,7 +79,7 @@ export const CritiqueJudgeAgent: AgentRegistration = {
   id: "critique-judge-agent",
   name: "Critique Judge Agent",
   description:
-    "Evaluates a user's map critique against detected layer quality issues. Classifies the intent (critique, non-critique, or end session), matches the critique to a detected signal, and produces a verdict with a snarky reply. Use this agent to judge whether a user's observation correctly identifies a map flaw.",
-  createGraph: createCritiqueJudgeGraph,
-  workspace: critiqueJudgeAgentState,
+    "Evaluates a user's map critique against detected layer quality issues. Classifies the intent (critique or end session), matches the critique to a detected signal, and produces a verdict with a snarky reply. Use this agent to judge whether a user's observation correctly identifies a map flaw.",
+  createGraph: createCritiqueJudgeGraph as unknown as AgentRegistration["createGraph"],
+  workspace: critiqueJudgeAgentState as AgentRegistration["workspace"],
 };

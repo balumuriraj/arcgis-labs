@@ -1,14 +1,17 @@
 import { sendTraceMessage } from "@arcgis/ai-components/utils/index.js";
 import type { AgentRegistration } from "@arcgis/ai-components/utils/index.js";
+import { getBackgroundColorTheme } from "@arcgis/core/views/support/colorUtils.js";
 import type { RunnableConfig } from "@langchain/core/runnables";
 import { END, START, StateGraph } from "@langchain/langgraph/web";
+import { pickRoastGif } from "../../support/utils";
 import { createCritiqueJudgeGraph } from "../critique-judge-agent/index";
 import type { CritiqueJudgeAgentState } from "../critique-judge-agent/state";
 import { createPostGameReportGraph } from "../post-game-report-agent/index";
 import type { PostGameReportAgentState } from "../post-game-report-agent/state";
 import { MAX_ROAST_ATTEMPTS } from "./constants";
-import { buildCritiqueSignals, formatEvidenceSummary } from "./critique-signals";
+import { buildCritiqueSignals } from "./critique-signals";
 import { summarizeVisibleLayers } from "./layer-summary";
+import { enrichRendererSummaries } from "./renderer-enrichment";
 import {
   getLatestUserMessage,
   getRoastContext,
@@ -19,18 +22,85 @@ import {
   buildFinalScoreMessage,
   buildNoContextMessage,
   buildNoFeatureLayersMessage,
-  confidenceMultiplier,
-  normalizeJudgeExplanation,
   pointsForEvaluation,
-  pointsForSeverity,
 } from "./scoring";
 import {
   oopsRoastAgentState,
   type OopsRoastAgentState,
   type OopsRoastRouting,
 } from "./state";
+import type { RoastPersona } from "./types";
 
-function buildChallengeMessage(signalCount: number, layerCount: number): string {
+const VALID_CRITIQUE_MESSAGES: Record<RoastPersona, string[]> = {
+  cartographer: [
+    "🗺️ **Cartographic Strike:** At last, someone in this room can read a map.",
+    "📏 **Properly Measured:** That critique actually aligns with the evidence on the page.",
+    "🧭 **True North:** You found a real flaw instead of wandering into decorative nonsense.",
+  ],
+  chef: [
+    "🧑‍🍳 **Finally Seasoned:** Yes, that is an actual flaw. Someone in this kitchen has a functioning palate.",
+    "🍽️ **Service Saved:** You spotted the raw ingredient before it poisoned the whole dish.",
+    "🔥 **Clean Plate Review:** Correct call. That map issue was cooked badly and deserved to be sent back.",
+  ],
+  movie: [
+    "🎬 **Sharp Review:** At last, a critic who noticed the real narrative collapse.",
+    "🍿 **Accurate Reading:** Yes, that flaw was in the final cut, and you caught it.",
+    "📽️ **Festival Worthy Note:** Your critique actually understood the scene better than the map did.",
+  ],
+  detective: [
+    "🕵️ **Case Confirmed:** Now that's real evidence. The suspect is absolutely guilty.",
+    "🔎 **Good Police Work:** You found the crack in the alibi and the whole case opened up.",
+    "🚨 **Charge Upheld:** Correct read. That flaw was leaving fingerprints all over the record.",
+  ],
+  sports: [
+    "🏟️ **On the Board:** That's a clean score. You called the bad play exactly right.",
+    "🏈 **Highlight Reel:** Excellent read. You saw the fumble before the replay team even buzzed in.",
+    "⚾ **Right Down the Middle:** That critique connected perfectly. No review needed.",
+  ],
+  hr: [
+    "📋 **Performance Confirmed:** Yes, that concern is fully documented and supported by the record.",
+    "👔 **Appropriate Escalation:** You identified a legitimate issue requiring immediate follow-up.",
+    "✅ **Reviewed and Validated:** That critique aligns with observable deficiencies in the deliverable.",
+  ],
+};
+
+const INVALID_CRITIQUE_MESSAGES: Record<RoastPersona, string[]> = {
+  cartographer: [
+    "🧭 **Off the Map:** Your compass is broken. That's not actually a flaw.",
+    "🗺️ **Projection Error:** You just accused the legend of a crime it did not commit.",
+    "📐 **Cartographic Misfire:** That critique has all the precision of a scale bar drawn with spaghetti.",
+  ],
+  chef: [
+    "👅 **Unrefined Palate:** You're tasting things that aren't there. That part of the map is fine.",
+    "🍳 **Order Returned:** That critique is raw in the middle and fully unsupported by the evidence.",
+    "🔪 **Kitchen Slip:** You seasoned the wrong dish. That issue is not on the menu.",
+  ],
+  movie: [
+    "🎬 **Plot Hole:** Did we even watch the same map? That critique is entirely fictional.",
+    "🍿 **Bad Screening Notes:** You're reviewing a scene that never made the final cut.",
+    "📽️ **Continuity Error:** The evidence does not support this dramatic interpretation.",
+  ],
+  detective: [
+    "🚨 **False Lead:** You're investigating the wrong suspect. The evidence doesn't support your claim.",
+    "🕵️ **Case Collapsed:** Nice theory, but the facts just walked out of the interrogation room.",
+    "🔎 **No Evidence Logged:** That accusation wouldn't survive five seconds in records.",
+  ],
+  sports: [
+    "⚾ **Swing and a Miss:** Not even close to the strike zone! That was a complete airball.",
+    "🏈 **Turnover on Review:** Replay shows you challenged the wrong play entirely.",
+    "🚫 **No Score:** Big windup, zero contact. That critique never made it onto the board.",
+  ],
+  hr: [
+    "🗑️ **Grievance Dismissed:** Your feedback has been reviewed and discarded for lack of factual basis.",
+    "📋 **Documentation Issue:** We could not substantiate this concern after routine review.",
+    "🚪 **Performance Note:** This allegation does not align with the observable behavior of the map.",
+  ],
+};
+
+function buildChallengeMessage(
+  signalCount: number,
+  layerCount: number,
+): string {
   return [
     `I've scanned your map. Detected **${signalCount}** quality issue(s) across **${layerCount}** layer(s).`,
     "",
@@ -46,12 +116,16 @@ async function analyzeContext(
   config?: RunnableConfig,
 ): Promise<Partial<OopsRoastAgentState>> {
   await sendTraceMessage(
-    { text: "Orchestrator: analyzing map context and determining routing.", agentName: "Oops Roast Agent" },
+    {
+      text: "Orchestrator: analyzing map context and determining routing.",
+      agentName: "Oops Roast Agent",
+    },
     config,
   );
 
   const context = getRoastContext(config);
   const mapView = context?.mapView ?? null;
+  const persona: RoastPersona = context?.persona ?? "cartographer";
   const sessionClosed = context?.sessionClosed ?? false;
 
   if (!mapView) {
@@ -61,17 +135,45 @@ async function analyzeContext(
     };
   }
 
-  const visibleLayers = await summarizeVisibleLayers(mapView);
+  const rawLayers = await summarizeVisibleLayers(mapView);
 
-  if (visibleLayers.length === 0) {
+  if (rawLayers.length === 0) {
     return {
       routing: "closed" as OopsRoastRouting,
-      outputMessage: buildNoFeatureLayersMessage(),
+      outputMessage: buildNoFeatureLayersMessage(
+        pickRoastGif(persona, "verdict"),
+      ),
     };
   }
 
-  const critiqueSignals = buildCritiqueSignals(visibleLayers);
+  await sendTraceMessage(
+    {
+      text: "Orchestrator: enriching renderer summaries with LLM.",
+      agentName: "Oops Roast Agent",
+    },
+    config,
+  );
+
+  const visibleLayers = await enrichRendererSummaries(rawLayers, mapView);
+  const basemapThemeRaw = await getBackgroundColorTheme(mapView);
+  const basemapTheme: "dark" | "light" | "unknown" =
+    basemapThemeRaw === "dark" || basemapThemeRaw === "light"
+      ? basemapThemeRaw
+      : "unknown";
+  const critiqueSignals = buildCritiqueSignals(visibleLayers, { basemapTheme });
   const userMessage = getLatestUserMessage(state.messages)?.trim() ?? "";
+
+  // Check for explicit end-session keyword BEFORE checking sessionClosed.
+  // The "End Game" button submits "end game" when sessionClosed is already true,
+  // so this check must come first or postGameReport would never be reached.
+  if (isEndSessionMessage(userMessage)) {
+    return {
+      visibleLayers,
+      critiqueSignals,
+      userMessage,
+      routing: "end_session" as OopsRoastRouting,
+    };
+  }
 
   if (sessionClosed) {
     const currentScore = context?.score ?? 0;
@@ -95,16 +197,10 @@ async function analyzeContext(
       critiqueSignals,
       userMessage,
       routing: "challenge" as OopsRoastRouting,
-      outputMessage: buildChallengeMessage(critiqueSignals.length, visibleLayers.length),
-    };
-  }
-
-  if (isEndSessionMessage(userMessage)) {
-    return {
-      visibleLayers,
-      critiqueSignals,
-      userMessage,
-      routing: "end_session" as OopsRoastRouting,
+      outputMessage: buildChallengeMessage(
+        critiqueSignals.length,
+        visibleLayers.length,
+      ),
     };
   }
 
@@ -124,13 +220,12 @@ async function critiqueJudge(
   config?: RunnableConfig,
 ): Promise<Partial<OopsRoastAgentState>> {
   await sendTraceMessage(
-    { text: "Orchestrator: delegating to Critique Judge Agent.", agentName: "Oops Roast Agent" },
+    {
+      text: "Orchestrator: delegating to Critique Judge Agent.",
+      agentName: "Oops Roast Agent",
+    },
     config,
   );
-
-  const context = getRoastContext(config);
-  const score = context?.score ?? 0;
-  const attempts = context?.roastAttemptCount ?? 0;
 
   const judgeGraph = createCritiqueJudgeGraph().compile();
   const result = await judgeGraph.invoke(
@@ -139,8 +234,6 @@ async function critiqueJudge(
       userMessage: state.userMessage,
       visibleLayers: state.visibleLayers,
       critiqueSignals: state.critiqueSignals,
-      score,
-      attempts,
     },
     config,
   );
@@ -156,7 +249,10 @@ async function postGameReport(
   config?: RunnableConfig,
 ): Promise<Partial<OopsRoastAgentState>> {
   await sendTraceMessage(
-    { text: "Orchestrator: delegating to Post-Game Report Agent.", agentName: "Oops Roast Agent" },
+    {
+      text: "Orchestrator: delegating to Post-Game Report Agent.",
+      agentName: "Oops Roast Agent",
+    },
     config,
   );
 
@@ -186,6 +282,10 @@ async function postGameReport(
   return { reportText: (result as PostGameReportAgentState).reportText };
 }
 
+function pickMessage(pool: string[]): string {
+  return pool[Math.floor(Math.random() * pool.length)]!;
+}
+
 // ─── Node 4: buildResponse ────────────────────────────────────────────────────
 // Assembles the final outputMessage from routing decision + evaluation/report.
 
@@ -194,6 +294,7 @@ async function buildResponse(
   config?: RunnableConfig,
 ): Promise<Partial<OopsRoastAgentState>> {
   const context = getRoastContext(config);
+  const persona: RoastPersona = context?.persona ?? "cartographer";
   const currentScore = context?.score ?? 0;
   const currentAttempts = context?.roastAttemptCount ?? 0;
 
@@ -207,7 +308,11 @@ async function buildResponse(
   // End session triggered directly by keyword (no evaluation).
   if (state.routing === "end_session" && !evaluation) {
     return {
-      outputMessage: [state.reportText, "", buildFinalScoreMessage(currentScore, currentAttempts)].join("\n"),
+      outputMessage: [
+        state.reportText,
+        "",
+        buildFinalScoreMessage(currentScore, currentAttempts),
+      ].join("\n"),
     };
   }
 
@@ -230,43 +335,13 @@ async function buildResponse(
 
   const nextAttempts = currentAttempts + 1;
   const reachedCap = nextAttempts >= MAX_ROAST_ATTEMPTS;
-  const attemptsRemaining = Math.max(0, MAX_ROAST_ATTEMPTS - nextAttempts);
 
-  if (evaluation.intent === "non_critique") {
-    const judgeReason = normalizeJudgeExplanation(evaluation.verdictReason);
-
-    dispatchRoastTurnComplete({
-      pointsAwarded: 0,
-      sessionClosed: reachedCap,
-      countAttempt: true,
-      signals: reachedCap ? state.critiqueSignals : undefined,
-    });
-
-    const outputMessage = [
-      evaluation.roastReply,
-      "",
-      `🧭 **Non-roast turn detected.** ${judgeReason}`,
-      "",
-      "No Roast Points awarded. Throw me a map flaw to score.",
-      `*(Total Score: ${currentScore})*`,
-      `*(Attempt ${nextAttempts}/${MAX_ROAST_ATTEMPTS})*`,
-      `*(Roasts Left: ${attemptsRemaining})*`,
-    ].join("\n");
-
-    if (reachedCap) {
-      return {
-        outputMessage: [outputMessage, "", buildFinalScoreMessage(currentScore, nextAttempts)].join("\n"),
-      };
-    }
-
-    return { outputMessage };
-  }
-
-  const pointsAwarded = evaluation.verdict === "valid" ? pointsForEvaluation(evaluation) : 0;
+  const pointsAwarded =
+    evaluation.verdict === "valid" ? pointsForEvaluation(evaluation) : 0;
   const nextScore = currentScore + pointsAwarded;
-  const judgeReason = normalizeJudgeExplanation(evaluation.verdictReason);
 
-  const acceptedCriterionId = evaluation.verdict === "valid" ? evaluation.criterionId : undefined;
+  const acceptedCriterionId =
+    evaluation.verdict === "valid" ? evaluation.criterionId : undefined;
   dispatchRoastTurnComplete({
     pointsAwarded,
     sessionClosed: reachedCap,
@@ -275,49 +350,33 @@ async function buildResponse(
     signals: reachedCap ? state.critiqueSignals : undefined,
   });
 
-  const scoringLines: string[] = [];
-  scoringLines.push(evaluation.roastReply);
+  const lines: string[] = [];
 
   if (evaluation.verdict === "valid") {
-    const confidencePercent = Math.round(evaluation.confidence * 100);
-    const confidenceFactor = confidenceMultiplier(evaluation.confidence);
-    const basePoints = pointsForSeverity(evaluation.severity);
+    lines.push("", `![reaction](${pickRoastGif(persona, "valid")})`, "");
+    lines.push(`✅ **Critique accepted (+${pointsAwarded} Roast Points!)**`);
 
-    scoringLines.push(
-      `✅ **Critique accepted.** 🔥 **+${pointsAwarded} Roast Points.** Severity: **${evaluation.severity}**. Criterion: **${evaluation.criterionId}**. Confidence: **${confidencePercent}%**.`,
+    lines.push(
+      `> *${evaluation.roastReply}*`,
+      "",
+      pickMessage(VALID_CRITIQUE_MESSAGES[persona]),
     );
-    scoringLines.push(`*Evidence check:* ${judgeReason}`);
-
-    if (evaluation.evidence.length > 0) {
-      scoringLines.push(`*Evidence:* ${formatEvidenceSummary(evaluation.evidence)}`);
-    }
-
-    scoringLines.push(
-      `*Scoring formula:* ${basePoints} base points x ${confidenceFactor.toFixed(1)} confidence multiplier.`,
-    );
-
-    if (evaluation.recommendedFix) {
-      scoringLines.push(`*Suggested fix:* ${evaluation.recommendedFix}`);
-    }
   } else {
-    scoringLines.push(`🧾 **Critique rejected.** ${judgeReason}`);
-    scoringLines.push("❌ **0 Roast Points.** Do better.");
+    lines.push("", `![reaction](${pickRoastGif(persona, "invalid")})`, "");
+    lines.push("❌ **Critique rejected (0 Points).**");
 
-    if (evaluation.recommendedFix) {
-      scoringLines.push(`*Suggested fix:* ${evaluation.recommendedFix}`);
-    }
+    lines.push(
+      `> *${evaluation.roastReply}*`,
+      "",
+      pickMessage(INVALID_CRITIQUE_MESSAGES[persona]),
+    );
   }
-
-  scoringLines.push(`*(Total Score: ${nextScore})*`);
-  scoringLines.push(`*(Attempt ${nextAttempts}/${MAX_ROAST_ATTEMPTS})*`);
-  scoringLines.push(`*(Roasts Left: ${attemptsRemaining})*`);
 
   if (reachedCap) {
-    scoringLines.push("");
-    scoringLines.push(buildFinalScoreMessage(nextScore, nextAttempts));
+    lines.push("", buildFinalScoreMessage(nextScore, nextAttempts));
   }
 
-  return { outputMessage: scoringLines.join("\n\n") };
+  return { outputMessage: lines.join("\n") };
 }
 
 // ─── Graph ────────────────────────────────────────────────────────────────────
@@ -336,7 +395,9 @@ function createOopsRoastGraph(): StateGraph<OopsRoastAgentState> {
       critique: "critiqueJudge",
     })
     .addConditionalEdges("critiqueJudge", (state) =>
-      state.evaluation?.intent === "end_session" ? "postGameReport" : "buildResponse",
+      state.evaluation?.intent === "end_session"
+        ? "postGameReport"
+        : "buildResponse",
     )
     .addEdge("postGameReport", "buildResponse")
     .addEdge("buildResponse", END) as StateGraph<OopsRoastAgentState>;
@@ -347,6 +408,6 @@ export const OopsRoastAgent: AgentRegistration = {
   name: "Oops Roast Agent",
   description:
     "A roast-game specialist for visible feature layers that runs opening roasts, validates user critiques, awards roast points, and provides final score wrap-ups. Use this agent when users want to roast map quality and submit critique attempts, not for general GIS data queries.",
-  createGraph: createOopsRoastGraph,
-  workspace: oopsRoastAgentState,
+  createGraph: createOopsRoastGraph as unknown as AgentRegistration["createGraph"],
+  workspace: oopsRoastAgentState as AgentRegistration["workspace"],
 };

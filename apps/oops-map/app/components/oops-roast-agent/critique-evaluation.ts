@@ -1,12 +1,13 @@
 import { invokeTextPrompt } from "@arcgis/ai-components/utils/index.js";
-import { MAX_ROAST_ATTEMPTS } from "./constants";
-import { formatCritiqueSignals, selectBestSignalForMessage } from "./critique-signals";
+import { formatCritiqueSignals } from "./critique-signals";
 import { formatLayerSummary } from "./layer-summary";
 import { escapePromptTemplateBraces } from "./message-utils";
+import { PERSONA_PROMPT_DESCRIPTIONS } from "./personas";
 import type {
   CritiqueEvaluation,
   CritiqueIntent,
   CritiqueSignal,
+  RoastPersona,
   VisibleLayerSummary,
 } from "./types";
 
@@ -45,9 +46,9 @@ function extractJsonObject(rawText: string): Record<string, unknown> | null {
 }
 
 function toIntent(value: unknown): CritiqueIntent {
-  return value === "critique" || value === "non_critique" || value === "end_session"
+  return value === "critique" || value === "end_session"
     ? value
-    : "non_critique";
+    : "critique";
 }
 
 function toSignalIndex(value: unknown): number {
@@ -69,7 +70,7 @@ function buildEvaluation(
   verdictReason: string,
   roastReply: string,
 ): CritiqueEvaluation {
-  if (intent === "non_critique" || intent === "end_session") {
+  if (intent === "end_session") {
     return {
       intent,
       verdict: "not_applicable",
@@ -120,24 +121,20 @@ export async function evaluateCritique(
   userMessage: string,
   layers: VisibleLayerSummary[],
   criterionSignals: CritiqueSignal[],
-  score: number,
-  roastAttemptCount: number,
+  persona: RoastPersona,
 ): Promise<CritiqueEvaluation> {
   const escapedUserMessage = escapePromptTemplateBraces(userMessage);
   const escapedLayerSummary = escapePromptTemplateBraces(formatLayerSummary(layers));
   const escapedSignalSummary = escapePromptTemplateBraces(
     formatCritiqueSignals(criterionSignals),
   );
-  const heuristicSignal = selectBestSignalForMessage(userMessage, criterionSignals);
-  const heuristicHint = heuristicSignal
-    ? `Heuristic hint: the user's wording most closely resembles signal for criterionId=${heuristicSignal.criterionId} on layer="${heuristicSignal.layerTitle}". Use this as a starting point, but only confirm if the user's message actually refers to that issue.`
-    : "Heuristic hint: no signal keywords matched the user's message strongly enough.";
 
   const signalCount = Math.min(criterionSignals.length, 16);
 
   const promptText = [
     "You are the Oops Map critique judge for a roast game.",
-    "Your job: classify the user's message, identify which detected issue it targets (if any), and write a snarky reply.",
+    `You are playing the role of: ${PERSONA_PROMPT_DESCRIPTIONS[persona]}.`,
+    "Your job: classify the user's message, identify which detected issue it targets (if any), and write a snarky reply that stays fully in character.",
     "",
     "## Detected issues in the current map (numbered list)",
     escapedSignalSummary,
@@ -145,27 +142,23 @@ export async function evaluateCritique(
     "## Visible feature-layer metadata",
     escapedLayerSummary,
     "",
-    `## ${heuristicHint}`,
-    "",
-    "## Score context",
-    `score=${score}, attemptsUsed=${roastAttemptCount}/${MAX_ROAST_ATTEMPTS}`,
-    "",
     "## User message",
     escapedUserMessage,
     "",
     "## Instructions",
     "Return JSON only with this exact schema:",
-    `{{"intent":"critique|non_critique|end_session","signalIndex":0,"verdictReason":"string","roastReply":"string"}}`,
+    `{{"intent":"critique|end_session","signalIndex":0,"verdictReason":"string","roastReply":"string"}}`,
     "",
     "Rules:",
     "- intent=end_session only if the user explicitly wants to stop roasting.",
-    "- intent=non_critique for off-topic messages, standard GIS questions, or anything not critiquing a layer.",
-    "- intent=critique when the user is pointing out a flaw in a layer.",
+    "- Use intent=critique for every other message, including off-topic questions, vague complaints, or failed critiques.",
     `- signalIndex: 1-based index into the detected issues list above (1 to ${signalCount}). Set to 0 if no listed issue matches the user's critique.`,
     "- A critique is only valid when it clearly targets one of the listed issues — do not invent new issues.",
-    "- verdictReason: one sentence (max 140 chars) explaining why the critique matches or misses the detected issue.",
-    "- roastReply: snarky, in-character response (max 35 words). Be direct and specific.",
-    "- If intent is non_critique or end_session, set signalIndex=0.",
+    "- verdictReason: one short sentence (max 140 chars) acting as the 'official referee ruling' explaining exactly why their guess was right or wrong.",
+    "- roastReply: snarky in-character response (max 35 words) staying fully in persona. NEVER reveal or describe the actual detected issue. If the verdict will be valid, roast the MAP for its flaws. If the verdict will be invalid, roast the critique itself for being wrong, off-base, or unsupported.",
+    "- Never swear at, curse at, or directly verbally abuse the user. Keep the language clean even when mocking a bad critique.",
+    "- If the message is not actually a critique, still use intent=critique and set signalIndex=0 so the verdict becomes invalid.",
+    "- If intent is end_session, set signalIndex=0.",
   ].join("\n");
 
   const rawEvaluation = await invokeTextPrompt({

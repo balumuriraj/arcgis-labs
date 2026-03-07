@@ -41,9 +41,26 @@ function parseRendererMetric(
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-export function buildCritiqueSignals(layers: VisibleLayerSummary[]): CritiqueSignal[] {
+export function buildCritiqueSignals(
+  layers: VisibleLayerSummary[],
+  options?: { basemapTheme?: "dark" | "light" | "unknown" },
+): CritiqueSignal[] {
   const signals: CritiqueSignal[] = [];
   const currentYear = new Date().getUTCFullYear();
+
+  if (options?.basemapTheme === "dark") {
+    signals.push({
+      criterionId: "visual.basemap_contrast",
+      severity: "medium",
+      confidence: 0.8,
+      layerTitle: "(map basemap)",
+      verdictReason:
+        "Dark basemap detected — renderer colors and symbol fills need sufficient contrast to remain legible.",
+      recommendedFix:
+        "Review all layer symbol colors and ensure fills/strokes stand out against a dark background.",
+      evidence: [{ label: "Basemap theme", value: "dark" }],
+    });
+  }
 
   for (const layer of layers) {
     const featureCount = layer.featureCount;
@@ -447,6 +464,32 @@ export function buildCritiqueSignals(layers: VisibleLayerSummary[]): CritiqueSig
             },
           ],
         });
+      }
+
+      if (layer.rendererFields.length > 0) {
+        const numericSet = new Set(layer.numericFieldNames);
+        const numericUvField = layer.rendererFields.find((f) => numericSet.has(f));
+        if (numericUvField) {
+          signals.push({
+            criterionId: "renderer.numeric_field_categorical",
+            severity: "medium",
+            confidence: 0.87,
+            layerTitle: layer.title,
+            verdictReason: `Unique-value renderer is applied to numeric field "${numericUvField}" — categorical symbolization is inappropriate for continuous data.`,
+            recommendedFix:
+              "Switch to a class-breaks renderer or a continuous color ramp that communicates numeric variation effectively.",
+            evidence: [
+              {
+                label: "Renderer field",
+                value: numericUvField,
+              },
+              {
+                label: "Numeric fields",
+                value: layer.numericFieldNames.join(", "),
+              },
+            ],
+          });
+        }
       }
     }
 

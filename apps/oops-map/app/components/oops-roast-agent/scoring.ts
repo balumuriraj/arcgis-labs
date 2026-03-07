@@ -32,7 +32,7 @@ export function buildFinalScoreMessage(score: number, roastAttemptCount: number)
   const rank = computeRank(score);
 
   return [
-    "Quitting while you're slightly ahead. Probably for the best.",
+    "------------------------",
     "",
     `🛑 **FINAL SCORE: ${score} Roast Points.** 🏆 **Rank:** *${rank}*`,
     "",
@@ -113,11 +113,11 @@ export function buildNoContextMessage(): string {
   ].join("\n");
 }
 
-export function buildNoFeatureLayersMessage(): string {
+export function buildNoFeatureLayersMessage(reactionGif: string): string {
   return [
     "🚨 **THE OOPS REPORT** 🚨",
     "*No visible feature layers showed up, so there is nothing roastable yet.*",
-    "![Awkward monkey puppet waiting for map layers](https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif)",
+    `![No feature layers available yet](${reactionGif})`,
     "",
     "**Final Verdict:** *Toggle on at least one feature layer and I'll bring the sarcasm.*",
   ].join("\n");

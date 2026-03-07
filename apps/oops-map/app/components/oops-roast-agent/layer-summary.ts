@@ -1,11 +1,5 @@
 import type MapView from "@arcgis/core/views/MapView.js";
-import {
-  MAX_FIELD_PREVIEW,
-  MAX_RENDERER_JSON_CHARS,
-  MAX_RENDERER_JSON_DEPTH,
-  MAX_RENDERER_JSON_ITEMS,
-  MAX_RENDERER_JSON_KEYS,
-} from "./constants";
+import { MAX_FIELD_PREVIEW } from "./constants";
 import type { VisibleLayerSummary } from "./types";
 
 function collectPopupFieldInfos(popupTemplate: unknown): Array<{
@@ -238,101 +232,6 @@ function summarizeRenderer(renderer: unknown): string | null {
   return `${rendererType} renderer${visualVariablesNote}${authoringNote}`;
 }
 
-function truncateRendererString(value: string): string {
-  if (value.length <= 180) {
-    return value;
-  }
-
-  return `${value.slice(0, 177)}...`;
-}
-
-function sanitizeRendererJsonValue(value: unknown, depth: number): unknown {
-  if (depth <= 0) {
-    return "[truncated]";
-  }
-
-  if (
-    value === null ||
-    typeof value === "number" ||
-    typeof value === "boolean"
-  ) {
-    return value;
-  }
-
-  if (typeof value === "string") {
-    return truncateRendererString(value);
-  }
-
-  if (Array.isArray(value)) {
-    const sliced = value.slice(0, MAX_RENDERER_JSON_ITEMS).map((entry) => {
-      return sanitizeRendererJsonValue(entry, depth - 1);
-    });
-
-    if (value.length > MAX_RENDERER_JSON_ITEMS) {
-      sliced.push(`[+${value.length - MAX_RENDERER_JSON_ITEMS} more items]`);
-    }
-
-    return sliced;
-  }
-
-  if (typeof value === "object") {
-    const objectValue = value as Record<string, unknown>;
-    const keys = Object.keys(objectValue);
-    const limitedKeys = keys.slice(0, MAX_RENDERER_JSON_KEYS);
-
-    const sanitizedObject: Record<string, unknown> = {};
-    for (const key of limitedKeys) {
-      const entry = objectValue[key];
-      if (entry === undefined || typeof entry === "function") {
-        continue;
-      }
-
-      sanitizedObject[key] = sanitizeRendererJsonValue(entry, depth - 1);
-    }
-
-    if (keys.length > MAX_RENDERER_JSON_KEYS) {
-      sanitizedObject.__truncatedKeyCount =
-        keys.length - MAX_RENDERER_JSON_KEYS;
-    }
-
-    return sanitizedObject;
-  }
-
-  return `${value}`;
-}
-
-function summarizeRendererJson(renderer: unknown): string | null {
-  if (!renderer || typeof renderer !== "object") {
-    return null;
-  }
-
-  const rendererAccessor = renderer as { toJSON?: () => unknown };
-
-  let rendererJsonCandidate: unknown = renderer;
-  if (typeof rendererAccessor.toJSON === "function") {
-    try {
-      rendererJsonCandidate = rendererAccessor.toJSON();
-    } catch {
-      rendererJsonCandidate = renderer;
-    }
-  }
-
-  const sanitized = sanitizeRendererJsonValue(
-    rendererJsonCandidate,
-    MAX_RENDERER_JSON_DEPTH,
-  );
-
-  const serialized = JSON.stringify(sanitized);
-  if (!serialized || serialized.length === 0) {
-    return null;
-  }
-
-  if (serialized.length <= MAX_RENDERER_JSON_CHARS) {
-    return serialized;
-  }
-
-  return `${serialized.slice(0, MAX_RENDERER_JSON_CHARS - 16)}...[truncated]`;
-}
 
 export async function summarizeVisibleLayers(
   mapView: MapView,
@@ -399,6 +298,44 @@ export async function summarizeVisibleLayers(
         }
       }
 
+      const numericTypes = new Set([
+        "small-integer",
+        "integer",
+        "single",
+        "double",
+        "long",
+        "big-integer",
+      ]);
+
+      const numericFieldNames = (candidate.fields ?? [])
+        .filter((field) => {
+          return (
+            typeof field.name === "string" &&
+            typeof field.type === "string" &&
+            numericTypes.has(field.type)
+          );
+        })
+        .map((field) => field.name as string);
+
+      const rendererFields: string[] = [];
+      if (
+        candidate.renderer &&
+        typeof candidate.renderer === "object" &&
+        "type" in candidate.renderer &&
+        (candidate.renderer as { type?: string }).type === "unique-value"
+      ) {
+        const uvRenderer = candidate.renderer as {
+          field?: string;
+          field2?: string;
+          field3?: string;
+        };
+        for (const f of [uvRenderer.field, uvRenderer.field2, uvRenderer.field3]) {
+          if (typeof f === "string" && f.trim().length > 0) {
+            rendererFields.push(f.trim());
+          }
+        }
+      }
+
       const fieldPreview = (candidate.fields ?? [])
         .map((field) => field.name)
         .filter((fieldName): fieldName is string => {
@@ -462,7 +399,6 @@ export async function summarizeVisibleLayers(
             ? candidate.renderer.type
             : null,
         rendererSummary: summarizeRenderer(candidate.renderer),
-        rendererJsonSnippet: summarizeRendererJson(candidate.renderer),
         rendererSymbol,
         definitionExpression: candidate.definitionExpression ?? null,
         opacity:
@@ -479,6 +415,8 @@ export async function summarizeVisibleLayers(
         featureCount,
         minScale: typeof candidate.minScale === "number" ? candidate.minScale : null,
         maxScale: typeof candidate.maxScale === "number" ? candidate.maxScale : null,
+        numericFieldNames,
+        rendererFields,
       } satisfies VisibleLayerSummary;
     }),
   );
@@ -540,7 +478,6 @@ export function formatLayerSummary(layers: VisibleLayerSummary[]): string {
         `   Max scale: ${maxScale}`,
         `   Renderer: ${layer.renderer ?? "unknown"}`,
         `   Renderer summary: ${layer.rendererSummary ?? "unknown"}`,
-        `   Renderer JSON snippet: ${layer.rendererJsonSnippet ?? "none"}`,
         `   Renderer symbol: ${layer.rendererSymbol ?? "unknown"}`,
         `   Opacity: ${opacity}`,
         `   Definition expression: ${definition}`,
@@ -551,6 +488,8 @@ export function formatLayerSummary(layers: VisibleLayerSummary[]): string {
         `   ALL_CAPS field sample: ${allCapsSample}`,
         `   Feature count: ${featureCount}`,
         `   Fields: ${fields}`,
+        `   Numeric fields: ${layer.numericFieldNames.length > 0 ? layer.numericFieldNames.join(", ") : "none"}`,
+        `   Renderer fields: ${layer.rendererFields.length > 0 ? layer.rendererFields.join(", ") : "none"}`,
       ].join("\n");
     })
     .join("\n\n");

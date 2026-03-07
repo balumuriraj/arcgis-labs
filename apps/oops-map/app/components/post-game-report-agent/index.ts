@@ -8,6 +8,7 @@ import roastWebmapPromptMovie from "../roast-webmap-prompt-movie.md";
 import roastWebmapPromptDetective from "../roast-webmap-prompt-detective.md";
 import roastWebmapPromptSports from "../roast-webmap-prompt-sports.md";
 import roastWebmapPromptHr from "../roast-webmap-prompt-hr.md";
+import { formatRoastGifList } from "../../support/utils";
 import type { RoastPersona } from "../oops-roast-agent/types";
 import { buildCritiqueSignals } from "../oops-roast-agent/critique-signals";
 import { formatLayerSummary, summarizeVisibleLayers } from "../oops-roast-agent/layer-summary";
@@ -81,6 +82,9 @@ async function generateReport(
     "2. Call out what the player caught — praise or mock accordingly.",
     "3. Call out what they missed — rub it in.",
     "4. End with a verdict on their performance as a map critic.",
+    "5. Never swear at, curse at, or directly verbally abuse the player. Keep any mockery clean and aimed at the map or the specific guesses.",
+    "",
+    formatRoastGifList(persona, "verdict"),
     "",
     "Visible feature-layer metadata:",
     escapedLayerSummary,
@@ -112,6 +116,6 @@ export const PostGameReportAgent: AgentRegistration = {
   name: "Post-Game Report Agent",
   description:
     "Generates the final post-game roast verdict after a roast session ends. Summarizes which map issues the player found versus missed, and delivers a persona-voiced verdict in the selected roast style (cartographer, chef, movie critic, etc.). Use this agent at the end of a roast game to produce the closing report.",
-  createGraph: createPostGameReportGraph,
-  workspace: postGameReportAgentState,
+  createGraph: createPostGameReportGraph as unknown as AgentRegistration["createGraph"],
+  workspace: postGameReportAgentState as AgentRegistration["workspace"],
 };

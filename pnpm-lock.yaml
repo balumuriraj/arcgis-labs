@@ -59,7 +59,7 @@ importers:
     dependencies:
       '@arcgis/ai-components':
         specifier: ^5.0.9
-        version: 5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)(openai@6.25.0(zod@3.25.76))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@arcgis/core':
         specifier: ^5.0.9
         version: 5.0.9
@@ -71,10 +71,10 @@ importers:
         version: 5.0.2
       '@langchain/core':
         specifier: 1.1.30
-        version: 1.1.30(openai@6.25.0(zod@3.25.76))
+        version: 1.1.30(openai@6.25.0(zod@4.3.6))
       '@langchain/langgraph':
         specifier: 1.2.0
-        version: 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
+        version: 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)
       '@types/marked':
         specifier: ^6.0.0
         version: 6.0.0
@@ -90,6 +90,9 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -2696,6 +2699,9 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
+  zod@4.3.6:
+    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+
 snapshots:
 
   '@amcharts/amcharts5@5.14.4':
@@ -2754,12 +2760,12 @@ snapshots:
       svg-arc-to-cubic-bezier: 3.2.0
       tslib: 2.8.1
 
-  '@arcgis/ai-agents@5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@3.25.76))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@arcgis/ai-agents@5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@arcgis/ai-orchestrator': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@3.25.76))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@arcgis/ai-orchestrator': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@arcgis/core': 5.0.9
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@3.25.76))
-      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
+      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
       tslib: 2.8.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -2772,18 +2778,18 @@ snapshots:
       - ws
       - zod-to-json-schema
 
-  '@arcgis/ai-components@5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)(openai@6.25.0(zod@3.25.76))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@arcgis/ai-components@5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@arcgis/ai-agents': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@3.25.76))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@arcgis/ai-orchestrator': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@3.25.76))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@arcgis/ai-agents': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@arcgis/ai-orchestrator': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@arcgis/core': 5.0.9
       '@arcgis/lumina': 5.0.9(lit@3.3.2)
       '@arcgis/map-components': 5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)
       '@arcgis/toolkit': 5.0.9
       '@esri/arcgis-html-sanitizer': 4.1.0
       '@esri/calcite-components': 5.0.2
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@3.25.76))
-      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
+      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
       lit: 3.3.2
       marked: 17.0.4
       tslib: 2.8.1
@@ -2799,12 +2805,12 @@ snapshots:
       - ws
       - zod-to-json-schema
 
-  '@arcgis/ai-orchestrator@5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@3.25.76))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@arcgis/ai-orchestrator@5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@arcgis/core': 5.0.9
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@3.25.76))
-      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
-      '@langchain/openai': 1.2.12(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
+      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
+      '@langchain/openai': 1.2.12(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))
       tslib: 2.8.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -3162,7 +3168,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76))':
+  '@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       '@standard-schema/spec': 1.1.0
@@ -3170,38 +3176,38 @@ snapshots:
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.21
-      langsmith: 0.5.7(openai@6.25.0(zod@3.25.76))
+      langsmith: 0.5.7(openai@6.25.0(zod@4.3.6))
       mustache: 4.2.0
       p-queue: 6.6.2
       uuid: 11.1.0
-      zod: 3.25.76
+      zod: 4.3.6
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - '@opentelemetry/exporter-trace-otlp-proto'
       - '@opentelemetry/sdk-trace-base'
       - openai
 
-  '@langchain/langgraph-checkpoint@1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))':
+  '@langchain/langgraph-checkpoint@1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))':
     dependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@3.25.76))
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
       uuid: 10.0.0
 
-  '@langchain/langgraph-sdk@1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@langchain/langgraph-sdk@1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@types/json-schema': 7.0.15
       p-queue: 9.1.0
       p-retry: 7.1.1
       uuid: 13.0.0
     optionalDependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@3.25.76))
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-  '@langchain/langgraph@1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)':
+  '@langchain/langgraph@1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)':
     dependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@3.25.76))
-      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))
-      '@langchain/langgraph-sdk': 1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
+      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))
+      '@langchain/langgraph-sdk': 1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@standard-schema/spec': 1.1.0
       uuid: 10.0.0
       zod: 3.25.76
@@ -3209,12 +3215,24 @@ snapshots:
       - react
       - react-dom
 
-  '@langchain/openai@1.2.12(@langchain/core@1.1.30(openai@6.25.0(zod@3.25.76)))':
+  '@langchain/langgraph@1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)':
     dependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@3.25.76))
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
+      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))
+      '@langchain/langgraph-sdk': 1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@standard-schema/spec': 1.1.0
+      uuid: 10.0.0
+      zod: 4.3.6
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
+  '@langchain/openai@1.2.12(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))':
+    dependencies:
+      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
       js-tiktoken: 1.0.21
-      openai: 6.25.0(zod@3.25.76)
-      zod: 3.25.76
+      openai: 6.25.0(zod@4.3.6)
+      zod: 4.3.6
     transitivePeerDependencies:
       - ws
 
@@ -4860,7 +4878,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  langsmith@0.5.7(openai@6.25.0(zod@3.25.76)):
+  langsmith@0.5.7(openai@6.25.0(zod@4.3.6)):
     dependencies:
       '@types/uuid': 10.0.0
       chalk: 5.6.2
@@ -4869,7 +4887,7 @@ snapshots:
       semver: 7.7.3
       uuid: 10.0.0
     optionalDependencies:
-      openai: 6.25.0(zod@3.25.76)
+      openai: 6.25.0(zod@4.3.6)
 
   levn@0.4.1:
     dependencies:
@@ -5022,9 +5040,9 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
-  openai@6.25.0(zod@3.25.76):
+  openai@6.25.0(zod@4.3.6):
     optionalDependencies:
-      zod: 3.25.76
+      zod: 4.3.6
 
   optionator@0.9.4:
     dependencies:
@@ -5646,3 +5664,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zod@3.25.76: {}
+
+  zod@4.3.6: {}
