@@ -11,59 +11,15 @@ import "@esri/calcite-components/components/calcite-panel";
 import "@esri/calcite-components/components/calcite-shell";
 import "@esri/calcite-components/components/calcite-shell-panel";
 
-import { UXSuggestion } from "@arcgis/ai-components/utils/index.js";
 import { useState } from "react";
 import { agent as conditionsAgent } from "../agents/conditions-agent";
 import { agent as matchesAgent } from "../agents/matches-agent";
 import { agent as ticketsAgent } from "../agents/tickets-agent";
 import { getWorldCupMapContext } from "../support/utils";
-import { TeamMatchFeature, TeamMatchesCard } from "./team-matches-card";
-import { WeatherCard, type WeatherCardData } from "./weather-card";
-import { TicketsCard, TicketsCardData } from "./tickets-card";
-import { ReceiptCard, ReceiptCardData } from "./receipt-card";
-
-type TeamMatchesBlock = {
-  type: "team-matches";
-  data?: {
-    features?: TeamMatchFeature[];
-  };
-};
-
-type WeatherCardBlock = {
-  type: "weather-card";
-  data?: WeatherCardData;
-};
-
-type AssistantSlottableRequestData = {
-  block?: UXSuggestion | TeamMatchesBlock | WeatherCardBlock;
-  index?: number;
-  message: unknown;
-};
-
-type AssistantSlottableRequestDetail = {
-  data?: AssistantSlottableRequestData;
-  name: "block" | "message";
-  slotName: string;
-};
-
-const isWeatherCardData = (value: unknown): value is WeatherCardData => {
-  if (!value || typeof value !== "object") {
-    return false;
-  }
-
-  const data = value as Record<string, unknown>;
-
-  return (
-    typeof data.city === "string" &&
-    typeof data.condition === "string" &&
-    typeof data.date === "string" &&
-    typeof data.high === "number" &&
-    typeof data.low === "number" &&
-    typeof data.precipitationChance === "number" &&
-    typeof data.provider === "string" &&
-    typeof data.windMph === "number"
-  );
-};
+import {
+  AssistantSlottableContent,
+  type AssistantSlottableRequestDetail,
+} from "./assistant-slottable-content";
 
 export function WorldCupCompanionApp() {
   const [slottableRequests, setSlottableRequests] = useState<
@@ -119,53 +75,9 @@ export function WorldCupCompanionApp() {
             agent={conditionsAgent}
           ></arcgis-assistant-agent>
 
-          {slottableRequests.map((request) => {
-            if (request?.data?.block?.type === "team-matches") {
-              return (
-                <TeamMatchesCard
-                  key={request.slotName}
-                  slotName={request.slotName}
-                  data={request.data.block.data}
-                />
-              );
-            }
+          <AssistantSlottableContent slottableRequests={slottableRequests} />
 
-            if (request?.data?.block?.type === "weather-card") {
-              if (!isWeatherCardData(request.data.block.data)) {
-                return null;
-              }
-
-              return (
-                <WeatherCard
-                  key={request.slotName}
-                  slotName={request.slotName}
-                  data={request.data.block.data}
-                />
-              );
-            }
-
-            if (request?.data?.block?.type === "tickets-card") {
-              return (
-                <TicketsCard
-                  key={request.slotName}
-                  slotName={request.slotName}
-                  data={request.data.block.data as TicketsCardData}
-                />
-              );
-            }
-
-            if (request?.data?.block?.type === "receipt-card") {
-              return (
-                <ReceiptCard
-                  key={request.slotName}
-                  slotName={request.slotName}
-                  data={request.data.block.data as ReceiptCardData}
-                />
-              );
-            }
-
-            return null;
-          })}
+          <calcite-icon slot="header-actions-start" icon="soccer" scale="l" style={{ marginLeft: "0.5rem" }}></calcite-icon>
 
           <calcite-notice
             slot="entry-message"
