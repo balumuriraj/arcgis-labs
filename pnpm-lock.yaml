@@ -18,6 +18,52 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  apps/coopers-console:
+    dependencies:
+      '@arcgis/ai-components':
+        specifier: 5.1.0-next.130
+        version: 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@arcgis/map-components@5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3))(@esri/calcite-components@5.1.1-next.3)(openai@6.42.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@arcgis/core':
+        specifier: 5.1.0-next.127
+        version: 5.1.0-next.127
+      '@arcgis/map-components':
+        specifier: 5.1.0-next.130
+        version: 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3)
+      '@esri/calcite-components':
+        specifier: 5.1.1-next.3
+        version: 5.1.1-next.3
+      next:
+        specifier: 16.1.5
+        version: 16.1.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      '@types/react':
+        specifier: 19.2.2
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: 19.2.2
+        version: 19.2.2(@types/react@19.2.2)
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.1
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
   apps/docs:
     dependencies:
       '@repo/ui':
@@ -55,26 +101,60 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  apps/node-server:
+    dependencies:
+      '@arcgis/ai-components':
+        specifier: 5.1.0-next.130
+        version: 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@arcgis/map-components@5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3))(@esri/calcite-components@5.1.1-next.3)(openai@6.42.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@arcgis/core':
+        specifier: 5.1.0-next.127
+        version: 5.1.0-next.127
+      '@arcgis/map-components':
+        specifier: 5.1.0-next.130
+        version: 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3)
+      '@esri/calcite-components':
+        specifier: 5.1.1-next.3
+        version: 5.1.1-next.3
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.1
+      tsx:
+        specifier: ^4.20.6
+        version: 4.22.4
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
   apps/oops-map:
     dependencies:
       '@arcgis/ai-components':
-        specifier: ^5.0.9
-        version: 5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: 5.1.0-next.130
+        version: 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@arcgis/map-components@5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3))(@esri/calcite-components@5.1.1-next.3)(openai@6.42.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@arcgis/core':
-        specifier: ^5.0.9
-        version: 5.0.9
+        specifier: 5.1.0-next.127
+        version: 5.1.0-next.127
       '@arcgis/map-components':
-        specifier: ^5.0.9
-        version: 5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)
+        specifier: 5.1.0-next.130
+        version: 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3)
       '@esri/calcite-components':
-        specifier: ^5.0.2
-        version: 5.0.2
+        specifier: 5.1.1-next.3
+        version: 5.1.1-next.3
       '@langchain/core':
-        specifier: 1.1.30
-        version: 1.1.30(openai@6.25.0(zod@4.3.6))
+        specifier: 1.1.48
+        version: 1.1.48(openai@6.42.0(zod@4.3.6))
       '@langchain/langgraph':
-        specifier: 1.2.0
-        version: 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)
+        specifier: 1.3.7
+        version: 1.3.7(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)
       '@types/marked':
         specifier: ^6.0.0
         version: 6.0.0
@@ -288,36 +368,27 @@ packages:
   '@amcharts/amcharts5@5.14.4':
     resolution: {integrity: sha512-Tl7wQLWvsvyWVtlCIm1yhZtJviSDYjuNTnlUkO0D49GyByoK0nb9fr0DK4rUw4DVgyLcySxWBsb2lzTJm5Rd9Q==}
 
-  '@amcharts/amcharts5@5.15.6':
-    resolution: {integrity: sha512-6gVWngHgkMN+v6dJhZ4XJE3fcHjvD5hyjgyNnfvVE1H0ukmHpfFmhI7cCX0cgy0NRyZc4fwgxDMZsiNA7yYKjA==}
+  '@amcharts/amcharts5@5.18.0':
+    resolution: {integrity: sha512-2pIka1IrHO0mnTI7A9haq8aaq8leZZhFDythxNA7qYNg/iyGWuNcuzoyzJkybJLlNSlR5crkeNqZQL5up+IF3A==}
 
-  '@arcgis/ai-agents@5.0.9':
-    resolution: {integrity: sha512-l5iLw9S10kQMC5jofFsXDeW6tegQp5GZPEW8bbTTAx3tphVrKKfLrwa5lRLFJzGKKuzGJryC8aZxtoukBN914w==}
+  '@arcgis/ai-components@5.1.0-next.130':
+    resolution: {integrity: sha512-FoQoligGOKP0mU9JCOBRv8OqAlhLAfRm4PRfC2mBMSHaJd0OYb8iKWuk+VUUne4VNdCVO6vOfQwhSzJo52022w==}
     peerDependencies:
-      '@arcgis/core': ^5.0.0
+      '@arcgis/core': ^5.1.0-next
+      '@arcgis/map-components': ~5.1.0-next.130
+      '@esri/calcite-components': ^5.1.1-next.3
 
-  '@arcgis/ai-components@5.0.9':
-    resolution: {integrity: sha512-BB7L9713DZTvtraZs2MXZVpUb+T8hfpYJCTVQbdTKvKP7kbJjgy10U5e1gcy4zq7WLUTU+hjqC8Q+eG31ZJW1A==}
+  '@arcgis/common-components@5.1.0-next.130':
+    resolution: {integrity: sha512-mWNIaccTn6kdADpcuJkKSMaXUJypcHHyTwJOoZ9DlNS5ZtfBxT4HTTZJ56B93/APnA2m5qc73+vF8iScp9eQVQ==}
     peerDependencies:
-      '@arcgis/core': ^5.0.0
-      '@esri/calcite-components': ^5.0.2
-
-  '@arcgis/ai-orchestrator@5.0.9':
-    resolution: {integrity: sha512-HO15TjL7EIh1PuuBP3hHiXnPvSb2X0GRzmstlT15h776p1G7WheFNC8f427VLR7/MokcOGd6CV7Ldxgc9ICW9w==}
-    peerDependencies:
-      '@arcgis/core': ^5.0.0
-
-  '@arcgis/common-components@5.0.9':
-    resolution: {integrity: sha512-nARPPs2A7sYLaFkxbR79w9Jyjj8i0L/s34UHeSUDGTv+b1x994RYF+N9YL1q/94OzXOkQQoPcZqQRRS6rP1VzQ==}
-    peerDependencies:
-      '@arcgis/core': ^5.0.0
-      '@esri/calcite-components': ^5.0.2
+      '@arcgis/core': ^5.1.0-next
+      '@esri/calcite-components': ^5.1.1-next.3
 
   '@arcgis/core@4.34.8':
     resolution: {integrity: sha512-UrEBTjXpSA9fhmmnAENBzz9GG81xALTezQFMXUs2iMB+tiOckmJyBbhATI/W4lIQyUfNEK7Zm/46EP2PhDga/A==}
 
-  '@arcgis/core@5.0.9':
-    resolution: {integrity: sha512-z9LNHKKH+denjz8Ko5csj4QbKBldBXLie3cx3bGC4py+b6NNGK1i5iNAiPPGQ3IyxcotrA76j6BnQG0zuwK8HQ==}
+  '@arcgis/core@5.1.0-next.127':
+    resolution: {integrity: sha512-PnARwq8w+vS/+H/j0CNkSSnoLtIG8mIcIcZp4aNJVNPoetBb/HgAn6edv/Yox7z/cYnrlRtQIPAYC96KhYbILA==}
 
   '@arcgis/lumina@4.34.9':
     resolution: {integrity: sha512-efqO+SwR+1IYf29AATh1l2FUeypRyRINTBNkaJY+KkaFe+8gqSJ45qOmputhyzF5WTRDb7WhOYgnChjp6VYPpA==}
@@ -328,8 +399,8 @@ packages:
       '@lit/context':
         optional: true
 
-  '@arcgis/lumina@5.0.9':
-    resolution: {integrity: sha512-6lvzfi7BKEUehRUdixEsm0r90pB9znE2AmdFkzKeKl3Eav2viFE/Eca4m8rYB4KWowYBxAZX1EyrRLUvDET+Tw==}
+  '@arcgis/lumina@5.1.0-next.130':
+    resolution: {integrity: sha512-81Ge5DTKOptpwZ80UL6IUdv6t57t0o11C2XfR64CfzS3a41OdOL+xgphPGVtVIb9poR8O5XfHg+McJGRvd3QcQ==}
     peerDependencies:
       '@lit/context': ^1.1.6
       lit: ^3.3.0
@@ -337,23 +408,179 @@ packages:
       '@lit/context':
         optional: true
 
-  '@arcgis/map-components@5.0.9':
-    resolution: {integrity: sha512-rBxgtQZdQkqC8G2uBDEzwwKVLF5MmnEWhM/3GnW8XFHw9MrvvdyKHHLH4ybKEhIIGAB9JJWPfqHJXsolTdjTww==}
+  '@arcgis/map-components@5.1.0-next.130':
+    resolution: {integrity: sha512-twZP/aRFIXxBFIUQAG2SQpNTsPgeoBoiNnMmgXp0Duaxm7nooIWorUAK/jBiIiuxIjOA/RzZxClOOdVOjPJBSQ==}
     peerDependencies:
-      '@arcgis/core': ^5.0.0
-      '@esri/calcite-components': ^5.0.2
+      '@arcgis/core': ^5.1.0-next
+      '@esri/calcite-components': ^5.1.1-next.3
 
   '@arcgis/toolkit@4.34.9':
     resolution: {integrity: sha512-wFST+eVnCwmg9NyICVyn9bsBnR+TlWklsGqG3L7xqSTgfXo6TuCThE7wtTb8xWxsTBkGvImqMUgpgLuwQuTQ1g==}
 
-  '@arcgis/toolkit@5.0.9':
-    resolution: {integrity: sha512-D8M0k/SWZZme4FkQav773s+85deqnY3Cxm7u9Tryuvgq0E1t/SoFs/XepYzcO4H5YG18j6hyDHGlXrd+kdKBtA==}
+  '@arcgis/toolkit@5.1.0-next.130':
+    resolution: {integrity: sha512-YJDU+R96195hi6Knj9t922B1AZgaTjso5ouoKXlH/quFNbfEp04v9RoiZRFrbc1I7zh1V7zQ70AAwqAqC9r62g==}
 
   '@cfworker/json-schema@4.1.1':
     resolution: {integrity: sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og==}
 
   '@emnapi/runtime@1.7.1':
     resolution: {integrity: sha512-PVtJr5CmLwYAU9PZDMITZoR5iAOShYREoR45EyyLrbntV50mdePTgUn4AmOw90Ifcj+x2kRjdzr1HP3RrNiHGA==}
+
+  '@esbuild/aix-ppc64@0.28.0':
+    resolution: {integrity: sha512-lhRUCeuOyJQURhTxl4WkpFTjIsbDayJHih5kZC1giwE+MhIzAb7mEsQMqMf18rHLsrb5qI1tafG20mLxEWcWlA==}
+    engines: {node: '>=18'}
+    cpu: [ppc64]
+    os: [aix]
+
+  '@esbuild/android-arm64@0.28.0':
+    resolution: {integrity: sha512-+WzIXQOSaGs33tLEgYPYe/yQHf0WTU0X42Jca3y8NWMbUVhp7rUnw+vAsRC/QiDrdD31IszMrZy+qwPOPjd+rw==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [android]
+
+  '@esbuild/android-arm@0.28.0':
+    resolution: {integrity: sha512-wqh0ByljabXLKHeWXYLqoJ5jKC4XBaw6Hk08OfMrCRd2nP2ZQ5eleDZC41XHyCNgktBGYMbqnrJKq/K/lzPMSQ==}
+    engines: {node: '>=18'}
+    cpu: [arm]
+    os: [android]
+
+  '@esbuild/android-x64@0.28.0':
+    resolution: {integrity: sha512-+VJggoaKhk2VNNqVL7f6S189UzShHC/mR9EE8rDdSkdpN0KflSwWY/gWjDrNxxisg8Fp1ZCD9jLMo4m0OUfeUA==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [android]
+
+  '@esbuild/darwin-arm64@0.28.0':
+    resolution: {integrity: sha512-0T+A9WZm+bZ84nZBtk1ckYsOvyA3x7e2Acj1KdVfV4/2tdG4fzUp91YHx+GArWLtwqp77pBXVCPn2We7Letr0Q==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@esbuild/darwin-x64@0.28.0':
+    resolution: {integrity: sha512-fyzLm/DLDl/84OCfp2f/XQ4flmORsjU7VKt8HLjvIXChJoFFOIL6pLJPH4Yhd1n1gGFF9mPwtlN5Wf82DZs+LQ==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@esbuild/freebsd-arm64@0.28.0':
+    resolution: {integrity: sha512-l9GeW5UZBT9k9brBYI+0WDffcRxgHQD8ShN2Ur4xWq/NFzUKm3k5lsH4PdaRgb2w7mI9u61nr2gI2mLI27Nh3Q==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [freebsd]
+
+  '@esbuild/freebsd-x64@0.28.0':
+    resolution: {integrity: sha512-BXoQai/A0wPO6Es3yFJ7APCiKGc1tdAEOgeTNy3SsB491S3aHn4S4r3e976eUnPdU+NbdtmBuLncYir2tMU9Nw==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@esbuild/linux-arm64@0.28.0':
+    resolution: {integrity: sha512-RVyzfb3FWsGA55n6WY0MEIEPURL1FcbhFE6BffZEMEekfCzCIMtB5yyDcFnVbTnwk+CLAgTujmV/Lgvih56W+A==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@esbuild/linux-arm@0.28.0':
+    resolution: {integrity: sha512-CjaaREJagqJp7iTaNQjjidaNbCKYcd4IDkzbwwxtSvjI7NZm79qiHc8HqciMddQ6CKvJT6aBd8lO9kN/ZudLlw==}
+    engines: {node: '>=18'}
+    cpu: [arm]
+    os: [linux]
+
+  '@esbuild/linux-ia32@0.28.0':
+    resolution: {integrity: sha512-KBnSTt1kxl9x70q+ydterVdl+Cn0H18ngRMRCEQfrbqdUuntQQ0LoMZv47uB97NljZFzY6HcfqEZ2SAyIUTQBQ==}
+    engines: {node: '>=18'}
+    cpu: [ia32]
+    os: [linux]
+
+  '@esbuild/linux-loong64@0.28.0':
+    resolution: {integrity: sha512-zpSlUce1mnxzgBADvxKXX5sl8aYQHo2ezvMNI8I0lbblJtp8V4odlm3Yzlj7gPyt3T8ReksE6bK+pT3WD+aJRg==}
+    engines: {node: '>=18'}
+    cpu: [loong64]
+    os: [linux]
+
+  '@esbuild/linux-mips64el@0.28.0':
+    resolution: {integrity: sha512-2jIfP6mmjkdmeTlsX/9vmdmhBmKADrWqN7zcdtHIeNSCH1SqIoNI63cYsjQR8J+wGa4Y5izRcSHSm8K3QWmk3w==}
+    engines: {node: '>=18'}
+    cpu: [mips64el]
+    os: [linux]
+
+  '@esbuild/linux-ppc64@0.28.0':
+    resolution: {integrity: sha512-bc0FE9wWeC0WBm49IQMPSPILRocGTQt3j5KPCA8os6VprfuJ7KD+5PzESSrJ6GmPIPJK965ZJHTUlSA6GNYEhg==}
+    engines: {node: '>=18'}
+    cpu: [ppc64]
+    os: [linux]
+
+  '@esbuild/linux-riscv64@0.28.0':
+    resolution: {integrity: sha512-SQPZOwoTTT/HXFXQJG/vBX8sOFagGqvZyXcgLA3NhIqcBv1BJU1d46c0rGcrij2B56Z2rNiSLaZOYW5cUk7yLQ==}
+    engines: {node: '>=18'}
+    cpu: [riscv64]
+    os: [linux]
+
+  '@esbuild/linux-s390x@0.28.0':
+    resolution: {integrity: sha512-SCfR0HN8CEEjnYnySJTd2cw0k9OHB/YFzt5zgJEwa+wL/T/raGWYMBqwDNAC6dqFKmJYZoQBRfHjgwLHGSrn3Q==}
+    engines: {node: '>=18'}
+    cpu: [s390x]
+    os: [linux]
+
+  '@esbuild/linux-x64@0.28.0':
+    resolution: {integrity: sha512-us0dSb9iFxIi8srnpl931Nvs65it/Jd2a2K3qs7fz2WfGPHqzfzZTfec7oxZJRNPXPnNYZtanmRc4AL/JwVzHQ==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [linux]
+
+  '@esbuild/netbsd-arm64@0.28.0':
+    resolution: {integrity: sha512-CR/RYotgtCKwtftMwJlUU7xCVNg3lMYZ0RzTmAHSfLCXw3NtZtNpswLEj/Kkf6kEL3Gw+BpOekRX0BYCtklhUw==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [netbsd]
+
+  '@esbuild/netbsd-x64@0.28.0':
+    resolution: {integrity: sha512-nU1yhmYutL+fQ71Kxnhg8uEOdC0pwEW9entHykTgEbna2pw2dkbFSMeqjjyHZoCmt8SBkOSvV+yNmm94aUrrqw==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [netbsd]
+
+  '@esbuild/openbsd-arm64@0.28.0':
+    resolution: {integrity: sha512-cXb5vApOsRsxsEl4mcZ1XY3D4DzcoMxR/nnc4IyqYs0rTI8ZKmW6kyyg+11Z8yvgMfAEldKzP7AdP64HnSC/6g==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [openbsd]
+
+  '@esbuild/openbsd-x64@0.28.0':
+    resolution: {integrity: sha512-8wZM2qqtv9UP3mzy7HiGYNH/zjTA355mpeuA+859TyR+e+Tc08IHYpLJuMsfpDJwoLo1ikIJI8jC3GFjnRClzA==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [openbsd]
+
+  '@esbuild/openharmony-arm64@0.28.0':
+    resolution: {integrity: sha512-FLGfyizszcef5C3YtoyQDACyg95+dndv79i2EekILBofh5wpCa1KuBqOWKrEHZg3zrL3t5ouE5jgr94vA+Wb2w==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [openharmony]
+
+  '@esbuild/sunos-x64@0.28.0':
+    resolution: {integrity: sha512-1ZgjUoEdHZZl/YlV76TSCz9Hqj9h9YmMGAgAPYd+q4SicWNX3G5GCyx9uhQWSLcbvPW8Ni7lj4gDa1T40akdlw==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [sunos]
+
+  '@esbuild/win32-arm64@0.28.0':
+    resolution: {integrity: sha512-Q9StnDmQ/enxnpxCCLSg0oo4+34B9TdXpuyPeTedN/6+iXBJ4J+zwfQI28u/Jl40nOYAxGoNi7mFP40RUtkmUA==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@esbuild/win32-ia32@0.28.0':
+    resolution: {integrity: sha512-zF3ag/gfiCe6U2iczcRzSYJKH1DCI+ByzSENHlM2FcDbEeo5Zd2C86Aq0tKUYAJJ1obRP84ymxIAksZUcdztHA==}
+    engines: {node: '>=18'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@esbuild/win32-x64@0.28.0':
+    resolution: {integrity: sha512-pEl1bO9mfAmIC+tW5btTmrKaujg3zGtUmWNdCw/xs70FBjwAL3o9OEKNHvNmnyylD6ubxUERiEhdsL0xBQ9efw==}
+    engines: {node: '>=18'}
+    cpu: [x64]
+    os: [win32]
 
   '@eslint-community/eslint-utils@4.9.0':
     resolution: {integrity: sha512-ayVFHdtZ+hsq1t2Dy24wCmGXGe4q9Gu3smhLYALJrr473ZH27MsnSL+LKUlimp4BWJqMDMLmPpx/Q9R3OAlL4g==}
@@ -400,15 +627,15 @@ packages:
   '@esri/calcite-components@3.3.3':
     resolution: {integrity: sha512-tw+EfJ3pb+Odj71W6E9GUkm8rMbNxfW1KeiI8GgsKDzhr39hMKwY+zYYFFYuO0FONxWGvAB+B8yqB0NvH7WeHw==}
 
-  '@esri/calcite-components@5.0.2':
-    resolution: {integrity: sha512-AE8AQBsdpWWAPJEBc/nabJbdN+H+iuVBJv215mm8xjlyqpHd6BLsD8nG/K8IywDFHeB9TyHLQdYCk/sNiyQo7w==}
+  '@esri/calcite-components@5.1.1-next.3':
+    resolution: {integrity: sha512-eWrs3c8DuaG+Gk+dctUHGLDBya6D7RG3+gLex539ZXH4NPmv/QErpqqWx3dh8mMRWKW+Q1+1/EJvemOCFxMjmA==}
 
   '@esri/calcite-ui-icons@4.3.0':
     resolution: {integrity: sha512-iOOuRurpjFxFVw6+aXW2JpSkRBrdOpBcbdibfPOmSPqMd1aoHBtYmYXetKoH9vfrXoBiPyO2PkDnczhsu/N9IA==}
     hasBin: true
 
-  '@esri/calcite-ui-icons@4.4.0':
-    resolution: {integrity: sha512-PcCGId6vKBysRuuoCIYrVsaC+YVv1lFMqVUQn3Qna0BHOIyf7Mursf3NStELNjYdmL0MRYfmLDEDYQwnAJ/tSA==}
+  '@esri/calcite-ui-icons@4.6.0-next.1':
+    resolution: {integrity: sha512-2CWcXQZB1BasEauCKR/vX6IgkC0qMYddDMt2beIMPYx/NAKxQ/9n6JBkAM6YRIzsQvcCCOtJs6acxPcTUGyBPQ==}
     hasBin: true
 
   '@floating-ui/core@1.7.5':
@@ -604,46 +831,53 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@langchain/core@1.1.30':
-    resolution: {integrity: sha512-tPjY7TUI/w5Jby93TBCENH3QlcuUi0cuq2hpQ3WO1rd3x3WULvdmtfDzLcLQC427oPMlOFuDI1NIvR89jxD6Ng==}
+  '@langchain/core@1.1.48':
+    resolution: {integrity: sha512-fQU6Guyb1pwc2fEplmA8FPbKfOMAofjnyJzExevro0FxEiuGHE18Ov/ZHmT9trWCDTZRI9eW1VIc6aChxV8pAQ==}
     engines: {node: '>=20'}
 
-  '@langchain/langgraph-checkpoint@1.0.0':
-    resolution: {integrity: sha512-xrclBGvNCXDmi0Nz28t3vjpxSH6UYx6w5XAXSiiB1WEdc2xD2iY/a913I3x3a31XpInUW/GGfXXfePfaghV54A==}
+  '@langchain/langgraph-checkpoint@1.0.4':
+    resolution: {integrity: sha512-1y5MgZ0gXXrtmoy56e3kaBChI3GwFPIKl27xkrHwN+VE/3iUsyr9gO3Jtp7kdKAe6diZGbcas5bdC/r0yUwTZA==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@langchain/core': ^1.0.1
+      '@langchain/core': ^1.1.44
 
-  '@langchain/langgraph-sdk@1.6.5':
-    resolution: {integrity: sha512-JjprmbhgCnoNJ9DUKcvrEU+C9FfKsNGyT3ooqWxAY5Cx2qofhXmDJOpTCqqbxfDHPKG0RjTs5HgVK3WW5M6Big==}
+  '@langchain/langgraph-sdk@1.9.20':
+    resolution: {integrity: sha512-waZQNUN6apVg3jvDApy16wUGwrCvJB8WXHbIPvVrrUZHObqx0w5tk7P/Ite5Qvu4abWrvNtrmqk2zmcqCx7jVw==}
     peerDependencies:
-      '@langchain/core': ^1.1.16
+      '@langchain/core': ^1.1.48
       react: ^18 || ^19
       react-dom: ^18 || ^19
+      svelte: ^4.0.0 || ^5.0.0
+      vue: ^3.0.0
     peerDependenciesMeta:
-      '@langchain/core':
-        optional: true
       react:
         optional: true
       react-dom:
         optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
 
-  '@langchain/langgraph@1.2.0':
-    resolution: {integrity: sha512-wyqKIzXTAfXX3L1d8R7icM+HmRQBTbuNLWtUlpRJ/JP/ux1ei/sOSt6p8f90ARoOP2iJVlM70wOBYWaGErdBlA==}
+  '@langchain/langgraph@1.3.7':
+    resolution: {integrity: sha512-6WNskiu3bpy3XFwiD9cm4n2QapnFVX7dqYeJzuEAUGp9R3vbxngRVyb5+Myp5Rz4GCFXGXuhcFSjLVRHPhsNtQ==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@langchain/core': ^1.1.16
+      '@langchain/core': ^1.1.48
       zod: ^3.25.32 || ^4.2.0
       zod-to-json-schema: ^3.x
     peerDependenciesMeta:
       zod-to-json-schema:
         optional: true
 
-  '@langchain/openai@1.2.12':
-    resolution: {integrity: sha512-Im6PPNujrfkZk4vpc9JAjbeERg+RbNtWRe3KSFOP7aNGa/yZ+XD69lxXwbsZGaZkbiUN/hwe9RYeisUfThb5wg==}
+  '@langchain/openai@1.4.7':
+    resolution: {integrity: sha512-i1YLV4pWbGC6W8m0ZNpLObJuf1nyU4o8aWyX4AF9fHn7eM67HfIJWQ5n5XzcCpuSa41otrxA9jvH5XRKwI1qDA==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@langchain/core': ^1.1.30
+      '@langchain/core': ^1.1.48
+
+  '@langchain/protocol@0.0.16':
+    resolution: {integrity: sha512-ws+J7MaHyhO5dG7f0vdyHQiUn9hoCnki0f3crJPa4MCTGzcRC39jYSCghyrGtBPYQnZbUQiGyRVpW3z3M8IpJg==}
 
   '@lit-labs/ssr-dom-shim@1.5.1':
     resolution: {integrity: sha512-Aou5UdlSpr5whQe8AA/bZG0jMj96CoJIWbGfZ91qieWu5AWUMKw8VR/pAkQkJYvBNhmCcWnZlyyk5oze8JIqYA==}
@@ -707,6 +941,14 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
+
+  '@noble/ciphers@1.3.0':
+    resolution: {integrity: sha512-2I0gnIVPtfnMw9ee9h1dJG7tp81+8Ob3OJb3Mv37rx5L40/b0i7djjCVvGOVqc9AEIQyvyu1i6ypKdFw8R8gQw==}
+    engines: {node: ^14.21.3 || >=16}
+
+  '@noble/hashes@1.8.0':
+    resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
+    engines: {node: ^14.21.3 || >=16}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -941,32 +1183,32 @@ packages:
   '@vaadin/a11y-base@24.9.11':
     resolution: {integrity: sha512-R9gZEOtN9SS7HkkAKzPn0o/pM6PjI8HcBVllh7C1pn+zW554bgt31I6oClkt7ypxLa0vYReZ7bBhnGSMtHbz9w==}
 
-  '@vaadin/a11y-base@25.0.5':
-    resolution: {integrity: sha512-yE7p9pk1PrQUfur/0rR/jKb5uodYmpn9BXPUb8rfH92CSzOo92QHTO3tC3j7XEIY2UqCMUQo4qI7PQ5EURmSYg==}
+  '@vaadin/a11y-base@25.1.4':
+    resolution: {integrity: sha512-uBH5VsCFe0hEg1gJ2ngK5Qj7VUY3rwTRUEz+DtsLme5MeTrD7G2ovVRMckjCIj4Rf1FvZT/vZjmish9LoKfVlA==}
 
   '@vaadin/checkbox@24.9.11':
     resolution: {integrity: sha512-aXXuF9K1eE67NgeTCs/aPfu/Dy96tZrMjWE6/RkK+FTYhyptCIq7pN2Ipg04ZxFyjLeMiyB4yHl/pQd5nsYT2A==}
 
-  '@vaadin/checkbox@25.0.5':
-    resolution: {integrity: sha512-DcHbkxZdUzw9/kDwJ4aJw7hFK61d16kCWyKfyqhcr9klL2AjPlUMt7IcKGugw83gvAtS4MaSD/KvtHappYIr5Q==}
+  '@vaadin/checkbox@25.1.4':
+    resolution: {integrity: sha512-OGxtXc4SVOb70LyBs1nFHR67KBqbbRwj4c0c1kLz6dL1vNhOfDYK9JOaIvrhMqvvtqELfeq4IANC0DQ3m6L2aA==}
 
   '@vaadin/component-base@24.9.11':
     resolution: {integrity: sha512-iXyrJ/VCwgoj1DNlkE2K3otDljbRa1DIysit7y/h1y/clN5gysKs4NVUFoH9j6TUHT/oQwqRaR25jN2dwRvhSQ==}
 
-  '@vaadin/component-base@25.0.5':
-    resolution: {integrity: sha512-iKQ+haAZkAz3HGFN8pxk03DF15XxYRksqkQlvOHUCWDBTSp/pvtJmL1oaXNkjzoZCJdeIYZTWsrqQB9GXIRWeg==}
+  '@vaadin/component-base@25.1.4':
+    resolution: {integrity: sha512-9C7vrkWGfzvBJGZQMKTwWSD3Cu4DXnLD3uZ2DDuDkgLIftDM5kLHFBIoc6l8nms06rc4SyzLhdH9TPTpd8U7rA==}
 
   '@vaadin/field-base@24.9.11':
     resolution: {integrity: sha512-gFeomXfYsrzsaf9wJA9Av/0dJTiPNd7G27MrV3wv30nDQTL0aJ8FF7zIJsbqBRsev2F0sL7uUZEKwGhf8astew==}
 
-  '@vaadin/field-base@25.0.5':
-    resolution: {integrity: sha512-2oBmGgDB7DEhMpBnhW408MsRwetrMN0oDHFOzpI1iHvu9YOGBQUznZNCWKIgBPbGfIJv35epoS4wW/g6/ChHRQ==}
+  '@vaadin/field-base@25.1.4':
+    resolution: {integrity: sha512-Ip+J35HloJy1vGHz2MhwfNWAohBXko76/9M4VbRkhw5M2TdxgDcsgaWKxWFrvosjzX44ngvsZfxEY96HQTbuWw==}
 
   '@vaadin/grid@24.9.11':
     resolution: {integrity: sha512-e2TZz0r3jvodeOmEOjn5YnyDbfS1Pf7P6bzYx8yqj3psQjmZm/FhadOvpGiiJEI28CB3s9h1+QePtdZzTsb36A==}
 
-  '@vaadin/grid@25.0.5':
-    resolution: {integrity: sha512-HIzRSTbtdRu/f9keZ++vPtHa49zHbXPvmWKFNp0Tyle05zprhcde5je3+rQukr+YIZfSJyB3gnPOolPRt51uDw==}
+  '@vaadin/grid@25.1.4':
+    resolution: {integrity: sha512-Vs1o8p5pLgn63lyI1hIz+swrYu9tc2O60AVvyg39QoS7hsWI1W5WxCFvNFEYNnTP7lR1tCCmPHrvTLnkCHXxSA==}
 
   '@vaadin/icon@24.9.11':
     resolution: {integrity: sha512-E2Ic5BHXgcBM+JvuUjZ9mXrnmD7GG4YBd33sp1OTGelnUD2R+5M9JGpFG8etE7IhibwIWORRKlmTvyDYHHKPpQ==}
@@ -974,20 +1216,20 @@ packages:
   '@vaadin/input-container@24.9.11':
     resolution: {integrity: sha512-gjLlTU4LlFQsiejZCvoeedSEd+ZdE9acHPBQ3ACDYikKeFp4+ENoriO/o8caEDiYX1gDyKABAkjN8oa4vTGZbA==}
 
-  '@vaadin/input-container@25.0.5':
-    resolution: {integrity: sha512-mozENjFDmIehVLjgA59njaLgxjo9uSFN2vwxK8wOavxlDBhR2PzxBCQXS0WAZq2rwxUyDIFP6cCavi1WMb2UFg==}
+  '@vaadin/input-container@25.1.4':
+    resolution: {integrity: sha512-QhA4yaQG23OitwToCeFOllIf4n6rMAF2ly1GGMk9G5fRrGJd0302wnCjB/VagdreMCdsnrgjPnsRt5UtQWsVow==}
 
   '@vaadin/lit-renderer@24.9.11':
     resolution: {integrity: sha512-AJUD3YK6+e+ic9n4uBQtfh/g9OZuIUeytmYe0gHNMXqVcdsBR9ZFmhwoAwFsJMUsSQy+xJuL5cQ+2GmuK37izA==}
 
-  '@vaadin/lit-renderer@25.0.5':
-    resolution: {integrity: sha512-j/7fsXUSUif57G/bDvn7wNhtBtK8Th6IeCwYfbd17KEDc7asVSdEJO1Y6rwQ+sKJijiGdkNRe12FODB3lwc7Aw==}
+  '@vaadin/lit-renderer@25.1.4':
+    resolution: {integrity: sha512-uLeIMD3PvTGSBKBVY3JHMMKAwGFrmI5NDn9eEnZSb/fr3JOPmpHOXGmMoW+bFpdx+c8XzacewlbVgJrlWb5lxg==}
 
   '@vaadin/text-field@24.9.11':
     resolution: {integrity: sha512-YPXJbAqK4XeouMB9j5BzHD+u/aVhQp+F2IZFMc2jfPPrK648m/3tb4SndMNXX8gtU0PNwCKH8WG1DT2l55DK9A==}
 
-  '@vaadin/text-field@25.0.5':
-    resolution: {integrity: sha512-EzwXpXgBOd8EcLJUIszyIP4VAKKR9+3sL2fwQpVpezqsDb3aN+WiOKT9+LF+N51evbXmFs2uenmyBRpngU3Qyw==}
+  '@vaadin/text-field@25.1.4':
+    resolution: {integrity: sha512-4fwXqiopB96prSb2o3v6d9iuYqJao1O9tpdlp8bUlnrb2VShheosKql3pZePKgZb7/+ZhKCCH33/6IcT1oKMGQ==}
 
   '@vaadin/vaadin-development-mode-detector@2.0.7':
     resolution: {integrity: sha512-9FhVhr0ynSR3X2ao+vaIEttcNU5XfzCbxtmYOV8uIRnUCtNgbvMOIcyGBvntsX9I5kvIP2dV3cFAOG9SILJzEA==}
@@ -1001,8 +1243,8 @@ packages:
   '@vaadin/vaadin-themable-mixin@24.9.11':
     resolution: {integrity: sha512-yhVsF8hJjFqYlHuxY5ioU78MgUjUxN+khDN+czj+i9Sntss9uADkeYJH8JjzY91skMTPWY6OwJD8pJOx6WUtWA==}
 
-  '@vaadin/vaadin-themable-mixin@25.0.5':
-    resolution: {integrity: sha512-U9pGUa8n+BgmJsEoCtFYTnUPLLFE/mty8aplue8FtCQ6NQGGWE0rmlEGQwMCO/H8//OBEFI1VqGGa5ceFKtvaw==}
+  '@vaadin/vaadin-themable-mixin@25.1.4':
+    resolution: {integrity: sha512-g2L62j09rWrJYng7Jn4uQDw6CbThGy6/ZuRy15KMuHS2EddwxM6hW4bRsX1qGM2BnZGRYAcq0vzWslbg1MOxqw==}
 
   '@vaadin/vaadin-usage-statistics@2.1.3':
     resolution: {integrity: sha512-8r4TNknD7OJQADe3VygeofFR7UNAXZ2/jjBFP5dgI8+2uMfnuGYgbuHivasKr9WSQ64sPej6m8rDoM1uSllXjQ==}
@@ -1066,6 +1308,10 @@ packages:
     resolution: {integrity: sha512-0KlzbVR6r8irIX2o3zvUlosBDef62VDl47oUfa1U/qgEs67h4/eGBrX/6HWa1RQbt+J6sAeVmtyFKbTHNdF8qQ==}
     engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
 
+  '@zip.js/zip.js@2.8.26':
+    resolution: {integrity: sha512-RQ4h9F6DOiHxpdocUDrOl6xBM+yOtz+LkUol47AVWcfebGBDpZ7w7Xvz9PS24JgXvLGiXXzSAfdCdVy1tPlaFA==}
+    engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
+
   acorn-import-phases@1.0.4:
     resolution: {integrity: sha512-wKmbr/DDiIXzEOiWrTTUcDm24kQ2vGfZQvM2fwg2vXqR5uW6aapr7ObPtj1th32b9u90/Pf4AItvdTh42fBmVQ==}
     engines: {node: '>=10.13.0'}
@@ -1114,10 +1360,6 @@ packages:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
 
-  ansi-styles@5.2.0:
-    resolution: {integrity: sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==}
-    engines: {node: '>=10'}
-
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
@@ -1160,6 +1402,10 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  base64-js@0.0.8:
+    resolution: {integrity: sha512-3XSA2cR/h/73EzlXXdU6YNycmYI7+kicTxks4eJg2g39biHR84slg2+des+p7iHYhbRg/udIS4TD53WabcOUkw==}
+    engines: {node: '>= 0.4'}
+
   base64-js@1.3.1:
     resolution: {integrity: sha512-mLQ4i2QO1ytvGWFWmcngKO//JXAQueZvwEKtjgQFM4jIK0kU+ytMfplL8j+n5mspOfjHwoAg+9yhb7BwAHm36g==}
 
@@ -1185,6 +1431,9 @@ packages:
   brotli@1.3.3:
     resolution: {integrity: sha512-oTKjJdShmDuGW94SyyaoQvAjf30dZaHnjJ8uAF+u2/vGJkJbJPJAT1gDiOJP5v1Zb6f9KEyW/1HpuaWIXtGHPg==}
 
+  browserify-zlib@0.2.0:
+    resolution: {integrity: sha512-Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==}
+
   browserslist@4.28.1:
     resolution: {integrity: sha512-ZC5Bd0LgJXgwGqUknZY/vkUQ04r8NXnJZ3yYi4vDmSiZmC/pdSN0NbNRPxZpbtO4uAfDUAFffO8IZoM3Gj8IkA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
@@ -1209,10 +1458,6 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  camelcase@6.3.0:
-    resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
-    engines: {node: '>=10'}
-
   caniuse-lite@1.0.30001761:
     resolution: {integrity: sha512-JF9ptu1vP2coz98+5051jZ4PwQgd2ni8A+gYSN7EA7dPKIMf0pDlSUxhdmVOaV3/fYK5uWBkgSXJaRLr4+3A6g==}
 
@@ -1233,6 +1478,10 @@ packages:
 
   clone@1.0.4:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
+    engines: {node: '>=0.8'}
+
+  clone@2.1.2:
+    resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
   color-convert@2.0.1:
@@ -1467,10 +1716,6 @@ packages:
       supports-color:
         optional: true
 
-  decamelize@1.2.0:
-    resolution: {integrity: sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==}
-    engines: {node: '>=0.10.0'}
-
   deep-equal@1.1.2:
     resolution: {integrity: sha512-5tdhKF6DbU7iIzrIOa1AOUt39ZRm13cmL1cGEh//aqR8x9+tNfbywRf0n5FD/18OKMdo7DNEtrX2t22ZAkI+eg==}
     engines: {node: '>= 0.4'}
@@ -1556,6 +1801,11 @@ packages:
 
   es-toolkit@1.45.1:
     resolution: {integrity: sha512-/jhoOj/Fx+A+IIyDNOvO3TItGmlMKhtX8ISAHKE90c4b/k1tqaqEZ+uUqfpU8DMnW5cgNJv606zS55jGvza0Xw==}
+
+  esbuild@0.28.0:
+    resolution: {integrity: sha512-sNR9MHpXSUV/XB4zmsFKN+QgVG82Cc7+/aaxJ8Adi8hyOac+EXptIp45QBPaVyX3N70664wRbTcLTOemCAnyqw==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   escalade@3.2.0:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
@@ -1706,9 +1956,20 @@ packages:
   focus-trap@7.8.0:
     resolution: {integrity: sha512-/yNdlIkpWbM0ptxno3ONTuf+2g318kh2ez3KSeZN5dZ8YC6AAmgeWz+GasYYiBJPFaYcSAPeu4GfhUaChzIJXA==}
 
+  focus-trap@8.2.1:
+    resolution: {integrity: sha512-6CxwrrFRquH7pDXb1mWxudkU9LSfYBMRZutpgddb2o6iwCk7cIRrBhyY3c8SGKcmIKdeMTrGSNg4Bedh2RSF/w==}
+
+  fontkit@2.0.4:
+    resolution: {integrity: sha512-syetQadaUEDNdxdugga9CpEYVaQIxOwk7GlwZWWZ19//qW4zE5bknOKeMBDYAASwnpaSHKJITRLMF9m1fp3s6g==}
+
   for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
     engines: {node: '>= 0.4'}
+
+  fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
@@ -1953,6 +2214,9 @@ packages:
     resolution: {integrity: sha512-a+bKEcCjtuW5WTdgeXFzswSrdqi0jk4XlEtZlx5A94wCoBpFjfFTbo/Tra5SpNCl/YFZPvcV1dJc+TAYeg6ROQ==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
+  js-md5@0.8.3:
+    resolution: {integrity: sha512-qR0HB5uP6wCuRMrWPTrkMaev7MJZwJuuw4fnwAzRgP4J4/F8RwtodOKpGp4XpqsLBFzzgqIO42efFAyz2Et6KQ==}
+
   js-tiktoken@1.0.21:
     resolution: {integrity: sha512-biOj/6M5qdgx5TKjDnFT1ymSpM5tbd3ylwDtrQvFQSu0Z7bBYko2dF+W/aUkXUPuk6IVpRxk/3Q2sHOzGlS36g==}
 
@@ -1989,6 +2253,12 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
+  langchain@1.4.4:
+    resolution: {integrity: sha512-tepOCwUDaIZOYJ9Eo0O6o5dXEN/0KJheiFDnHHFL8Tx8rfkDLL4cOTSTln4Vpn9LpWzXYkjQ8lkHnnNDQWZPeg==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@langchain/core': ^1.1.48
+
   langsmith@0.5.7:
     resolution: {integrity: sha512-FjYf2oBGMoSXnaT4SRaFguIiGJaonZ5VKWKJDPl9awLZjz2RkN29AcQWceecSINVzXzTvtRWPOjAWT+XggqNNg==}
     peerDependencies:
@@ -2009,6 +2279,9 @@ packages:
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
+
+  linebreak@1.1.0:
+    resolution: {integrity: sha512-MHp03UImeVhB7XZtjd0E4n6+3xr5Dq/9xI/5FptGk5FrbDR3zagPa2DS6U8ks/3HjbKWG9Q1M2ufOzxV2qLYSQ==}
 
   lit-element@4.2.2:
     resolution: {integrity: sha512-aFKhNToWxoyhkNDmWZwEva2SlQia+jfG0fjIWV//YeTaWrVnOxD89dPKfigCUspXFmjzOEUQpOkejH5Ly6sG0w==}
@@ -2031,8 +2304,8 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
-  lodash-es@4.17.23:
-    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
+  lodash-es@4.18.1:
+    resolution: {integrity: sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==}
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -2051,6 +2324,11 @@ packages:
 
   marked@17.0.4:
     resolution: {integrity: sha512-NOmVMM+KAokHMvjWmC5N/ZOvgmSWuqJB8FoYI019j4ogb/PeRMKoKIjReZ2w3376kkA8dSJIP8uD993Kxc0iRQ==}
+    engines: {node: '>= 20'}
+    hasBin: true
+
+  marked@18.0.5:
+    resolution: {integrity: sha512-S6GcvALHg6K4ohtu4E7x0a1AqhAjp6cV8KhLSyN9qVapnzJkusVBxZRcIU9AeYsbe6P1hKDusSbEOzGyyuce6w==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -2160,9 +2438,8 @@ packages:
     resolution: {integrity: sha512-gXah6aZrcUxjWg2zR2MwouP2eHlCBzdV4pygudehaKXSGW4v2AsRQUK+lwwXhii6KFZcunEnmSUoYp5CXibxtA==}
     engines: {node: '>= 0.4'}
 
-  openai@6.25.0:
-    resolution: {integrity: sha512-mEh6VZ2ds2AGGokWARo18aPISI1OhlgdEIC1ewhkZr8pSIT31dec0ecr9Nhxx0JlybyOgoAT1sWeKtwPZzJyww==}
-    hasBin: true
+  openai@6.42.0:
+    resolution: {integrity: sha512-1WFEt/uXMXOLhYRNkgJWo08Y2YNvNwpVU72K7ibrWgWpNOXd4VojXLbe6SQ4bLiUQ3Y8jz4IiyVkylJCL1DtZg==}
     peerDependencies:
       ws: ^8.18.0
       zod: ^3.25 || ^4.0
@@ -2215,6 +2492,9 @@ packages:
   pako@0.2.9:
     resolution: {integrity: sha512-NUcwaKxUxWrZLpDG+z/xZaCgQITkA/Dv4V/T6bw7VON6l1Xz/VnrBqrYjZQ12TamKHzITTfOEIYUj48y2KXImA==}
 
+  pako@1.0.11:
+    resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
+
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -2230,9 +2510,16 @@ packages:
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
 
+  pdfkit@0.19.0:
+    resolution: {integrity: sha512-fCffpuHBwbEUDVpBexE3tE6OwvqOXHbLeR2ONWZEw0pCGlbZSkWLuXUw2k1MIkHNpwAgQ300ETXy/owe+ZK2bQ==}
+
   pdfmake@0.2.23:
     resolution: {integrity: sha512-A/IksoKb/ikOZH1edSDJ/2zBbqJKDghD4+fXn3rT7quvCJDlsZMs3NmIB3eajLMMFU9Bd3bZPVvlUMXhvFI+bQ==}
     engines: {node: '>=18'}
+
+  pdfmake@0.3.10:
+    resolution: {integrity: sha512-2dKalR/02xdIb8XFcT3UXHTBpMJjKGjY7l8fl0RRFGu93r15AsI8vEJPkPYcP+IhfJVTuMQiQFq08hNcIC7ohQ==}
+    engines: {node: '>=20'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -2247,6 +2534,9 @@ packages:
 
   png-js@1.0.0:
     resolution: {integrity: sha512-k+YsbhpA9e+EFfKjTCH3VW6aoKlyNYI6NYdTfDL4CIvFnvsuO84ttonmZE7rc+v23SLTH8XX+5w/Ak9v0xGY4g==}
+
+  png-js@1.1.0:
+    resolution: {integrity: sha512-PM/uYGzGdNSzqeOgly68+6wKQDL1SY0a/N+OEa/+br6LnHWOAJB0Npiamnodfq3jd2LS/i2fMeOKSAILjA+m5Q==}
 
   polylabel@1.1.0:
     resolution: {integrity: sha512-bxaGcA40sL3d6M4hH72Z4NdLqxpXRsCFk8AITYg6x1rn1Ei3izf00UMLklerBZTO49aPA3CYrIwVulx2Bce2pA==}
@@ -2313,6 +2603,9 @@ packages:
 
   resolve@2.0.0-next.5:
     resolution: {integrity: sha512-U7WjGVG9sH8tvjW5SmGbQuui75FiyjAX72HX15DwBBwF9dNiQZRQAg9nnPhYy+TUnE0+VcrttuvNI8oSxZcocA==}
+
+  restructure@3.0.2:
+    resolution: {integrity: sha512-gSfoiOEA0VPE6Tukkrr7I0RBdE0s7H1eFCDBk05l1KIQT1UIKNc5JZy6jdyW6eYH3aR3g5b3PuL77rq0hvwtAw==}
 
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
@@ -2537,6 +2830,11 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  tsx@4.22.4:
+    resolution: {integrity: sha512-X8EX+XV4QR5xCsrgxaED954zTDfY8KqlDtskKEL0cHhyS/P8b4IFOvGDQpsC9Q1XnLq915wEfwwY/zzskCtmhg==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+
   turbo-darwin-64@2.8.13:
     resolution: {integrity: sha512-PmOvodQNiOj77+Zwoqku70vwVjKzL34RTNxxoARjp5RU5FOj/CGiC6vcDQhNtFPUOWSAaogHF5qIka9TBhX4XA==}
     cpu: [x64]
@@ -2633,12 +2931,8 @@ packages:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
     hasBin: true
 
-  uuid@11.1.0:
-    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
-    hasBin: true
-
-  uuid@13.0.0:
-    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
+  uuid@14.0.0:
+    resolution: {integrity: sha512-Qo+uWgilfSmAhXCMav1uYFynlQO7fMFiMVZsQqZRMIXp0O7rR7qjkj+cPvBHLgBqi960QCoo/PH2/6ZtVqKvrg==}
     hasBin: true
 
   watchpack@2.5.1:
@@ -2696,9 +2990,6 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
-
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
@@ -2732,7 +3023,7 @@ snapshots:
       svg-arc-to-cubic-bezier: 3.2.0
       tslib: 2.8.1
 
-  '@amcharts/amcharts5@5.15.6':
+  '@amcharts/amcharts5@5.18.0':
     dependencies:
       '@types/d3': 7.4.3
       '@types/d3-chord': 3.0.6
@@ -2754,46 +3045,28 @@ snapshots:
       d3-voronoi-treemap: 1.1.2
       flatpickr: 4.6.13
       markerjs2: 2.32.7
-      pdfmake: 0.2.23
+      pdfmake: 0.3.10
       polylabel: 1.1.0
       seedrandom: 3.0.5
       svg-arc-to-cubic-bezier: 3.2.0
       tslib: 2.8.1
 
-  '@arcgis/ai-agents@5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@arcgis/ai-components@5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@arcgis/map-components@5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3))(@esri/calcite-components@5.1.1-next.3)(openai@6.42.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@arcgis/ai-orchestrator': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@arcgis/core': 5.0.9
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
-      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
-      tslib: 2.8.1
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - react
-      - react-dom
-      - ws
-      - zod-to-json-schema
-
-  '@arcgis/ai-components@5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@arcgis/ai-agents': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@arcgis/ai-orchestrator': 5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@arcgis/core': 5.0.9
-      '@arcgis/lumina': 5.0.9(lit@3.3.2)
-      '@arcgis/map-components': 5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)
-      '@arcgis/toolkit': 5.0.9
+      '@arcgis/core': 5.1.0-next.127
+      '@arcgis/lumina': 5.1.0-next.130(lit@3.3.2)
+      '@arcgis/map-components': 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3)
+      '@arcgis/toolkit': 5.1.0-next.130
       '@esri/arcgis-html-sanitizer': 4.1.0
-      '@esri/calcite-components': 5.0.2
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
-      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
+      '@esri/calcite-components': 5.1.1-next.3
+      '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
+      '@langchain/langgraph': 1.3.7(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)
+      '@langchain/openai': 1.4.7(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))
+      langchain: 1.4.4(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(openai@6.42.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       lit: 3.3.2
-      marked: 17.0.4
+      marked: 18.0.5
       tslib: 2.8.1
-      zod: 3.25.76
+      zod: 4.3.6
     transitivePeerDependencies:
       - '@lit/context'
       - '@opentelemetry/api'
@@ -2802,37 +3075,20 @@ snapshots:
       - openai
       - react
       - react-dom
+      - svelte
+      - vue
       - ws
       - zod-to-json-schema
 
-  '@arcgis/ai-orchestrator@5.0.9(@arcgis/core@5.0.9)(openai@6.25.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@arcgis/common-components@5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3)':
     dependencies:
-      '@arcgis/core': 5.0.9
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
-      '@langchain/langgraph': 1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)
-      '@langchain/openai': 1.2.12(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))
-      tslib: 2.8.1
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - react
-      - react-dom
-      - ws
-      - zod-to-json-schema
-
-  '@arcgis/common-components@5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)':
-    dependencies:
-      '@arcgis/core': 5.0.9
-      '@arcgis/lumina': 5.0.9(lit@3.3.2)
-      '@arcgis/toolkit': 5.0.9
+      '@arcgis/core': 5.1.0-next.127
+      '@arcgis/lumina': 5.1.0-next.130(lit@3.3.2)
+      '@arcgis/toolkit': 5.1.0-next.130
       '@esri/arcgis-html-sanitizer': 4.1.0
-      '@esri/calcite-components': 5.0.2
+      '@esri/calcite-components': 5.1.1-next.3
       '@lit/task': 1.0.3
       lit: 3.3.2
-      luxon: 3.7.2
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@lit/context'
@@ -2851,16 +3107,16 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/core@5.0.9':
+  '@arcgis/core@5.1.0-next.127':
     dependencies:
-      '@amcharts/amcharts5': 5.15.6
-      '@arcgis/toolkit': 5.0.9
+      '@amcharts/amcharts5': 5.18.0
+      '@arcgis/toolkit': 5.1.0-next.130
       '@esri/arcgis-html-sanitizer': 4.1.0
-      '@esri/calcite-components': 5.0.2
-      '@vaadin/grid': 25.0.5
-      '@zip.js/zip.js': 2.8.22
+      '@esri/calcite-components': 5.1.1-next.3
+      '@vaadin/grid': 25.1.4
+      '@zip.js/zip.js': 2.8.26
       luxon: 3.7.2
-      marked: 17.0.4
+      marked: 18.0.5
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@lit/context'
@@ -2872,23 +3128,23 @@ snapshots:
       lit: 3.3.2
       tslib: 2.8.1
 
-  '@arcgis/lumina@5.0.9(lit@3.3.2)':
+  '@arcgis/lumina@5.1.0-next.130(lit@3.3.2)':
     dependencies:
-      '@arcgis/toolkit': 5.0.9
+      '@arcgis/toolkit': 5.1.0-next.130
       csstype: 3.1.3
       lit: 3.3.2
       tslib: 2.8.1
 
-  '@arcgis/map-components@5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)':
+  '@arcgis/map-components@5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3)':
     dependencies:
-      '@amcharts/amcharts5': 5.15.6
-      '@arcgis/common-components': 5.0.9(@arcgis/core@5.0.9)(@esri/calcite-components@5.0.2)
-      '@arcgis/core': 5.0.9
-      '@arcgis/lumina': 5.0.9(lit@3.3.2)
-      '@arcgis/toolkit': 5.0.9
-      '@esri/calcite-components': 5.0.2
+      '@amcharts/amcharts5': 5.18.0
+      '@arcgis/common-components': 5.1.0-next.130(@arcgis/core@5.1.0-next.127)(@esri/calcite-components@5.1.1-next.3)
+      '@arcgis/core': 5.1.0-next.127
+      '@arcgis/lumina': 5.1.0-next.130(lit@3.3.2)
+      '@arcgis/toolkit': 5.1.0-next.130
+      '@esri/calcite-components': 5.1.1-next.3
       lit: 3.3.2
-      lodash-es: 4.17.23
+      lodash-es: 4.18.1
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@lit/context'
@@ -2897,7 +3153,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@arcgis/toolkit@5.0.9':
+  '@arcgis/toolkit@5.1.0-next.130':
     dependencies:
       tslib: 2.8.1
 
@@ -2906,6 +3162,84 @@ snapshots:
   '@emnapi/runtime@1.7.1':
     dependencies:
       tslib: 2.8.1
+    optional: true
+
+  '@esbuild/aix-ppc64@0.28.0':
+    optional: true
+
+  '@esbuild/android-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/android-arm@0.28.0':
+    optional: true
+
+  '@esbuild/android-x64@0.28.0':
+    optional: true
+
+  '@esbuild/darwin-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/darwin-x64@0.28.0':
+    optional: true
+
+  '@esbuild/freebsd-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/freebsd-x64@0.28.0':
+    optional: true
+
+  '@esbuild/linux-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/linux-arm@0.28.0':
+    optional: true
+
+  '@esbuild/linux-ia32@0.28.0':
+    optional: true
+
+  '@esbuild/linux-loong64@0.28.0':
+    optional: true
+
+  '@esbuild/linux-mips64el@0.28.0':
+    optional: true
+
+  '@esbuild/linux-ppc64@0.28.0':
+    optional: true
+
+  '@esbuild/linux-riscv64@0.28.0':
+    optional: true
+
+  '@esbuild/linux-s390x@0.28.0':
+    optional: true
+
+  '@esbuild/linux-x64@0.28.0':
+    optional: true
+
+  '@esbuild/netbsd-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/netbsd-x64@0.28.0':
+    optional: true
+
+  '@esbuild/openbsd-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/openbsd-x64@0.28.0':
+    optional: true
+
+  '@esbuild/openharmony-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/sunos-x64@0.28.0':
+    optional: true
+
+  '@esbuild/win32-arm64@0.28.0':
+    optional: true
+
+  '@esbuild/win32-ia32@0.28.0':
+    optional: true
+
+  '@esbuild/win32-x64@0.28.0':
     optional: true
 
   '@eslint-community/eslint-utils@4.9.0(eslint@9.39.1)':
@@ -2978,18 +3312,18 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@esri/calcite-components@5.0.2':
+  '@esri/calcite-components@5.1.1-next.3':
     dependencies:
-      '@arcgis/lumina': 5.0.9(lit@3.3.2)
-      '@arcgis/toolkit': 5.0.9
-      '@esri/calcite-ui-icons': 4.4.0
+      '@arcgis/lumina': 5.1.0-next.130(lit@3.3.2)
+      '@arcgis/toolkit': 5.1.0-next.130
+      '@esri/calcite-ui-icons': 4.6.0-next.1
       '@floating-ui/dom': 1.7.6
       '@floating-ui/utils': 0.2.11
       '@types/sortablejs': 1.15.9
       color: 5.0.3
       composed-offset-position: 0.0.6(@floating-ui/utils@0.2.11)
       es-toolkit: 1.45.1
-      focus-trap: 7.8.0
+      focus-trap: 8.2.1
       interactjs: 1.10.27
       lit: 3.3.2
       sortablejs: 1.15.7
@@ -3000,7 +3334,7 @@ snapshots:
 
   '@esri/calcite-ui-icons@4.3.0': {}
 
-  '@esri/calcite-ui-icons@4.4.0': {}
+  '@esri/calcite-ui-icons@4.6.0-next.1': {}
 
   '@floating-ui/core@1.7.5':
     dependencies:
@@ -3168,18 +3502,14 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6))':
+  '@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       '@standard-schema/spec': 1.1.0
-      ansi-styles: 5.2.0
-      camelcase: 6.3.0
-      decamelize: 1.2.0
       js-tiktoken: 1.0.21
-      langsmith: 0.5.7(openai@6.25.0(zod@4.3.6))
+      langsmith: 0.5.7(openai@6.42.0(zod@4.3.6))
       mustache: 4.2.0
       p-queue: 6.6.2
-      uuid: 11.1.0
       zod: 4.3.6
     transitivePeerDependencies:
       - '@opentelemetry/api'
@@ -3187,54 +3517,48 @@ snapshots:
       - '@opentelemetry/sdk-trace-base'
       - openai
 
-  '@langchain/langgraph-checkpoint@1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))':
+  '@langchain/langgraph-checkpoint@1.0.4(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))':
     dependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
-      uuid: 10.0.0
+      '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
+      uuid: 14.0.0
 
-  '@langchain/langgraph-sdk@1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@langchain/langgraph-sdk@1.9.20(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
+      '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
+      '@langchain/protocol': 0.0.16
       '@types/json-schema': 7.0.15
       p-queue: 9.1.0
       p-retry: 7.1.1
-      uuid: 13.0.0
+      uuid: 14.0.0
     optionalDependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-  '@langchain/langgraph@1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@3.25.76)':
+  '@langchain/langgraph@1.3.7(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)':
     dependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
-      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))
-      '@langchain/langgraph-sdk': 1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
+      '@langchain/langgraph-checkpoint': 1.0.4(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))
+      '@langchain/langgraph-sdk': 1.9.20(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@langchain/protocol': 0.0.16
       '@standard-schema/spec': 1.1.0
-      uuid: 10.0.0
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - react
-      - react-dom
-
-  '@langchain/langgraph@1.2.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)':
-    dependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
-      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))
-      '@langchain/langgraph-sdk': 1.6.5(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@standard-schema/spec': 1.1.0
-      uuid: 10.0.0
+      uuid: 14.0.0
       zod: 4.3.6
     transitivePeerDependencies:
       - react
       - react-dom
+      - svelte
+      - vue
 
-  '@langchain/openai@1.2.12(@langchain/core@1.1.30(openai@6.25.0(zod@4.3.6)))':
+  '@langchain/openai@1.4.7(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))':
     dependencies:
-      '@langchain/core': 1.1.30(openai@6.25.0(zod@4.3.6))
+      '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
       js-tiktoken: 1.0.21
-      openai: 6.25.0(zod@4.3.6)
+      openai: 6.42.0(zod@4.3.6)
       zod: 4.3.6
     transitivePeerDependencies:
       - ws
+
+  '@langchain/protocol@0.0.16': {}
 
   '@lit-labs/ssr-dom-shim@1.5.1': {}
 
@@ -3275,6 +3599,10 @@ snapshots:
 
   '@next/swc-win32-x64-msvc@16.1.5':
     optional: true
+
+  '@noble/ciphers@1.3.0': {}
+
+  '@noble/hashes@1.8.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -3567,10 +3895,10 @@ snapshots:
       '@vaadin/component-base': 24.9.11
       lit: 3.3.2
 
-  '@vaadin/a11y-base@25.0.5':
+  '@vaadin/a11y-base@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/component-base': 25.0.5
+      '@vaadin/component-base': 25.1.4
       lit: 3.3.2
 
   '@vaadin/checkbox@24.9.11':
@@ -3585,13 +3913,13 @@ snapshots:
       '@vaadin/vaadin-themable-mixin': 24.9.11
       lit: 3.3.2
 
-  '@vaadin/checkbox@25.0.5':
+  '@vaadin/checkbox@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.0.5
-      '@vaadin/component-base': 25.0.5
-      '@vaadin/field-base': 25.0.5
-      '@vaadin/vaadin-themable-mixin': 25.0.5
+      '@vaadin/a11y-base': 25.1.4
+      '@vaadin/component-base': 25.1.4
+      '@vaadin/field-base': 25.1.4
+      '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
   '@vaadin/component-base@24.9.11':
@@ -3602,7 +3930,7 @@ snapshots:
       '@vaadin/vaadin-usage-statistics': 2.1.3
       lit: 3.3.2
 
-  '@vaadin/component-base@25.0.5':
+  '@vaadin/component-base@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
       '@vaadin/vaadin-development-mode-detector': 2.0.7
@@ -3617,11 +3945,11 @@ snapshots:
       '@vaadin/component-base': 24.9.11
       lit: 3.3.2
 
-  '@vaadin/field-base@25.0.5':
+  '@vaadin/field-base@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.0.5
-      '@vaadin/component-base': 25.0.5
+      '@vaadin/a11y-base': 25.1.4
+      '@vaadin/component-base': 25.1.4
       lit: 3.3.2
 
   '@vaadin/grid@24.9.11':
@@ -3638,15 +3966,15 @@ snapshots:
       '@vaadin/vaadin-themable-mixin': 24.9.11
       lit: 3.3.2
 
-  '@vaadin/grid@25.0.5':
+  '@vaadin/grid@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.0.5
-      '@vaadin/checkbox': 25.0.5
-      '@vaadin/component-base': 25.0.5
-      '@vaadin/lit-renderer': 25.0.5
-      '@vaadin/text-field': 25.0.5
-      '@vaadin/vaadin-themable-mixin': 25.0.5
+      '@vaadin/a11y-base': 25.1.4
+      '@vaadin/checkbox': 25.1.4
+      '@vaadin/component-base': 25.1.4
+      '@vaadin/lit-renderer': 25.1.4
+      '@vaadin/text-field': 25.1.4
+      '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
   '@vaadin/icon@24.9.11':
@@ -3667,17 +3995,17 @@ snapshots:
       '@vaadin/vaadin-themable-mixin': 24.9.11
       lit: 3.3.2
 
-  '@vaadin/input-container@25.0.5':
+  '@vaadin/input-container@25.1.4':
     dependencies:
-      '@vaadin/component-base': 25.0.5
-      '@vaadin/vaadin-themable-mixin': 25.0.5
+      '@vaadin/component-base': 25.1.4
+      '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
   '@vaadin/lit-renderer@24.9.11':
     dependencies:
       lit: 3.3.2
 
-  '@vaadin/lit-renderer@25.0.5':
+  '@vaadin/lit-renderer@25.1.4':
     dependencies:
       lit: 3.3.2
 
@@ -3694,14 +4022,14 @@ snapshots:
       '@vaadin/vaadin-themable-mixin': 24.9.11
       lit: 3.3.2
 
-  '@vaadin/text-field@25.0.5':
+  '@vaadin/text-field@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.0.5
-      '@vaadin/component-base': 25.0.5
-      '@vaadin/field-base': 25.0.5
-      '@vaadin/input-container': 25.0.5
-      '@vaadin/vaadin-themable-mixin': 25.0.5
+      '@vaadin/a11y-base': 25.1.4
+      '@vaadin/component-base': 25.1.4
+      '@vaadin/field-base': 25.1.4
+      '@vaadin/input-container': 25.1.4
+      '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
   '@vaadin/vaadin-development-mode-detector@2.0.7': {}
@@ -3725,10 +4053,10 @@ snapshots:
       lit: 3.3.2
       style-observer: 0.0.8
 
-  '@vaadin/vaadin-themable-mixin@25.0.5':
+  '@vaadin/vaadin-themable-mixin@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/component-base': 25.0.5
+      '@vaadin/component-base': 25.1.4
       lit: 3.3.2
 
   '@vaadin/vaadin-usage-statistics@2.1.3':
@@ -3819,6 +4147,8 @@ snapshots:
 
   '@zip.js/zip.js@2.8.22': {}
 
+  '@zip.js/zip.js@2.8.26': {}
+
   acorn-import-phases@1.0.4(acorn@8.16.0):
     dependencies:
       acorn: 8.16.0
@@ -3861,8 +4191,6 @@ snapshots:
   ansi-styles@4.3.0:
     dependencies:
       color-convert: 2.0.1
-
-  ansi-styles@5.2.0: {}
 
   argparse@2.0.1: {}
 
@@ -3931,6 +4259,8 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
+  base64-js@0.0.8: {}
+
   base64-js@1.3.1: {}
 
   base64-js@1.5.1: {}
@@ -3955,6 +4285,10 @@ snapshots:
   brotli@1.3.3:
     dependencies:
       base64-js: 1.5.1
+
+  browserify-zlib@0.2.0:
+    dependencies:
+      pako: 1.0.11
 
   browserslist@4.28.1:
     dependencies:
@@ -3985,8 +4319,6 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camelcase@6.3.0: {}
-
   caniuse-lite@1.0.30001761: {}
 
   chalk@4.1.2:
@@ -4001,6 +4333,8 @@ snapshots:
   client-only@0.0.1: {}
 
   clone@1.0.4: {}
+
+  clone@2.1.2: {}
 
   color-convert@2.0.1:
     dependencies:
@@ -4260,8 +4594,6 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  decamelize@1.2.0: {}
-
   deep-equal@1.1.2:
     dependencies:
       is-arguments: 1.2.0
@@ -4419,6 +4751,35 @@ snapshots:
       is-symbol: 1.1.1
 
   es-toolkit@1.45.1: {}
+
+  esbuild@0.28.0:
+    optionalDependencies:
+      '@esbuild/aix-ppc64': 0.28.0
+      '@esbuild/android-arm': 0.28.0
+      '@esbuild/android-arm64': 0.28.0
+      '@esbuild/android-x64': 0.28.0
+      '@esbuild/darwin-arm64': 0.28.0
+      '@esbuild/darwin-x64': 0.28.0
+      '@esbuild/freebsd-arm64': 0.28.0
+      '@esbuild/freebsd-x64': 0.28.0
+      '@esbuild/linux-arm': 0.28.0
+      '@esbuild/linux-arm64': 0.28.0
+      '@esbuild/linux-ia32': 0.28.0
+      '@esbuild/linux-loong64': 0.28.0
+      '@esbuild/linux-mips64el': 0.28.0
+      '@esbuild/linux-ppc64': 0.28.0
+      '@esbuild/linux-riscv64': 0.28.0
+      '@esbuild/linux-s390x': 0.28.0
+      '@esbuild/linux-x64': 0.28.0
+      '@esbuild/netbsd-arm64': 0.28.0
+      '@esbuild/netbsd-x64': 0.28.0
+      '@esbuild/openbsd-arm64': 0.28.0
+      '@esbuild/openbsd-x64': 0.28.0
+      '@esbuild/openharmony-arm64': 0.28.0
+      '@esbuild/sunos-x64': 0.28.0
+      '@esbuild/win32-arm64': 0.28.0
+      '@esbuild/win32-ia32': 0.28.0
+      '@esbuild/win32-x64': 0.28.0
 
   escalade@3.2.0: {}
 
@@ -4591,9 +4952,28 @@ snapshots:
     dependencies:
       tabbable: 6.4.0
 
+  focus-trap@8.2.1:
+    dependencies:
+      tabbable: 6.4.0
+
+  fontkit@2.0.4:
+    dependencies:
+      '@swc/helpers': 0.5.15
+      brotli: 1.3.3
+      clone: 2.1.2
+      dfa: 1.2.0
+      fast-deep-equal: 3.1.3
+      restructure: 3.0.2
+      tiny-inflate: 1.0.3
+      unicode-properties: 1.4.1
+      unicode-trie: 2.0.0
+
   for-each@0.3.5:
     dependencies:
       is-callable: 1.2.7
+
+  fsevents@2.3.3:
+    optional: true
 
   function-bind@1.1.2: {}
 
@@ -4845,6 +5225,8 @@ snapshots:
 
   jpeg-exif@1.1.4: {}
 
+  js-md5@0.8.3: {}
+
   js-tiktoken@1.0.21:
     dependencies:
       base64-js: 1.5.1
@@ -4878,7 +5260,25 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  langsmith@0.5.7(openai@6.25.0(zod@4.3.6)):
+  langchain@1.4.4(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(openai@6.42.0(zod@4.3.6))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+    dependencies:
+      '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
+      '@langchain/langgraph': 1.3.7(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.3.6)
+      '@langchain/langgraph-checkpoint': 1.0.4(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))
+      langsmith: 0.5.7(openai@6.42.0(zod@4.3.6))
+      zod: 4.3.6
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/sdk-trace-base'
+      - openai
+      - react
+      - react-dom
+      - svelte
+      - vue
+      - zod-to-json-schema
+
+  langsmith@0.5.7(openai@6.42.0(zod@4.3.6)):
     dependencies:
       '@types/uuid': 10.0.0
       chalk: 5.6.2
@@ -4887,12 +5287,17 @@ snapshots:
       semver: 7.7.3
       uuid: 10.0.0
     optionalDependencies:
-      openai: 6.25.0(zod@4.3.6)
+      openai: 6.42.0(zod@4.3.6)
 
   levn@0.4.1:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  linebreak@1.1.0:
+    dependencies:
+      base64-js: 0.0.8
+      unicode-trie: 2.0.0
 
   lit-element@4.2.2:
     dependencies:
@@ -4922,7 +5327,7 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
-  lodash-es@4.17.23: {}
+  lodash-es@4.18.1: {}
 
   lodash.merge@4.6.2: {}
 
@@ -4935,6 +5340,8 @@ snapshots:
   marked@16.3.0: {}
 
   marked@17.0.4: {}
+
+  marked@18.0.5: {}
 
   markerjs2@2.32.7: {}
 
@@ -5040,7 +5447,7 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
-  openai@6.25.0(zod@4.3.6):
+  openai@6.42.0(zod@4.3.6):
     optionalDependencies:
       zod: 4.3.6
 
@@ -5091,6 +5498,8 @@ snapshots:
 
   pako@0.2.9: {}
 
+  pako@1.0.11: {}
+
   parent-module@1.0.1:
     dependencies:
       callsites: 3.1.0
@@ -5101,11 +5510,26 @@ snapshots:
 
   path-parse@1.0.7: {}
 
+  pdfkit@0.19.0:
+    dependencies:
+      '@noble/ciphers': 1.3.0
+      '@noble/hashes': 1.8.0
+      fontkit: 2.0.4
+      js-md5: 0.8.3
+      linebreak: 1.1.0
+      png-js: 1.1.0
+
   pdfmake@0.2.23:
     dependencies:
       '@foliojs-fork/linebreak': 1.1.2
       '@foliojs-fork/pdfkit': 0.15.3
       iconv-lite: 0.7.2
+      xmldoc: 2.0.3
+
+  pdfmake@0.3.10:
+    dependencies:
+      linebreak: 1.1.0
+      pdfkit: 0.19.0
       xmldoc: 2.0.3
 
   picocolors@1.1.1: {}
@@ -5115,6 +5539,10 @@ snapshots:
   picomatch@4.0.3: {}
 
   png-js@1.0.0: {}
+
+  png-js@1.1.0:
+    dependencies:
+      browserify-zlib: 0.2.0
 
   polylabel@1.1.0:
     dependencies:
@@ -5186,6 +5614,8 @@ snapshots:
       is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+
+  restructure@3.0.2: {}
 
   reusify@1.1.0: {}
 
@@ -5452,6 +5882,12 @@ snapshots:
 
   tslib@2.8.1: {}
 
+  tsx@4.22.4:
+    dependencies:
+      esbuild: 0.28.0
+    optionalDependencies:
+      fsevents: 2.3.3
+
   turbo-darwin-64@2.8.13:
     optional: true
 
@@ -5562,9 +5998,7 @@ snapshots:
 
   uuid@10.0.0: {}
 
-  uuid@11.1.0: {}
-
-  uuid@13.0.0: {}
+  uuid@14.0.0: {}
 
   watchpack@2.5.1:
     dependencies:
@@ -5662,7 +6096,5 @@ snapshots:
       cssfilter: 0.0.10
 
   yocto-queue@0.1.0: {}
-
-  zod@3.25.76: {}
 
   zod@4.3.6: {}
