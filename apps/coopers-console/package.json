@@ -11,10 +11,10 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@arcgis/ai-components": "5.1.0-next.130",
-    "@arcgis/core": "5.1.0-next.127",
-    "@arcgis/map-components": "5.1.0-next.130",
-    "@esri/calcite-components": "5.1.1-next.3",
+    "@arcgis/ai-components": "5.1.0-next.138",
+    "@arcgis/core": "5.1.0-next.136",
+    "@arcgis/map-components": "5.1.0-next.138",
+    "@esri/calcite-components": "5.1.2-next.2",
     "next": "16.1.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
