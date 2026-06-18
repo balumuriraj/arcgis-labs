@@ -205,8 +205,16 @@ export function OopsAssistant({
   const [pendingPortalUrl, setPendingPortalUrl] = useState(portalUrl);
   const [pendingWebmapId, setPendingWebmapId] = useState(webmapId);
   const assistantRef = useRef<HTMLArcgisAssistantElement>(null);
-  const stylePopoverRef = useRef<HTMLCalcitePopoverElement>(null);
-  const settingsPopoverRef = useRef<HTMLCalcitePopoverElement>(null);
+  const stylePopoverRef = useRef<HTMLElement | null>(null);
+  const settingsPopoverRef = useRef<HTMLElement | null>(null);
+
+  const closePopover = (popoverElement: HTMLElement | null) => {
+    if (!popoverElement || !("open" in popoverElement)) {
+      return;
+    }
+
+    (popoverElement as { open: boolean }).open = false;
+  };
 
   useEffect(() => {
     setRoastTurnHandler(
@@ -257,7 +265,7 @@ export function OopsAssistant({
     setSessionClosed(false);
     setFoundCriterionIds([]);
     setReportContent(null);
-    if (stylePopoverRef.current) stylePopoverRef.current.open = false;
+    closePopover(stylePopoverRef.current);
     onApplyPersona(pendingPersona);
   };
 
@@ -347,7 +355,9 @@ export function OopsAssistant({
           referenceElement="settings-action"
           label="Settings"
           placement="bottom-start"
-          ref={settingsPopoverRef}
+          ref={(element) => {
+            settingsPopoverRef.current = element;
+          }}
           auto-close
         >
           <div
@@ -387,8 +397,7 @@ export function OopsAssistant({
               width="full"
               disabled={!pendingPortalUrl || !pendingWebmapId || undefined}
               onClick={() => {
-                if (settingsPopoverRef.current)
-                  settingsPopoverRef.current.open = false;
+                closePopover(settingsPopoverRef.current);
                 onReconfigure(pendingPortalUrl, pendingWebmapId);
               }}
             >
@@ -413,7 +422,9 @@ export function OopsAssistant({
           referenceElement="style-picker-action"
           label={`${activePersonaOption.emoji} ${activePersonaOption.label}`}
           placement="bottom-end"
-          ref={stylePopoverRef}
+          ref={(element) => {
+            stylePopoverRef.current = element;
+          }}
           auto-close
         >
           <calcite-list
