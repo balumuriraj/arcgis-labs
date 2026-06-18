@@ -1,9 +1,10 @@
 import { type UXSuggestion } from "@arcgis/ai-components/utils/index.js";
+import type { WeatherCardData } from "../support/utils";
 
 import { type TeamMatchFeature, TeamMatchesCard } from "./team-matches-card";
 import { ReceiptCard, type ReceiptCardData } from "./receipt-card";
 import { TicketsCard, type TicketsCardData } from "./tickets-card";
-import { WeatherCard, type WeatherCardData } from "./weather-card";
+import { WeatherCard } from "./weather-card";
 
 type TeamMatchesBlock = {
   type: "team-matches";
@@ -48,48 +49,45 @@ type AssistantSlottableContentProps = {
   slottableRequests: AssistantSlottableRequestDetail[];
 };
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  !!value && typeof value === "object";
+
 const isWeatherCardData = (value: unknown): value is WeatherCardData => {
-  if (!value || typeof value !== "object") {
+  if (!isRecord(value)) {
     return false;
   }
 
-  const data = value as Record<string, unknown>;
-
   return (
-    typeof data.city === "string" &&
-    typeof data.condition === "string" &&
-    typeof data.date === "string" &&
-    typeof data.high === "number" &&
-    typeof data.low === "number" &&
-    typeof data.precipitationChance === "number" &&
-    typeof data.provider === "string" &&
-    typeof data.windMph === "number"
+    typeof value.city === "string" &&
+    typeof value.condition === "string" &&
+    typeof value.date === "string" &&
+    typeof value.high === "number" &&
+    typeof value.low === "number" &&
+    typeof value.precipitationChance === "number" &&
+    typeof value.provider === "string" &&
+    typeof value.windMph === "number"
   );
 };
 
 const isTicketsCardData = (value: unknown): value is TicketsCardData => {
-  if (!value || typeof value !== "object") {
+  if (!isRecord(value)) {
     return false;
   }
 
-  const data = value as Record<string, unknown>;
-
-  return Array.isArray(data.tiers) && !!data.fixture;
+  return Array.isArray(value.tiers) && isRecord(value.fixture);
 };
 
 const isReceiptCardData = (value: unknown): value is ReceiptCardData => {
-  if (!value || typeof value !== "object") {
+  if (!isRecord(value)) {
     return false;
   }
 
-  const data = value as Record<string, unknown>;
-
   return (
-    typeof data.orderId === "string" &&
-    typeof data.quantity === "number" &&
-    typeof data.tier === "string" &&
-    typeof data.orderTotal === "number" &&
-    !!data.fixture
+    typeof value.orderId === "string" &&
+    typeof value.quantity === "number" &&
+    typeof value.tier === "string" &&
+    typeof value.orderTotal === "number" &&
+    isRecord(value.fixture)
   );
 };
 
@@ -97,18 +95,24 @@ export function AssistantSlottableContent({
   slottableRequests,
 }: AssistantSlottableContentProps) {
   return slottableRequests.map((request) => {
-    if (request?.data?.block?.type === "team-matches") {
+    const block = request.data?.block;
+
+    if (!block) {
+      return null;
+    }
+
+    if (block.type === "team-matches") {
       return (
         <TeamMatchesCard
           key={request.slotName}
           slotName={request.slotName}
-          data={request.data.block.data}
+          data={block.data}
         />
       );
     }
 
-    if (request?.data?.block?.type === "weather-card") {
-      if (!isWeatherCardData(request.data.block.data)) {
+    if (block.type === "weather-card") {
+      if (!isWeatherCardData(block.data)) {
         return null;
       }
 
@@ -116,13 +120,13 @@ export function AssistantSlottableContent({
         <WeatherCard
           key={request.slotName}
           slotName={request.slotName}
-          data={request.data.block.data}
+          data={block.data}
         />
       );
     }
 
-    if (request?.data?.block?.type === "tickets-card") {
-      if (!isTicketsCardData(request.data.block.data)) {
+    if (block.type === "tickets-card") {
+      if (!isTicketsCardData(block.data)) {
         return null;
       }
 
@@ -130,13 +134,13 @@ export function AssistantSlottableContent({
         <TicketsCard
           key={request.slotName}
           slotName={request.slotName}
-          data={request.data.block.data}
+          data={block.data}
         />
       );
     }
 
-    if (request?.data?.block?.type === "receipt-card") {
-      if (!isReceiptCardData(request.data.block.data)) {
+    if (block.type === "receipt-card") {
+      if (!isReceiptCardData(block.data)) {
         return null;
       }
 
@@ -144,7 +148,7 @@ export function AssistantSlottableContent({
         <ReceiptCard
           key={request.slotName}
           slotName={request.slotName}
-          data={request.data.block.data}
+          data={block.data}
         />
       );
     }

@@ -5,14 +5,12 @@ import {
   getOptionalString,
   getScheduledFixtureLookupLabel,
   queryScheduledFixturesFromInput,
-} from "../support/utils.js";
-import type {
-  TicketOrderConfirmationData,
-  TicketPriceCardData,
-  TicketPriceTier,
-  TicketTier,
-  WorldCupMapContext,
-} from "../support/utils.js";
+  type TicketOrderConfirmationData,
+  type TicketPriceCardData,
+  type TicketPriceTier,
+  type TicketTier,
+  type WorldCupMapContext,
+} from "../support/utils";
 
 type TicketPriceInput = Record<string, unknown>;
 

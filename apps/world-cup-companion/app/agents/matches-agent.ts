@@ -1,8 +1,11 @@
 import { createFunctionTool, createLLMAgent, createSchema } from "@arcgis/ai-components/agent-utils/index.js";
-import type { WorldCupMapContext } from "../support/utils.js";
 import type { ResourceHandle } from "@arcgis/core/core/Handles.js";
 import { sendUXSuggestion } from "@arcgis/ai-components/utils/index.js";
-import { getOptionalString, queryScheduledMatches } from "../support/utils.js";
+import {
+  getOptionalString,
+  queryScheduledMatches,
+  type WorldCupMapContext,
+} from "../support/utils";
 
 // A handler can be used to remove any previous highlight when applying a new one
 let highlight: ResourceHandle | null = null;

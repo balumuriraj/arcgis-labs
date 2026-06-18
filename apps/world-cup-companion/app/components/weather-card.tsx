@@ -1,16 +1,25 @@
 import "@esri/calcite-components/dist/components/calcite-card";
 import "@esri/calcite-components/dist/components/calcite-chip";
+import type { WeatherCardData } from "../support/utils";
 
-export type WeatherCardData = {
-  city: string;
-  condition: string;
-  date: string;
-  high: number;
-  low: number;
-  precipitationChance: number;
-  provider: string;
-  venue?: string;
-  windMph: number;
+const weatherIcons = {
+  clear: "brightness",
+  cloudy: "cloudy",
+  partlyCloudy: "partly-cloudy",
+} as const;
+
+const getWeatherIcon = (
+  condition: string,
+): (typeof weatherIcons)[keyof typeof weatherIcons] => {
+  if (condition === "Clear sky") {
+    return weatherIcons.clear;
+  }
+
+  if (condition === "Partly cloudy") {
+    return weatherIcons.partlyCloudy;
+  }
+
+  return weatherIcons.cloudy;
 };
 
 export type WeatherCardProps = {
@@ -24,12 +33,6 @@ export function WeatherCard({ slotName, data }: WeatherCardProps) {
   }
 
   const venueLabel = data.venue ? ` at ${data.venue}` : "";
-  const icon =
-    data.condition === "Sunny"
-      ? "brightness"
-      : data.condition === "Partly Cloudy"
-        ? "partly-cloudy"
-        : "cloudy";
 
   return (
     <div slot={slotName}>
@@ -39,7 +42,7 @@ export function WeatherCard({ slotName, data }: WeatherCardProps) {
           {data.date}
           {venueLabel}
         </span>
-        <calcite-chip icon={icon} label={data.condition}>
+        <calcite-chip icon={getWeatherIcon(data.condition)} label={data.condition}>
           {data.condition}
         </calcite-chip>
         <p>

@@ -1,7 +1,6 @@
 import { createFunctionTool, createLLMAgent, createSchema } from "@arcgis/ai-components/agent-utils/index.js";
 import { sendUXSuggestion } from "@arcgis/ai-components/utils/index.js";
-import { getWeather } from "../support/utils.js";
-import type { WeatherCardData } from "../support/utils.js";
+import { getWeather, type WeatherCardData } from "../support/utils";
 
 type WeatherInput = Record<string, unknown>;
 
