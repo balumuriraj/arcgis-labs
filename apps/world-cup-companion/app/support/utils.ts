@@ -51,6 +51,12 @@ export type WorldCupMapContext = {
   mapView: MapView;
 };
 
+export type AgentConfigWithContext = {
+  configurable?: {
+    context?: unknown;
+  };
+};
+
 let mapContextPromise: Promise<WorldCupMapContext> | undefined;
 
 export const getWorldCupMapContext = async (): Promise<WorldCupMapContext> => {
@@ -73,6 +79,19 @@ export const getWorldCupMapContext = async (): Promise<WorldCupMapContext> => {
   })();
 
   return await mapContextPromise;
+};
+
+export const getWorldCupMapContextFromAgentConfig = (
+  config: AgentConfigWithContext | undefined,
+  agentName: string,
+): WorldCupMapContext => {
+  const context = config?.configurable?.context;
+
+  if (!context || typeof context !== "object" || !("mapView" in context)) {
+    throw new Error(`${agentName} requires WorldCupMapContext from arcgis-assistant-agent context.`);
+  }
+
+  return context as WorldCupMapContext;
 };
 
 export type ScheduledMatchesQuery = {

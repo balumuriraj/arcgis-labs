@@ -2,6 +2,8 @@ import { createFunctionTool, createLLMAgent, createSchema } from "@arcgis/ai-com
 import { createHumanInTheLoopToolMiddleware } from "@arcgis/ai-components/agent-utils/middlewares/humanInTheLoop.js";
 import { sendUXSuggestion } from "@arcgis/ai-components/utils/index.js";
 import {
+  type AgentConfigWithContext,
+  getWorldCupMapContextFromAgentConfig,
   getOptionalString,
   getScheduledFixtureLookupLabel,
   queryScheduledFixturesFromInput,
@@ -9,28 +11,12 @@ import {
   type TicketPriceCardData,
   type TicketPriceTier,
   type TicketTier,
-  type WorldCupMapContext,
-} from "../support/utils";
+} from "../../support/utils";
+import prompt from "./prompt.md";
 
 type TicketPriceInput = Record<string, unknown>;
 
 type PurchaseTicketsInput = Record<string, unknown>;
-
-type AgentConfig = {
-  configurable?: {
-    context?: unknown;
-  };
-};
-
-const getWorldCupMapContext = (config?: AgentConfig): WorldCupMapContext => {
-  const context = config?.configurable?.context;
-
-  if (!context || typeof context !== "object" || !("mapView" in context)) {
-    throw new Error("tickets-agent requires WorldCupMapContext from arcgis-assistant-agent context.");
-  }
-
-  return context as WorldCupMapContext;
-};
 
 const getRequiredNumber = (input: Record<string, unknown>, key: string): number => {
   const value = input[key];
@@ -54,9 +40,9 @@ const getRequiredTicketTier = (input: Record<string, unknown>): TicketTier => {
 
 const resolveFixture = async (
   input: Record<string, unknown>,
-  config?: AgentConfig,
+  config?: AgentConfigWithContext,
 ): Promise<TicketPriceCardData["fixture"] | undefined> =>
-  (await queryScheduledFixturesFromInput(getWorldCupMapContext(config).mapView, input))[0];
+  (await queryScheduledFixturesFromInput(getWorldCupMapContextFromAgentConfig(config, "tickets-agent").mapView, input))[0];
 
 const fixtureLookupSchema = {
   city: { type: "string", description: "Optional fixture city extracted from the user prompt." },
@@ -94,7 +80,7 @@ const getTicketPrices = await createFunctionTool({
     "Gets mocked ticket price tiers for a requested World Cup fixture and emits a ticket-price custom UI card. Use this for ticket price and availability prompts.",
   inputSchema: ticketPriceSchema,
   resultMode: "terminal",
-  execute: async (input: TicketPriceInput, config?: AgentConfig): Promise<string | void> => {
+  execute: async (input: TicketPriceInput, config?: AgentConfigWithContext): Promise<string | void> => {
     const fixture = await resolveFixture(input, config);
 
     if (!fixture) {
@@ -139,7 +125,7 @@ const purchaseTickets = await createFunctionTool({
     }),
   ],
   resultMode: "terminal",
-  execute: async (input: PurchaseTicketsInput, config?: AgentConfig): Promise<string> => {
+  execute: async (input: PurchaseTicketsInput, config?: AgentConfigWithContext): Promise<string> => {
     const quantity = getRequiredNumber(input, "quantity");
     const tier = getRequiredTicketTier(input);
     const fixture = await resolveFixture(input, config);
@@ -183,22 +169,7 @@ const rootAgent = await createLLMAgent({
   description:
     "Use this agent for mocked World Cup ticket prices, categories, availability, and ticket purchase confirmation. It extracts fixture details from the prompt and calls the ticket tools with those values.",
   tools: [getTicketPrices, purchaseTickets],
-  prompt: String.raw`
-You are the World Cup Companion tickets agent. Tickets and purchases are mocked for demo purposes.
-
-Use the available tools to look up ticket prices and create mocked ticket-order confirmations. Do not invent fixtures, prices, availability, payment status, or inventory that is not returned by the tools.
-
-Before calling any tool:
-1. Extract the user's intent.
-2. Extract fixture details from the prompt, such as team, opponent, city, date, stage, or matchId when available.
-3. Extract ticket tier and quantity when the prompt is a purchase request.
-
-Rules:
-- For ticket price or availability prompts, call get_ticket_prices with the extracted fixture details.
-- For purchase prompts, use the latest relevant fixture from the conversation when the user follows up. If the latest relevant fixture is unclear, ask which match before calling purchase_tickets.
-- For purchase prompts, call purchase_tickets with fixture details, tier, and quantity.
-- Never imply real payment, real inventory, or external calls.
-`,
+  prompt,
 });
 
 export const agent = rootAgent.registration;

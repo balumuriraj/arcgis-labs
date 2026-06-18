@@ -2,31 +2,17 @@ import { createFunctionTool, createLLMAgent, createSchema } from "@arcgis/ai-com
 import type { ResourceHandle } from "@arcgis/core/core/Handles.js";
 import { sendUXSuggestion } from "@arcgis/ai-components/utils/index.js";
 import {
+  type AgentConfigWithContext,
+  getWorldCupMapContextFromAgentConfig,
   getOptionalString,
   queryScheduledMatches,
-  type WorldCupMapContext,
-} from "../support/utils";
+} from "../../support/utils";
+import prompt from "./prompt.md";
 
 // A handler can be used to remove any previous highlight when applying a new one
 let highlight: ResourceHandle | null = null;
 
 type FindMatchesInput = Record<string, unknown>;
-
-type AgentConfig = {
-  configurable?: {
-    context?: unknown;
-  };
-};
-
-const getWorldCupMapContext = (config?: AgentConfig): WorldCupMapContext => {
-  const context = config?.configurable?.context;
-
-  if (!context || typeof context !== "object" || !("mapView" in context)) {
-    throw new Error("matches-agent requires WorldCupMapContext from arcgis-assistant-agent context.");
-  }
-
-  return context as WorldCupMapContext;
-};
 
 const findMatchesSchema = await createSchema({
   city: { type: "string", description: "Optional city or location mentioned in the user prompt." },
@@ -53,8 +39,8 @@ const findMatches = await createFunctionTool({
     "Finds matches for a requested team from the live map layer, highlights the matching features, and returns a match summary.",
   inputSchema: findMatchesSchema,
   resultMode: "terminal",
-  execute: async (input: FindMatchesInput, config?: AgentConfig): Promise<string> => {
-    const context = getWorldCupMapContext(config);
+  execute: async (input: FindMatchesInput, config?: AgentConfigWithContext): Promise<string> => {
+    const context = getWorldCupMapContextFromAgentConfig(config, "matches-agent");
     console.log("find_matches input: ", input, context);
 
     const teamName = getOptionalString(input.teamName);
@@ -111,24 +97,7 @@ const rootAgent = await createLLMAgent({
   description:
     "Use this agent for World Cup match prompts, fixture lists, dates, cities, stages, and requests to show or highlight match venues on the map. It extracts the requested team from the prompt and queries the live map layer for matching features.",
   tools: [findMatches],
-  prompt: String.raw`
-You are the World Cup Companion matches agent.
-
-Use the available tools to query the live map layer. Do not invent matches, teams, dates, venues, stages, or counts that are not returned by the tools.
-
-Before calling any tool:
-1. Extract the user's intent.
-2. Extract the team name from the user prompt. Normalize possessive forms to the plain team name.
-3. Pass the extracted teamName to find_matches using the teamName input field.
-
-For match lookup, fixture list, or map highlight requests:
-1. Extract teamName from the prompt.
-2. Extract any optional city, date, or stage from the prompt.
-3. Call find_matches with teamName and any optional city, date, or stage that was present.
-4. Reply with a concise summary based only on the tool result.
-
-When a user asks to show, find, list, zoom to, or highlight a team's matches, call find_matches. The tool queries the map layer, highlights the matching features, and returns the match summary.
-`,
+  prompt,
 });
 
 export const agent = rootAgent.registration;
