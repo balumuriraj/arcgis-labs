@@ -18,6 +18,52 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  apps/aftershock-replay:
+    dependencies:
+      '@arcgis/ai-components':
+        specifier: 5.2.0-next.155
+        version: 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/map-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2)))(@esri/calcite-components@5.2.0(luxon@3.7.2))(openai@6.42.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@arcgis/core':
+        specifier: 5.2.0-next.155
+        version: 5.2.0-next.155
+      '@arcgis/map-components':
+        specifier: 5.2.0-next.155
+        version: 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+      '@esri/calcite-components':
+        specifier: 5.2.0
+        version: 5.2.0(luxon@3.7.2)
+      next:
+        specifier: 16.1.5
+        version: 16.1.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      '@types/react':
+        specifier: 19.2.2
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: 19.2.2
+        version: 19.2.2(@types/react@19.2.2)
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.1
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
   apps/coopers-console:
     dependencies:
       '@arcgis/ai-components':
@@ -269,6 +315,9 @@ packages:
   '@amcharts/amcharts5@5.18.0':
     resolution: {integrity: sha512-2pIka1IrHO0mnTI7A9haq8aaq8leZZhFDythxNA7qYNg/iyGWuNcuzoyzJkybJLlNSlR5crkeNqZQL5up+IF3A==}
 
+  '@amcharts/amcharts5@5.20.8':
+    resolution: {integrity: sha512-ZrShblnP6JV/B4806+roNrAOzl+GIWDZCetJq82MHRzPsL0TAIPpL7jhmizzN/WRpjl/YvWRs1qjvS2o0d4rng==}
+
   '@arcgis/ai-components@5.1.0-next.138':
     resolution: {integrity: sha512-nWlmioxgGja+TCgrdltNUPd028ZQ3wjz5qx2OtOJumtk6D8/3flQD9Ynl2fM2KnQw9pTs4vkIHICm3aIjUNlow==}
     peerDependencies:
@@ -276,18 +325,39 @@ packages:
       '@arcgis/map-components': ~5.1.0-next.138
       '@esri/calcite-components': ^5.1.1
 
+  '@arcgis/ai-components@5.2.0-next.155':
+    resolution: {integrity: sha512-t/Me4g4/FgDdXPyG+6OZSEkXxIncNBb+xJ37N6DsIvoMWoHfoWtWC90oWos+QU/AE6yjWKPBA1wHhfCuWgbezg==}
+    peerDependencies:
+      '@arcgis/core': 5.2.0-next.155
+      '@arcgis/map-components': ~5.2.0-next.155
+      '@esri/calcite-components': ^5.2.0-next.89
+
   '@arcgis/common-components@5.1.0-next.138':
     resolution: {integrity: sha512-baMFZF7Sp31f5WhmknQezPsfH9+efw2165kcT7+3qgVGwu1G/b+npcQOSlIMykXAd0/A5FAF7gi6q+zcztTcbA==}
     peerDependencies:
       '@arcgis/core': ^5.1.0-next
       '@esri/calcite-components': ^5.1.1
 
+  '@arcgis/common-components@5.2.0-next.155':
+    resolution: {integrity: sha512-3qRW3Vls4IamNNbptzsnnP95AaKNaVd934i+8WyL6OQW4O0zfcQVP1bkrmAZBR87uVk0BFMFhl4Oq2uhMJrMSA==}
+    peerDependencies:
+      '@arcgis/core': 5.2.0-next.155
+      '@esri/calcite-components': ^5.2.0-next.89
+
   '@arcgis/core@5.1.0-next.136':
     resolution: {integrity: sha512-xKjXrMK7idqJobBy4KktvLDIRnt25onlGFQCXZ3zEZ+zLVEtwisWAuhpF4PERPJ5Fo4M/Hyn91RIW49qcYIcpw==}
 
-  '@arcgis/lumina@5.1.0-next.130':
-    resolution: {integrity: sha512-81Ge5DTKOptpwZ80UL6IUdv6t57t0o11C2XfR64CfzS3a41OdOL+xgphPGVtVIb9poR8O5XfHg+McJGRvd3QcQ==}
-    deprecated: This version is no longer supported. Upgrade to @latest
+  '@arcgis/core@5.2.0-next.155':
+    resolution: {integrity: sha512-i0Is8ZTJqRcVf3lAn8hNhh/s0MbtBnKSTfjj7xW2R+NxEfCU0gG3M77+zFhFk2aMJvBJ2/h5Qy1syXcAhHIbSg==}
+
+  '@arcgis/lumina-toolkit@5.2.0-next.155':
+    resolution: {integrity: sha512-OTXIePnl/4Ln+Xscg8mXVcy5o5PEy4AmUyigLQQJ1viJw6KSUyiHqUsyt9U96+ViBWMnhC/wqYaSXHCQLt5TeA==}
+    peerDependencies:
+      '@arcgis/core': 5.2.0-next.155
+      '@arcgis/lumina': 5.2.0-next.155
+
+  '@arcgis/lumina@5.1.0-next.138':
+    resolution: {integrity: sha512-rATdalu9D2A7192odshlLGEVfABUj22s21b+EUE/Jj59LcrbdNyk5tLDyD6HaKC/3/PJV0et6PUcE++pnd4APg==}
     peerDependencies:
       '@lit/context': ^1.1.6
       lit: ^3.3.0
@@ -295,8 +365,8 @@ packages:
       '@lit/context':
         optional: true
 
-  '@arcgis/lumina@5.1.0-next.138':
-    resolution: {integrity: sha512-rATdalu9D2A7192odshlLGEVfABUj22s21b+EUE/Jj59LcrbdNyk5tLDyD6HaKC/3/PJV0et6PUcE++pnd4APg==}
+  '@arcgis/lumina@5.2.0-next.155':
+    resolution: {integrity: sha512-MOsUUNMsLEI54p3QFnZ6XLNwIrdRCo0S8CBTomNLpngkLjE73pR+Y/8jHyZLwfJx+kqFudwy56hQ8152SY2BfQ==}
     peerDependencies:
       '@lit/context': ^1.1.6
       lit: ^3.3.0
@@ -310,12 +380,17 @@ packages:
       '@arcgis/core': ^5.1.0-next
       '@esri/calcite-components': ^5.1.1
 
-  '@arcgis/toolkit@5.1.0-next.130':
-    resolution: {integrity: sha512-YJDU+R96195hi6Knj9t922B1AZgaTjso5ouoKXlH/quFNbfEp04v9RoiZRFrbc1I7zh1V7zQ70AAwqAqC9r62g==}
-    deprecated: This version is no longer supported. Upgrade to @latest
+  '@arcgis/map-components@5.2.0-next.155':
+    resolution: {integrity: sha512-zIRC+EDgGgrq122zhfl1jdPAT7IIMs+Vt+YCyz7ualbEgup1imrcefnZROm7IR73cc+HEk5cyu1pR3P8Gydy3A==}
+    peerDependencies:
+      '@arcgis/core': 5.2.0-next.155
+      '@esri/calcite-components': ^5.2.0-next.89
 
   '@arcgis/toolkit@5.1.0-next.138':
     resolution: {integrity: sha512-vDVkAiq3yZgHJym2JJ/eDppViJrvhAZ7uwFQ4YDyHf6JxzQDzZ2git6aa6WL048t14Ua49Zw8zTj1G3vKLvL5g==}
+
+  '@arcgis/toolkit@5.2.0-next.155':
+    resolution: {integrity: sha512-nFMwctC/mEMPtdEcj2rdH3C/HjRwwdI+FadBci61xFbMKP1NsbOEQbbv33aA7ntJkA3v+IM2pcAHHoj0o0QOGg==}
 
   '@cfworker/json-schema@4.1.1':
     resolution: {integrity: sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og==}
@@ -365,14 +440,21 @@ packages:
     resolution: {integrity: sha512-einEveDJ/k1180NOp78PB/4Hje9eBy3dyOGLLtLn6bSkizpUfCwuYBIXOA7Y3F/k/BsTQXgKqUVwQ0eiscWMdA==}
     engines: {node: '>=18.0.0'}
 
-  '@esri/calcite-components@5.1.1':
-    resolution: {integrity: sha512-Rh99GQKzPGmznxZxvu5avln8Dj52Y2fis5w8ouQPXczruXlE/Wpgm8WTu5CUWQmfd5l0eMoUL2Sc1/LsCl+rkA==}
+  '@esri/arcgis-html-sanitizer@4.2.0-next.2':
+    resolution: {integrity: sha512-KUzXGqdcOVEzQOIEofUAi6ndiVMBuQmfFTVKYroDdRDR95DE7YHcvK5oVcNvaCveWDYXLLXz8AtGfdXiQUVXmw==}
+    engines: {node: '>=18.0.0'}
 
   '@esri/calcite-components@5.1.2-next.2':
     resolution: {integrity: sha512-Zv/jT7C1iJ4bClV+T1IRPH8Rl+LTnrdzCfLUMJ0frANJ5Obg/OiotS6i5zFc9yQV4mCrTNIPacEAx5pajSYaew==}
 
-  '@esri/calcite-ui-icons@4.5.0':
-    resolution: {integrity: sha512-MuXK8o5qefXXV/vdDucQUm8zno+9Q0KjadCX82gYX1VgHMLPp0x2+pbQzG3c0MDbRqkidhTqL/zwq/eVq282qg==}
+  '@esri/calcite-components@5.2.0':
+    resolution: {integrity: sha512-zcSgvfDKhFF2DIDo26D+GGy4r6NgmUO11k5NZaUzf65no4zkg7nrIgEKWSAtnmSJWMvg1Wlp34GygYObMi44NA==}
+
+  '@esri/calcite-design-tokens@4.2.0':
+    resolution: {integrity: sha512-TEdT1ptJ54Fogxr5MjuGQg5YVIjJWzll8hTgz14aSCiDsR02zsLBMDZONzl2UFghwP8f1zAtlRp86rHNnfAHmg==}
+
+  '@esri/calcite-ui-icons@4.6.0':
+    resolution: {integrity: sha512-wZEzmmTuXcwLSqPZZlbZnR60BeCIGWLd2Lhlmp95MU8BC9maYZ8GIHJB2M/qI5DekAcEu+1IiQ5mTsn9v/ReDA==}
     hasBin: true
 
   '@esri/calcite-ui-icons@4.6.0-next.4':
@@ -382,11 +464,20 @@ packages:
   '@floating-ui/core@1.7.5':
     resolution: {integrity: sha512-1Ih4WTWyw0+lKyFMcBHGbb5U5FtuHJuujoyyr5zTaWS5EYMeT6Jb2AuDeftsCsEuchO+mM2ij5+q9crhydzLhQ==}
 
+  '@floating-ui/core@1.8.0':
+    resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
+
   '@floating-ui/dom@1.7.6':
     resolution: {integrity: sha512-9gZSAI5XM36880PPMm//9dfiEngYoC6Am2izES1FF406YFsjvyBMmeJ2g4SAju3xWwtuynNRFL2s9hgxpLI5SQ==}
 
+  '@floating-ui/dom@1.8.0':
+    resolution: {integrity: sha512-yXSrzeHZBTZadLOlfyhCkJHNeLJnHRnRInwdZ40L7ZiaAtrBwoYlsDrX3v5zB1Utk7CLfzcOVnVVWoXEky7Ceg==}
+
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+
+  '@floating-ui/utils@0.2.12':
+    resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -564,11 +655,33 @@ packages:
     resolution: {integrity: sha512-fQU6Guyb1pwc2fEplmA8FPbKfOMAofjnyJzExevro0FxEiuGHE18Ov/ZHmT9trWCDTZRI9eW1VIc6aChxV8pAQ==}
     engines: {node: '>=20'}
 
+  '@langchain/core@1.2.20':
+    resolution: {integrity: sha512-0Nzh4/2On0MWFWbWRK7tDdMmSmD2Z/gt9+XoEQMPrV74Fpdf8r6grqEZNW6BkeqwY+KwKn+aFhatm4sK/yLldQ==}
+    engines: {node: '>=20'}
+
   '@langchain/langgraph-checkpoint@1.0.4':
     resolution: {integrity: sha512-1y5MgZ0gXXrtmoy56e3kaBChI3GwFPIKl27xkrHwN+VE/3iUsyr9gO3Jtp7kdKAe6diZGbcas5bdC/r0yUwTZA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': ^1.1.44
+
+  '@langchain/langgraph-checkpoint@1.2.1':
+    resolution: {integrity: sha512-RD01mi9fYfpIq5fWrW/j2iY7MRUoqKvh1Nj6TMRDBoTGE18E2du75zKDugNxb57N8FWCojaiWGB9Enssnx9Hyg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@langchain/core': ^1.1.48
+
+  '@langchain/langgraph-sdk@1.12.6':
+    resolution: {integrity: sha512-YLTf6Z6RMIXdg7LNdceeQubMrQTL7ae+BZChEfE/juJvH3fkPY1Jm8ndJu/augInQNlqXrKEBiskFRzrPT/gsQ==}
+    peerDependencies:
+      '@langchain/core': ^1.1.48
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   '@langchain/langgraph-sdk@1.9.20':
     resolution: {integrity: sha512-waZQNUN6apVg3jvDApy16wUGwrCvJB8WXHbIPvVrrUZHObqx0w5tk7P/Ite5Qvu4abWrvNtrmqk2zmcqCx7jVw==}
@@ -599,14 +712,30 @@ packages:
       zod-to-json-schema:
         optional: true
 
+  '@langchain/langgraph@1.5.2':
+    resolution: {integrity: sha512-jfVB9x+FH3CqlOYsYSVyuBoElV/J9pRL2nb7gie9Fb53J6rwNxSjTwxtyH3N8eVbZ94QckuFRxom6KTMlFfMOQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@langchain/core': ^1.1.48
+      zod: ^3.25.32 || ^4.2.0
+
   '@langchain/openai@1.4.7':
     resolution: {integrity: sha512-i1YLV4pWbGC6W8m0ZNpLObJuf1nyU4o8aWyX4AF9fHn7eM67HfIJWQ5n5XzcCpuSa41otrxA9jvH5XRKwI1qDA==}
     engines: {node: '>=20'}
     peerDependencies:
       '@langchain/core': ^1.1.48
 
+  '@langchain/openai@1.6.3':
+    resolution: {integrity: sha512-vioA4Si8bIAczcsmrfV8C8KZ3QozAz2yiuTZSgR57WsjuDsuF2dzZ4tx/jTEEtyOrFzfKXnSYi32QsNz8Mah9w==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      '@langchain/core': ^1.2.20
+
   '@langchain/protocol@0.0.16':
     resolution: {integrity: sha512-ws+J7MaHyhO5dG7f0vdyHQiUn9hoCnki0f3crJPa4MCTGzcRC39jYSCghyrGtBPYQnZbUQiGyRVpW3z3M8IpJg==}
+
+  '@langchain/protocol@0.0.20':
+    resolution: {integrity: sha512-sxlkDG2/HGyjDFLTJ8B/o3oglRjOv8iLCFgrV0550/Vym3V6RZ0SUjAQFe8jrLQw8ZXjERy3swJp5OODBSrUYA==}
 
   '@lit-labs/ssr-dom-shim@1.5.1':
     resolution: {integrity: sha512-Aou5UdlSpr5whQe8AA/bZG0jMj96CoJIWbGfZ91qieWu5AWUMKw8VR/pAkQkJYvBNhmCcWnZlyyk5oze8JIqYA==}
@@ -616,6 +745,14 @@ packages:
 
   '@lit/task@1.0.3':
     resolution: {integrity: sha512-1gJGJl8WON+2j0y9xfcD+XsS1rvcy3XDgsIhcdUW++yTR8ESjZW6o7dn8M8a4SZM8NnJe6ynS2cKWwsbfLOurg==}
+
+  '@modelcontextprotocol/client@2.3.1':
+    resolution: {integrity: sha512-mIGZXpHsjnZ6lD+gD/WCMpR5k8yVQQ8nNFH1N0Srf7AvnwTUMYD6pvTY8ng2+He5FfV7YMZLmrjL7cLa/cc3dQ==}
+    engines: {node: '>=20'}
+
+  '@modelcontextprotocol/core@2.3.1':
+    resolution: {integrity: sha512-laVmIhPGpWi7rG9q+0UigblRN0Hws/Yjlb6qLFtVqryXVLkc4h+yN8z731POD2LnAGQlFe7/tXhUm7Bi0YB91g==}
+    engines: {node: '>=20'}
 
   '@next/env@16.1.5':
     resolution: {integrity: sha512-CRSCPJiSZoi4Pn69RYBDI9R7YK2g59vLexPQFXY0eyw+ILevIenCywzg+DqmlBik9zszEnw2HLFOUlLAcJbL7g==}
@@ -909,32 +1046,59 @@ packages:
   '@vaadin/a11y-base@25.1.4':
     resolution: {integrity: sha512-uBH5VsCFe0hEg1gJ2ngK5Qj7VUY3rwTRUEz+DtsLme5MeTrD7G2ovVRMckjCIj4Rf1FvZT/vZjmish9LoKfVlA==}
 
+  '@vaadin/a11y-base@25.3.3':
+    resolution: {integrity: sha512-PwJ1SCo9cQBDyVTyilEg2+5HfGG0vga1mwxSvJmfSrP16QPAXXJ/29EfpBSDIoJwoWRNaksadYN5AU42VP/syQ==}
+
   '@vaadin/checkbox@25.1.4':
     resolution: {integrity: sha512-OGxtXc4SVOb70LyBs1nFHR67KBqbbRwj4c0c1kLz6dL1vNhOfDYK9JOaIvrhMqvvtqELfeq4IANC0DQ3m6L2aA==}
+
+  '@vaadin/checkbox@25.3.3':
+    resolution: {integrity: sha512-GfiPPresQsETdhXPxqGoGVEKvoH0S/RpWfcwTP+GtRPZch19KpWsXkCKAsccRZtRIBM7mgF29v9HJnl2Zr9kfA==}
 
   '@vaadin/component-base@25.1.4':
     resolution: {integrity: sha512-9C7vrkWGfzvBJGZQMKTwWSD3Cu4DXnLD3uZ2DDuDkgLIftDM5kLHFBIoc6l8nms06rc4SyzLhdH9TPTpd8U7rA==}
 
+  '@vaadin/component-base@25.3.3':
+    resolution: {integrity: sha512-SGAJ8kmneYDf7leSMpnJ6Q1aMJHaegLwJnr8zmdSW0L9mlMcyluF/3FS9pI34+KTK4VcdvlMalOiP9tMFRm5NQ==}
+
   '@vaadin/field-base@25.1.4':
     resolution: {integrity: sha512-Ip+J35HloJy1vGHz2MhwfNWAohBXko76/9M4VbRkhw5M2TdxgDcsgaWKxWFrvosjzX44ngvsZfxEY96HQTbuWw==}
+
+  '@vaadin/field-base@25.3.3':
+    resolution: {integrity: sha512-z5WkgVl1UZ6YBuaCWj0k/qs7JNA0uhFSzcogxd1Kzzaq4/VhAKHTRRti5zuRG90Dgnkur22479arpQOp7gep6Q==}
 
   '@vaadin/grid@25.1.4':
     resolution: {integrity: sha512-Vs1o8p5pLgn63lyI1hIz+swrYu9tc2O60AVvyg39QoS7hsWI1W5WxCFvNFEYNnTP7lR1tCCmPHrvTLnkCHXxSA==}
 
+  '@vaadin/grid@25.3.3':
+    resolution: {integrity: sha512-1Rff4K/WKEo2U+COuPiONyt3noGNsLbTXzegfYxtCv39Cjd6e5/+PptgQPwKme/nx1W8soQvGS0y9tInYS/v7g==}
+
   '@vaadin/input-container@25.1.4':
     resolution: {integrity: sha512-QhA4yaQG23OitwToCeFOllIf4n6rMAF2ly1GGMk9G5fRrGJd0302wnCjB/VagdreMCdsnrgjPnsRt5UtQWsVow==}
+
+  '@vaadin/input-container@25.3.3':
+    resolution: {integrity: sha512-g4uwxtirVqRB5Lg4YbZeRqP/8qzfwfhmiMU9I27yJf2lvXD8HR8/C/23waO4XOWQUdYUrXcC6xrjxr/VLIim+g==}
 
   '@vaadin/lit-renderer@25.1.4':
     resolution: {integrity: sha512-uLeIMD3PvTGSBKBVY3JHMMKAwGFrmI5NDn9eEnZSb/fr3JOPmpHOXGmMoW+bFpdx+c8XzacewlbVgJrlWb5lxg==}
 
+  '@vaadin/lit-renderer@25.3.3':
+    resolution: {integrity: sha512-+IXZf2dIzK2wYw4EaxwVL0twcmoVVCHSfQQeg3PUCYuZIfmaeJeqWGmirisjZcaWFsaj1EdEtjX7detlr0pOcA==}
+
   '@vaadin/text-field@25.1.4':
     resolution: {integrity: sha512-4fwXqiopB96prSb2o3v6d9iuYqJao1O9tpdlp8bUlnrb2VShheosKql3pZePKgZb7/+ZhKCCH33/6IcT1oKMGQ==}
+
+  '@vaadin/text-field@25.3.3':
+    resolution: {integrity: sha512-fxbUvy1ydpNm8q6938qJzyiUv4ZS3DVIz8uj9BpnrsnYeJWx0pDpcIyuzoc8ogQzw/4MKEz5FKGJ+IM4QppiGA==}
 
   '@vaadin/vaadin-development-mode-detector@2.0.7':
     resolution: {integrity: sha512-9FhVhr0ynSR3X2ao+vaIEttcNU5XfzCbxtmYOV8uIRnUCtNgbvMOIcyGBvntsX9I5kvIP2dV3cFAOG9SILJzEA==}
 
   '@vaadin/vaadin-themable-mixin@25.1.4':
     resolution: {integrity: sha512-g2L62j09rWrJYng7Jn4uQDw6CbThGy6/ZuRy15KMuHS2EddwxM6hW4bRsX1qGM2BnZGRYAcq0vzWslbg1MOxqw==}
+
+  '@vaadin/vaadin-themable-mixin@25.3.3':
+    resolution: {integrity: sha512-DgxYF/T0zhaYiCjijMFCQqhvHdkwKNfiur6wQpfyPQt6VZw4l0wzCrcvccinza4SVJprA3M/ZyNTCSRCA3CO5w==}
 
   '@vaadin/vaadin-usage-statistics@2.1.3':
     resolution: {integrity: sha512-8r4TNknD7OJQADe3VygeofFR7UNAXZ2/jjBFP5dgI8+2uMfnuGYgbuHivasKr9WSQ64sPej6m8rDoM1uSllXjQ==}
@@ -990,6 +1154,10 @@ packages:
 
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
+
+  '@zip.js/zip.js@2.23.0':
+    resolution: {integrity: sha512-K5obAqfrO7zhycnCupM9aaoZ9kx0SA0kv7+Z2oOUsdpWquv4s/Z4zyD7AdTqxrK3pgPM+ozaUi8kdRQbCWaIrQ==}
+    engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
 
   '@zip.js/zip.js@2.8.26':
     resolution: {integrity: sha512-RQ4h9F6DOiHxpdocUDrOl6xBM+yOtz+LkUol47AVWcfebGBDpZ7w7Xvz9PS24JgXvLGiXXzSAfdCdVy1tPlaFA==}
@@ -1200,6 +1368,10 @@ packages:
 
   console-table-printer@2.15.0:
     resolution: {integrity: sha512-SrhBq4hYVjLCkBVOWaTzceJalvn5K1Zq5aQA6wXC/cYjI3frKWNPEMK3sZsJfNNQApvCQmgBcc13ZKmFj8qExw==}
+
+  countries-and-timezones@3.11.0:
+    resolution: {integrity: sha512-amqnHZJyuaFol6Z9gmyDb/D5cS6OSZUMfT6Ovj2HMmEBykHfwfA6dih59rulQ2kWynW7XeCAOzJr60hWL64Anw==}
+    engines: {node: '>=8.x', npm: '>=5.x'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -1471,6 +1643,9 @@ packages:
   es-toolkit@1.45.1:
     resolution: {integrity: sha512-/jhoOj/Fx+A+IIyDNOvO3TItGmlMKhtX8ISAHKE90c4b/k1tqaqEZ+uUqfpU8DMnW5cgNJv606zS55jGvza0Xw==}
 
+  es-toolkit@1.52.0:
+    resolution: {integrity: sha512-XTNEJQh1tY1ZJVcf6ayP/2n4ZPyaHlW2FWs7xvw5ddPuhUVjLD3olQVQS7kf58JbAB48iL0uL/jerTrjtV3lDA==}
+
   escalade@3.2.0:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
     engines: {node: '>=6'}
@@ -1566,6 +1741,14 @@ packages:
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
+
+  eventsource-parser@3.1.1:
+    resolution: {integrity: sha512-EKN1vKAMcZ8MlYMpaNuxN6R9yakzH6uajHcHVTqWJzvu5pWw9DyhbP35HH8MVBQ+dZjAfDxk+A8NiR9KWaXiyQ==}
+    engines: {node: '>=18.0.0'}
+
+  eventsource@3.0.7:
+    resolution: {integrity: sha512-CRT1WTyuQoD771GW56XEZFQ/ZoSfWid1alKGDYMmkt2yl8UXrVR4pspqWNEcqKvVIzg6PAltWjxcSSPrboA4iA==}
+    engines: {node: '>=18.0.0'}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -1858,6 +2041,9 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
 
+  jose@6.2.13:
+    resolution: {integrity: sha512-7TIg10ZE1x82YediN+lcrPNvGMKge9yFHQD+Qho/b8y2adfugU3AsvvHfxV0fzyFllT6l9xCjf4RWY9g/Z9PJQ==}
+
   js-md5@0.8.3:
     resolution: {integrity: sha512-qR0HB5uP6wCuRMrWPTrkMaev7MJZwJuuw4fnwAzRgP4J4/F8RwtodOKpGp4XpqsLBFzzgqIO42efFAyz2Et6KQ==}
 
@@ -1902,6 +2088,32 @@ packages:
     engines: {node: '>=20'}
     peerDependencies:
       '@langchain/core': ^1.1.48
+
+  langchain@1.5.18:
+    resolution: {integrity: sha512-JSOQrWvMZ4d7AZH9HXB311cVhGa1nbDVkV5bvIa4WWdxwlHTm0Wi15aGEnutJcs0vW2wTEUk4mAS2ukNHKbIBA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@langchain/core': ^1.2.18
+
+  langsmith@0.11.0:
+    resolution: {integrity: sha512-NMyaEhfHKAVPdXR8jqP1in4BAr2RhJTmBsH+ZzhvBDTxWUsuaprnJxkRe/3NY5d2+wCaPtzbDK2Myhh6vg2q7w==}
+    peerDependencies:
+      '@opentelemetry/api': '*'
+      '@opentelemetry/exporter-trace-otlp-proto': '*'
+      '@opentelemetry/sdk-trace-base': '*'
+      openai: '*'
+      ws: '>=7'
+    peerDependenciesMeta:
+      '@opentelemetry/api':
+        optional: true
+      '@opentelemetry/exporter-trace-otlp-proto':
+        optional: true
+      '@opentelemetry/sdk-trace-base':
+        optional: true
+      openai:
+        optional: true
+      ws:
+        optional: true
 
   langsmith@0.5.7:
     resolution: {integrity: sha512-FjYf2oBGMoSXnaT4SRaFguIiGJaonZ5VKWKJDPl9awLZjz2RkN29AcQWceecSINVzXzTvtRWPOjAWT+XggqNNg==}
@@ -1968,6 +2180,11 @@ packages:
 
   marked@18.0.5:
     resolution: {integrity: sha512-S6GcvALHg6K4ohtu4E7x0a1AqhAjp6cV8KhLSyN9qVapnzJkusVBxZRcIU9AeYsbe6P1hKDusSbEOzGyyuce6w==}
+    engines: {node: '>= 20'}
+    hasBin: true
+
+  marked@18.1.1:
+    resolution: {integrity: sha512-zEGgrtUG8crk+TrMacJSVABU4DYDDkS8uqgU3ohrn/2fW9C2AEfUrO3m6IhpIpQpl7YcVpiXXC9cSMWDANT3dg==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -2084,6 +2301,33 @@ packages:
       zod:
         optional: true
 
+  openai@7.41.0:
+    resolution: {integrity: sha512-k8dr5CXaK8+3f6iOrjQQz7rw7zT3QQZZtI28KOnVmU5Q10vX+Iyik4cE20ohMmZ7EnumUVC7S6nmjEBd/wdlLg==}
+    engines: {node: '>=22.0.0'}
+    peerDependencies:
+      '@aws-sdk/credential-provider-node': '>=3.972.0 <4'
+      '@smithy/hash-node': '>=4.3.0 <5'
+      '@smithy/signature-v4': '>=5.4.0 <6'
+      google-auth-library: '>=9.15.1 <11'
+      undici: '>=5 <9'
+      ws: ^8.21.0
+      zod: ^3.25 || ^4.0
+    peerDependenciesMeta:
+      '@aws-sdk/credential-provider-node':
+        optional: true
+      '@smithy/hash-node':
+        optional: true
+      '@smithy/signature-v4':
+        optional: true
+      google-auth-library:
+        optional: true
+      undici:
+        optional: true
+      ws:
+        optional: true
+      zod:
+        optional: true
+
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
@@ -2162,6 +2406,10 @@ packages:
   picomatch@4.0.3:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
+
+  pkce-challenge@5.0.1:
+    resolution: {integrity: sha512-wQ0b/W4Fr01qtpHlqSqspcj3EhBvimsdh0KlHhH8HRZnMsEa0ea2fTULOXOS9ccQr3om+GcGRk4e+isrZWV8qQ==}
+    engines: {node: '>=16.20.0'}
 
   png-js@1.1.0:
     resolution: {integrity: sha512-PM/uYGzGdNSzqeOgly68+6wKQDL1SY0a/N+OEa/+br6LnHWOAJB0Npiamnodfq3jd2LS/i2fMeOKSAILjA+m5Q==}
@@ -2403,6 +2651,9 @@ packages:
   tabbable@6.4.0:
     resolution: {integrity: sha512-05PUHKSNE8ou2dwIxTngl4EzcnsCDZGJ/iCLtDflR/SHB/ny14rXc+qU5P4mG9JkusiV7EivzY9Mhm55AzAvCg==}
 
+  tabbable@6.5.0:
+    resolution: {integrity: sha512-wieBHXygIm7OyQOu5hQlkk62/WyCFYGlWg7L6/ZCUZwx0o398Zkn4pVmMyfYhfMG8kGrj/Krt8eIk6UKC6VzwA==}
+
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
     engines: {node: '>=6'}
@@ -2431,6 +2682,26 @@ packages:
   timezone-groups@0.10.4:
     resolution: {integrity: sha512-AnkJYrbb7uPkDCEqGeVJiawZNiwVlSkkeX4jZg1gTEguClhyX+/Ezn07KB6DT29tG3UN418ldmS/W6KqGOTDjg==}
     engines: {node: '>=18.12.0'}
+
+  timezone-groups@1.0.1:
+    resolution: {integrity: sha512-HKkJTup0GzYQfP5+dFv1GEhxgG/TMTzGHzbNs/jYJFDQRvD/xPdtVhTzkLXkkB9p0dVTWzJxw6EZTTSidi392g==}
+    peerDependencies:
+      date-fns: ^4.0.0
+      date-fns-tz: ^3.0.0
+      dayjs: ^1.11.0
+      luxon: ^3.0.0
+      moment-timezone: ^0.6.0
+    peerDependenciesMeta:
+      date-fns:
+        optional: true
+      date-fns-tz:
+        optional: true
+      dayjs:
+        optional: true
+      luxon:
+        optional: true
+      moment-timezone:
+        optional: true
 
   tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
@@ -2613,9 +2884,40 @@ packages:
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
+  zod@4.6.7:
+    resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
+
 snapshots:
 
   '@amcharts/amcharts5@5.18.0':
+    dependencies:
+      '@types/d3': 7.4.3
+      '@types/d3-chord': 3.0.6
+      '@types/d3-hierarchy': 3.1.1
+      '@types/d3-sankey': 0.11.2
+      '@types/d3-shape': 3.1.8
+      '@types/geojson': 7946.0.16
+      '@types/polylabel': 1.1.3
+      '@types/svg-arc-to-cubic-bezier': 3.2.3
+      d3: 7.9.0
+      d3-chord: 3.0.1
+      d3-force: 3.0.0
+      d3-geo: 3.1.1
+      d3-hierarchy: 3.1.2
+      d3-sankey: 0.12.3
+      d3-selection: 3.0.0
+      d3-shape: 3.2.0
+      d3-transition: 3.0.1(d3-selection@3.0.0)
+      d3-voronoi-treemap: 1.1.2
+      flatpickr: 4.6.13
+      markerjs2: 2.32.7
+      pdfmake: 0.3.10
+      polylabel: 1.1.0
+      seedrandom: 3.0.5
+      svg-arc-to-cubic-bezier: 3.2.0
+      tslib: 2.8.1
+
+  '@amcharts/amcharts5@5.20.8':
     dependencies:
       '@types/d3': 7.4.3
       '@types/d3-chord': 3.0.6
@@ -2672,6 +2974,38 @@ snapshots:
       - ws
       - zod-to-json-schema
 
+  '@arcgis/ai-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/map-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2)))(@esri/calcite-components@5.2.0(luxon@3.7.2))(openai@6.42.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@arcgis/core': 5.2.0-next.155
+      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
+      '@arcgis/map-components': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+      '@arcgis/toolkit': 5.2.0-next.155
+      '@esri/arcgis-html-sanitizer': 4.2.0-next.2
+      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
+      '@langchain/core': 1.2.20(openai@6.42.0(zod@4.6.7))
+      '@langchain/langgraph': 1.5.2(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.6.7)
+      '@langchain/openai': 1.6.3(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))
+      '@modelcontextprotocol/client': 2.3.1
+      langchain: 1.5.18(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))(openai@6.42.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      lit: 3.3.2
+      marked: 18.1.1
+      tslib: 2.8.1
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-provider-node'
+      - '@lit/context'
+      - '@opentelemetry/api'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/sdk-trace-base'
+      - '@smithy/hash-node'
+      - '@smithy/signature-v4'
+      - google-auth-library
+      - openai
+      - react
+      - react-dom
+      - undici
+      - ws
+
   '@arcgis/common-components@5.1.0-next.138(@arcgis/core@5.1.0-next.136)(@esri/calcite-components@5.1.2-next.2)':
     dependencies:
       '@arcgis/core': 5.1.0-next.136
@@ -2685,12 +3019,26 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
+  '@arcgis/common-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
+    dependencies:
+      '@arcgis/core': 5.2.0-next.155
+      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
+      '@arcgis/lumina-toolkit': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/lumina@5.2.0-next.155(lit@3.3.2))
+      '@arcgis/toolkit': 5.2.0-next.155
+      '@esri/arcgis-html-sanitizer': 4.2.0-next.2
+      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
+      '@lit/task': 1.0.3
+      lit: 3.3.2
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@lit/context'
+
   '@arcgis/core@5.1.0-next.136':
     dependencies:
       '@amcharts/amcharts5': 5.18.0
       '@arcgis/toolkit': 5.1.0-next.138
       '@esri/arcgis-html-sanitizer': 4.1.0
-      '@esri/calcite-components': 5.1.1
+      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
       '@vaadin/grid': 25.1.4
       '@zip.js/zip.js': 2.8.26
       luxon: 3.7.2
@@ -2698,17 +3046,45 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@lit/context'
+      - date-fns
+      - date-fns-tz
+      - dayjs
+      - moment-timezone
 
-  '@arcgis/lumina@5.1.0-next.130(lit@3.3.2)':
+  '@arcgis/core@5.2.0-next.155':
     dependencies:
-      '@arcgis/toolkit': 5.1.0-next.130
-      csstype: 3.1.3
-      lit: 3.3.2
+      '@amcharts/amcharts5': 5.20.8
+      '@arcgis/toolkit': 5.2.0-next.155
+      '@esri/arcgis-html-sanitizer': 4.2.0-next.2
+      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
+      '@vaadin/grid': 25.3.3
+      '@zip.js/zip.js': 2.23.0
+      luxon: 3.7.2
+      marked: 18.1.1
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@lit/context'
+      - date-fns
+      - date-fns-tz
+      - dayjs
+      - moment-timezone
+
+  '@arcgis/lumina-toolkit@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/lumina@5.2.0-next.155(lit@3.3.2))':
+    dependencies:
+      '@arcgis/core': 5.2.0-next.155
+      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
       tslib: 2.8.1
 
   '@arcgis/lumina@5.1.0-next.138(lit@3.3.2)':
     dependencies:
       '@arcgis/toolkit': 5.1.0-next.138
+      csstype: 3.1.3
+      lit: 3.3.2
+      tslib: 2.8.1
+
+  '@arcgis/lumina@5.2.0-next.155(lit@3.3.2)':
+    dependencies:
+      '@arcgis/toolkit': 5.2.0-next.155
       csstype: 3.1.3
       lit: 3.3.2
       tslib: 2.8.1
@@ -2727,11 +3103,26 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/toolkit@5.1.0-next.130':
+  '@arcgis/map-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
+    dependencies:
+      '@amcharts/amcharts5': 5.20.8
+      '@arcgis/common-components': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+      '@arcgis/core': 5.2.0-next.155
+      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
+      '@arcgis/lumina-toolkit': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/lumina@5.2.0-next.155(lit@3.3.2))
+      '@arcgis/toolkit': 5.2.0-next.155
+      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
+      es-toolkit: 1.52.0
+      lit: 3.3.2
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@lit/context'
+
+  '@arcgis/toolkit@5.1.0-next.138':
     dependencies:
       tslib: 2.8.1
 
-  '@arcgis/toolkit@5.1.0-next.138':
+  '@arcgis/toolkit@5.2.0-next.155':
     dependencies:
       tslib: 2.8.1
 
@@ -2792,25 +3183,9 @@ snapshots:
     dependencies:
       xss: 1.0.13
 
-  '@esri/calcite-components@5.1.1':
+  '@esri/arcgis-html-sanitizer@4.2.0-next.2':
     dependencies:
-      '@arcgis/lumina': 5.1.0-next.130(lit@3.3.2)
-      '@arcgis/toolkit': 5.1.0-next.138
-      '@esri/calcite-ui-icons': 4.5.0
-      '@floating-ui/dom': 1.7.6
-      '@floating-ui/utils': 0.2.11
-      '@types/sortablejs': 1.15.9
-      color: 5.0.3
-      composed-offset-position: 0.0.6(@floating-ui/utils@0.2.11)
-      es-toolkit: 1.45.1
-      focus-trap: 8.2.1
-      interactjs: 1.10.27
-      lit: 3.3.2
-      sortablejs: 1.15.7
-      timezone-groups: 0.10.4
-      type-fest: 4.41.0
-    transitivePeerDependencies:
-      - '@lit/context'
+      xss: 1.0.13
 
   '@esri/calcite-components@5.1.2-next.2':
     dependencies:
@@ -2832,7 +3207,37 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@esri/calcite-ui-icons@4.5.0': {}
+  '@esri/calcite-components@5.2.0(luxon@3.7.2)':
+    dependencies:
+      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
+      '@arcgis/toolkit': 5.2.0-next.155
+      '@esri/calcite-design-tokens': 4.2.0
+      '@esri/calcite-ui-icons': 4.6.0
+      '@floating-ui/dom': 1.8.0
+      '@floating-ui/utils': 0.2.11
+      '@interactjs/types': 1.10.27
+      '@types/sortablejs': 1.15.9
+      color: 5.0.3
+      composed-offset-position: 0.0.6(@floating-ui/utils@0.2.11)
+      es-toolkit: 1.45.1
+      focus-trap: 8.2.1
+      interactjs: 1.10.27
+      lit: 3.3.2
+      sortablejs: 1.15.7
+      tabbable: 6.5.0
+      timezone-groups: 1.0.1(luxon@3.7.2)
+      type-fest: 4.41.0
+    transitivePeerDependencies:
+      - '@lit/context'
+      - date-fns
+      - date-fns-tz
+      - dayjs
+      - luxon
+      - moment-timezone
+
+  '@esri/calcite-design-tokens@4.2.0': {}
+
+  '@esri/calcite-ui-icons@4.6.0': {}
 
   '@esri/calcite-ui-icons@4.6.0-next.4': {}
 
@@ -2840,12 +3245,23 @@ snapshots:
     dependencies:
       '@floating-ui/utils': 0.2.11
 
+  '@floating-ui/core@1.8.0':
+    dependencies:
+      '@floating-ui/utils': 0.2.12
+
   '@floating-ui/dom@1.7.6':
     dependencies:
       '@floating-ui/core': 1.7.5
       '@floating-ui/utils': 0.2.11
 
+  '@floating-ui/dom@1.8.0':
+    dependencies:
+      '@floating-ui/core': 1.8.0
+      '@floating-ui/utils': 0.2.12
+
   '@floating-ui/utils@0.2.11': {}
+
+  '@floating-ui/utils@0.2.12': {}
 
   '@humanfs/core@0.19.1': {}
 
@@ -2991,10 +3407,41 @@ snapshots:
       - '@opentelemetry/sdk-trace-base'
       - openai
 
+  '@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7))':
+    dependencies:
+      '@cfworker/json-schema': 4.1.1
+      '@standard-schema/spec': 1.1.0
+      js-tiktoken: 1.0.21
+      langsmith: 0.11.0(openai@6.42.0(zod@4.6.7))
+      mustache: 4.2.0
+      p-queue: 6.6.2
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/sdk-trace-base'
+      - openai
+      - ws
+
   '@langchain/langgraph-checkpoint@1.0.4(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))':
     dependencies:
       '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
       uuid: 14.0.0
+
+  '@langchain/langgraph-checkpoint@1.2.1(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))':
+    dependencies:
+      '@langchain/core': 1.2.20(openai@6.42.0(zod@4.6.7))
+
+  '@langchain/langgraph-sdk@1.12.6(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@langchain/core': 1.2.20(openai@6.42.0(zod@4.6.7))
+      '@langchain/protocol': 0.0.20
+      '@types/json-schema': 7.0.15
+      p-queue: 9.1.0
+      p-retry: 7.1.1
+    optionalDependencies:
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
 
   '@langchain/langgraph-sdk@1.9.20(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
@@ -3023,6 +3470,18 @@ snapshots:
       - svelte
       - vue
 
+  '@langchain/langgraph@1.5.2(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.6.7)':
+    dependencies:
+      '@langchain/core': 1.2.20(openai@6.42.0(zod@4.6.7))
+      '@langchain/langgraph-checkpoint': 1.2.1(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))
+      '@langchain/langgraph-sdk': 1.12.6(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@langchain/protocol': 0.0.20
+      '@standard-schema/spec': 1.1.0
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
   '@langchain/openai@1.4.7(@langchain/core@1.1.48(openai@6.42.0(zod@4.3.6)))':
     dependencies:
       '@langchain/core': 1.1.48(openai@6.42.0(zod@4.3.6))
@@ -3032,7 +3491,23 @@ snapshots:
     transitivePeerDependencies:
       - ws
 
+  '@langchain/openai@1.6.3(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))':
+    dependencies:
+      '@langchain/core': 1.2.20(openai@6.42.0(zod@4.6.7))
+      js-tiktoken: 1.0.21
+      openai: 7.41.0(zod@4.6.7)
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-provider-node'
+      - '@smithy/hash-node'
+      - '@smithy/signature-v4'
+      - google-auth-library
+      - undici
+      - ws
+
   '@langchain/protocol@0.0.16': {}
+
+  '@langchain/protocol@0.0.20': {}
 
   '@lit-labs/ssr-dom-shim@1.5.1': {}
 
@@ -3043,6 +3518,20 @@ snapshots:
   '@lit/task@1.0.3':
     dependencies:
       '@lit/reactive-element': 2.1.2
+
+  '@modelcontextprotocol/client@2.3.1':
+    dependencies:
+      '@modelcontextprotocol/core': 2.3.1
+      cross-spawn: 7.0.6
+      eventsource: 3.0.7
+      eventsource-parser: 3.1.1
+      jose: 6.2.13
+      pkce-challenge: 5.0.1
+      zod: 4.6.7
+
+  '@modelcontextprotocol/core@2.3.1':
+    dependencies:
+      zod: 4.6.7
 
   '@next/env@16.1.5': {}
 
@@ -3364,6 +3853,12 @@ snapshots:
       '@vaadin/component-base': 25.1.4
       lit: 3.3.2
 
+  '@vaadin/a11y-base@25.3.3':
+    dependencies:
+      '@open-wc/dedupe-mixin': 1.4.0
+      '@vaadin/component-base': 25.3.3
+      lit: 3.3.2
+
   '@vaadin/checkbox@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
@@ -3373,7 +3868,23 @@ snapshots:
       '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
+  '@vaadin/checkbox@25.3.3':
+    dependencies:
+      '@open-wc/dedupe-mixin': 1.4.0
+      '@vaadin/a11y-base': 25.3.3
+      '@vaadin/component-base': 25.3.3
+      '@vaadin/field-base': 25.3.3
+      '@vaadin/vaadin-themable-mixin': 25.3.3
+      lit: 3.3.2
+
   '@vaadin/component-base@25.1.4':
+    dependencies:
+      '@open-wc/dedupe-mixin': 1.4.0
+      '@vaadin/vaadin-development-mode-detector': 2.0.7
+      '@vaadin/vaadin-usage-statistics': 2.1.3
+      lit: 3.3.2
+
+  '@vaadin/component-base@25.3.3':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
       '@vaadin/vaadin-development-mode-detector': 2.0.7
@@ -3387,6 +3898,13 @@ snapshots:
       '@vaadin/component-base': 25.1.4
       lit: 3.3.2
 
+  '@vaadin/field-base@25.3.3':
+    dependencies:
+      '@open-wc/dedupe-mixin': 1.4.0
+      '@vaadin/a11y-base': 25.3.3
+      '@vaadin/component-base': 25.3.3
+      lit: 3.3.2
+
   '@vaadin/grid@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
@@ -3398,13 +3916,34 @@ snapshots:
       '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
+  '@vaadin/grid@25.3.3':
+    dependencies:
+      '@open-wc/dedupe-mixin': 1.4.0
+      '@vaadin/a11y-base': 25.3.3
+      '@vaadin/checkbox': 25.3.3
+      '@vaadin/component-base': 25.3.3
+      '@vaadin/lit-renderer': 25.3.3
+      '@vaadin/text-field': 25.3.3
+      '@vaadin/vaadin-themable-mixin': 25.3.3
+      lit: 3.3.2
+
   '@vaadin/input-container@25.1.4':
     dependencies:
       '@vaadin/component-base': 25.1.4
       '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
+  '@vaadin/input-container@25.3.3':
+    dependencies:
+      '@vaadin/component-base': 25.3.3
+      '@vaadin/vaadin-themable-mixin': 25.3.3
+      lit: 3.3.2
+
   '@vaadin/lit-renderer@25.1.4':
+    dependencies:
+      lit: 3.3.2
+
+  '@vaadin/lit-renderer@25.3.3':
     dependencies:
       lit: 3.3.2
 
@@ -3418,12 +3957,28 @@ snapshots:
       '@vaadin/vaadin-themable-mixin': 25.1.4
       lit: 3.3.2
 
+  '@vaadin/text-field@25.3.3':
+    dependencies:
+      '@open-wc/dedupe-mixin': 1.4.0
+      '@vaadin/a11y-base': 25.3.3
+      '@vaadin/component-base': 25.3.3
+      '@vaadin/field-base': 25.3.3
+      '@vaadin/input-container': 25.3.3
+      '@vaadin/vaadin-themable-mixin': 25.3.3
+      lit: 3.3.2
+
   '@vaadin/vaadin-development-mode-detector@2.0.7': {}
 
   '@vaadin/vaadin-themable-mixin@25.1.4':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
       '@vaadin/component-base': 25.1.4
+      lit: 3.3.2
+
+  '@vaadin/vaadin-themable-mixin@25.3.3':
+    dependencies:
+      '@open-wc/dedupe-mixin': 1.4.0
+      '@vaadin/component-base': 25.3.3
       lit: 3.3.2
 
   '@vaadin/vaadin-usage-statistics@2.1.3':
@@ -3509,6 +4064,8 @@ snapshots:
   '@xtuc/ieee754@1.2.0': {}
 
   '@xtuc/long@4.2.2': {}
+
+  '@zip.js/zip.js@2.23.0': {}
 
   '@zip.js/zip.js@2.8.26': {}
 
@@ -3729,6 +4286,8 @@ snapshots:
   console-table-printer@2.15.0:
     dependencies:
       simple-wcswidth: 1.1.2
+
+  countries-and-timezones@3.11.0: {}
 
   cross-spawn@7.0.6:
     dependencies:
@@ -4100,6 +4659,8 @@ snapshots:
 
   es-toolkit@1.45.1: {}
 
+  es-toolkit@1.52.0: {}
+
   escalade@3.2.0: {}
 
   escape-string-regexp@4.0.0: {}
@@ -4220,6 +4781,12 @@ snapshots:
   eventemitter3@5.0.4: {}
 
   events@3.3.0: {}
+
+  eventsource-parser@3.1.1: {}
+
+  eventsource@3.0.7:
+    dependencies:
+      eventsource-parser: 3.1.1
 
   fast-deep-equal@3.1.3: {}
 
@@ -4526,6 +5093,8 @@ snapshots:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
+  jose@6.2.13: {}
+
   js-md5@0.8.3: {}
 
   js-tiktoken@1.0.21:
@@ -4578,6 +5147,28 @@ snapshots:
       - svelte
       - vue
       - zod-to-json-schema
+
+  langchain@1.5.18(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))(openai@6.42.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+    dependencies:
+      '@langchain/core': 1.2.20(openai@6.42.0(zod@4.6.7))
+      '@langchain/langgraph': 1.5.2(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.6.7)
+      '@langchain/langgraph-checkpoint': 1.2.1(@langchain/core@1.2.20(openai@6.42.0(zod@4.6.7)))
+      langsmith: 0.11.0(openai@6.42.0(zod@4.6.7))
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/sdk-trace-base'
+      - openai
+      - react
+      - react-dom
+      - ws
+
+  langsmith@0.11.0(openai@6.42.0(zod@4.6.7)):
+    dependencies:
+      p-queue: 6.6.2
+    optionalDependencies:
+      openai: 6.42.0(zod@4.6.7)
 
   langsmith@0.5.7(openai@6.42.0(zod@4.3.6)):
     dependencies:
@@ -4641,6 +5232,8 @@ snapshots:
   marked@17.0.4: {}
 
   marked@18.0.5: {}
+
+  marked@18.1.1: {}
 
   markerjs2@2.32.7: {}
 
@@ -4745,6 +5338,15 @@ snapshots:
     optionalDependencies:
       zod: 4.3.6
 
+  openai@6.42.0(zod@4.6.7):
+    optionalDependencies:
+      zod: 4.6.7
+    optional: true
+
+  openai@7.41.0(zod@4.6.7):
+    optionalDependencies:
+      zod: 4.6.7
+
   optionator@0.9.4:
     dependencies:
       deep-is: 0.1.4
@@ -4824,6 +5426,8 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.3: {}
+
+  pkce-challenge@5.0.1: {}
 
   png-js@1.1.0:
     dependencies:
@@ -5127,6 +5731,8 @@ snapshots:
 
   tabbable@6.4.0: {}
 
+  tabbable@6.5.0: {}
+
   tapable@2.3.0: {}
 
   terser-webpack-plugin@5.3.17(webpack@5.105.4):
@@ -5145,6 +5751,12 @@ snapshots:
       source-map-support: 0.5.21
 
   timezone-groups@0.10.4: {}
+
+  timezone-groups@1.0.1(luxon@3.7.2):
+    dependencies:
+      countries-and-timezones: 3.11.0
+    optionalDependencies:
+      luxon: 3.7.2
 
   tiny-inflate@1.0.3: {}
 
@@ -5375,3 +5987,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zod@4.3.6: {}
+
+  zod@4.6.7: {}

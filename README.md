@@ -16,6 +16,10 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
+- [`aftershock-replay`](./apps/aftershock-replay): a Calcite earthquake replay demo
+  using ArcGIS AI Components 5.2, a custom `SkillAgent`, interactive chat cards,
+  and a shared map timeline. Run `pnpm --filter aftershock-replay dev` (port 3005).
+
 - `docs`: a [Next.js](https://nextjs.org/) app
 - `web`: another [Next.js](https://nextjs.org/) app
 - `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
