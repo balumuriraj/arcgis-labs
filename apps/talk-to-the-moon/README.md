@@ -74,7 +74,7 @@ src/
     controller.ts     Startup plus the map actions
   agent/              SkillAgent, skills, tools
   cards/              Chat cards and charts
-  extras/             Optional: the 3D lander at visited sites, and orbital photos
+  extras/             Optional: the 3D lander at visited sites, orbital photos, and a lander flight easter egg
 public/               Icons, flags, photos, and the lander model
 backups/              CSV copies of the hosted layers, for republishing
 ```

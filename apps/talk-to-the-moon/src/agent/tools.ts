@@ -469,6 +469,17 @@ export function createTools(app: MoonApp) {
     },
   });
 
+  const flyLander = new FunctionTool({
+    name: "flyLander",
+    description:
+      "Easter egg: lets the user fly a lunar module around the Moon with the arrow keys, starting where the camera is looking. Only when the user asks to fly or pilot something.",
+    inputSchema: z.strictObject({}),
+    execute: async () => {
+      await app.fly();
+      return json({ flying: true, controls: "Left and right arrows steer, up and down climb and descend, Esc lands. Any other map request also ends the flight." });
+    },
+  });
+
   const clearMap = new FunctionTool({
     name: "clearMap",
     description: "Removes crater marks and placed objects, and clears mission selection, filters, and labels. Leaves the time slider alone.",
@@ -491,5 +502,6 @@ export function createTools(app: MoonApp) {
     returnErrors(showChart),
     returnErrors(placeObjectTool),
     returnErrors(clearMap),
+    returnErrors(flyLander),
   ];
 }

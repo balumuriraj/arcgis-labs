@@ -92,6 +92,11 @@ Use these if you have time, or if a step above doesn't land:
 - "Now put Mount Everest in Tycho", or "How big is a Saturn V next to Apollo 11?"
 - "Compare average crater size on the near and far sides" (about 46 km vs 73 km)
 
+## Easter egg
+
+End on a smile: *"Let me fly the lander."* A lunar module appears with a chase camera.
+Left and right arrows steer, up and down climb and descend, Esc lands.
+
 ## If something goes wrong
 
 - **The guide asks a question:** answer it. That's the design: it asks instead of guessing.

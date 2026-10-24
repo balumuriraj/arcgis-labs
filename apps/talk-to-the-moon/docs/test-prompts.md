@@ -91,7 +91,14 @@ them in order in one session: some build on what's already on the map.
 | 46 | Put my house in Tycho | Asks for the size or says it can't know it |
 | 47 | Click **Remove it** on the card | The map clears |
 
-## 7. Recovery and limits
+## 7. Easter egg
+
+| # | Prompt | Expect |
+| --- | --- | --- |
+| 47a | Let me fly the lander | A lunar module appears with a chase camera; ← → steer, ↑ ↓ climb and descend |
+| 47b | Press Esc, or ask for anything else | The flight ends and the map is yours again |
+
+## 8. Recovery and limits
 
 | # | Prompt | Expect |
 | --- | --- | --- |

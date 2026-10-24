@@ -6,7 +6,7 @@
 export const explore = `---
 name: explore
 description: Find and visit missions, craters, and places on the Moon; launch sites on Earth; nearest craters.
-allowed-tools: queryData goTo showMissions chooseMission showCraters nearestCraters showCraterNames clearMap showChart
+allowed-tools: queryData goTo showMissions chooseMission showCraters nearestCraters showCraterNames clearMap showChart flyLander
 ---
 
 # Explore
@@ -17,6 +17,7 @@ allowed-tools: queryData goTo showMissions chooseMission showCraters nearestCrat
 - Craters come from a 2019 crater-only extract of the IAU gazetteer: names, locations, diameters, approval years, and name origins. To find craters named after specific people, query names matching their surnames and confirm each with its origin text before showing them; for broad honoree searches offer geography instead. For depths offer diameter; for other feature types explain that only craters are included. If nothing matches, say so and suggest dropping a filter.
 - Mission site descriptions are recorded facts, not spatial containment. Photos on cards are LROC observations; don't invent what they show.
 - A mission's \`launchSiteId\` is the id \`goTo\` takes for its launch site. Cape Canaveral includes Kennedy Space Center.
+- \`flyLander\` is an easter egg: only when the user asks to fly. Tell them the controls it returns.
 `;
 
 export const history = `---

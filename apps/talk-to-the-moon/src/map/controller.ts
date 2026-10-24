@@ -6,6 +6,7 @@ import FeatureFilter from "@arcgis/core/layers/support/FeatureFilter.js";
 import TimeExtent from "@arcgis/core/time/TimeExtent.js";
 import TimeInterval from "@arcgis/core/time/TimeInterval.js";
 import { createChartTables } from "../cards/charts";
+import { startFlight } from "../extras/flight";
 import { findMission, loadData, type Mission } from "../data";
 import type { EarthScene } from "./earth";
 import { describeDrawings, makeObjectsMovable } from "./graphics";
@@ -70,6 +71,7 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
   /** Shared with the agent's context: what the current answer is about. */
   const state = { selected: [] as string[], othersHidden: false, focus: undefined as string | undefined };
   let highlight: ResourceHandle | undefined;
+  let endFlight: (() => void) | undefined;
 
   /** Label and highlight missions; `only` also hides every other mission. */
   function select(ids: string[], { only = false } = {}): void {
@@ -84,6 +86,7 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
 
   /** Stop what's going on and make sure the Moon is showing, before a new map action. */
   async function prepare(): Promise<void> {
+    endFlight?.();
     moon.siteModel.hide();
     await travel.toMoon();
     await slider.stop();
@@ -154,6 +157,13 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
       if (await flyTo(m)) moon.siteModel.show(view, m);
     },
 
+    /** Easter egg: fly the lunar module from wherever the camera is looking (extras/flight.ts). */
+    async fly(): Promise<void> {
+      await prepare();
+      const { latitude = 0, longitude = 0 } = view.center;
+      endFlight = startFlight(view, { lat: latitude ?? 0, lon: longitude ?? 0 });
+    },
+
     /** Remove the guide's drawings and selections. The time slider stays where it is. */
     clear(): void {
       moon.craterMarks.removeAll();
@@ -174,6 +184,7 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
       highlight?.remove();
       charts.missions.destroy();
       movable.remove();
+      endFlight?.();
     },
   };
 }
