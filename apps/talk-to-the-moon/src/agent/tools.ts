@@ -337,7 +337,7 @@ export function createTools(app: MoonApp) {
         await showCard("crater-list", { title, total: craters.length, items: craters }, config);
         inBackground(app.frame(craters), "frame the craters");
       }
-      return json({ shownToUser: "crater card and map marks", craters });
+      return json({ shownToUser: `${craters.length === 1 ? "crater card" : "crater list card"} and map marks`, craters });
     },
   });
 

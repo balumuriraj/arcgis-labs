@@ -117,7 +117,8 @@ behavior need a browser.
 
 - [Build your own: trace a request and add a tool](./docs/build-your-own.md)
 - [Test prompts: a manual pass through every tool and card](./docs/test-prompts.md)
-- [Data sources, demo script, and SDK caveats](./docs/reference.md). Check the
+- [Demo script](./demo.md)
+- [Data sources and SDK caveats](./docs/reference.md). Check the
   asset terms there before reusing photos or models.
 
 This is a desktop-focused example on the ArcGIS 6.0 prerelease packages.

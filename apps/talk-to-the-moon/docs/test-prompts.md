@@ -47,6 +47,7 @@ them in order in one session: some build on what's already on the map.
 | 18 | Nearest craters to Tycho bigger than 50 km | Filtered candidates; Tycho itself left out |
 | 19 | Biggest craters on the far side | Ranked from a query on `side`, likely shown on the map |
 | 20 | Take me to Shackleton | Works near the south pole |
+| 20a | What's named after the Apollo 11 crew? | Collins, Aldrin, Armstrong, confirmed by their origin text and marked on the map |
 | 21 | Show all crater names, then hide them | Crater labels toggle |
 | 22 | Take me to the south pole | Close-up of the pole |
 | 23 | Clear the map | Rims, objects, and selection gone; slider unchanged |
@@ -97,7 +98,7 @@ them in order in one session: some build on what's already on the map.
 | 48 | Take me to Apollo 99 | Says there's no such mission and offers real ones |
 | 49 | Chart missions by crew size | Explains there's no such field; may offer another chart |
 | 50 | Take me to Mare Tranquillitatis | Explains that only craters are included; offers Apollo 11 |
-| 51 | Which craters are named after astronauts? | Declines the honoree search; offers geography |
+| 51 | Which craters are named after astronauts? | Declines the broad honoree search (specific named people are fine); offers geography |
 | 52 | How deep is Tycho? | Depths aren't available; offers the diameter |
 | 53 | How far is Apollo 11 from Apollo 12? | Point-to-point measurement isn't supported |
 | 54 | What's the weather in Paris? | Stays on the Moon |

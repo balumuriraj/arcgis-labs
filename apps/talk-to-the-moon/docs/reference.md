@@ -1,6 +1,6 @@
 # Reference
 
-Configuration, the demo script, data sources and their terms, and SDK caveats.
+Configuration, data sources and their terms, and SDK caveats.
 Start with the [README](../README.md) and the [walkthrough](./build-your-own.md).
 
 ## Configuration
@@ -18,24 +18,9 @@ All `NEXT_PUBLIC_` values are embedded in the browser bundle. Supported browsers
 are Chrome/Edge 123+, Firefox 120+, and Safari 17.5+. Voice input uses the
 browser's speech recognition, so it works best in Chrome.
 
-## Demo script (about 90 seconds)
+## Demo script
 
-The app opens on a slowly spinning Earth. "We've all seen plenty of agentic maps of Earth." Then:
-
-| # | Say | What happens |
-| --- | --- | --- |
-| 0 | Go to the Moon | Earth pulls back, the scenes crossfade, and the Moon flies in |
-| 1 | Show me every place we've landed on the Moon | Whole-Moon view with every mission marker |
-| 2 | Show the Moon as it was in 1969 | The slider shows missions through the end of 1969 |
-| 3 | Why did it go quiet? | The guide queries the landing chronology and finds the 1976–2013 gap from the returned dates |
-| 4 | Show only USA landings | The map shows only successful USA robotic and crewed landings |
-| 5 | Stand the Burj Khalifa in Tycho crater | A true-scale outline on the crater floor, with a size comparison card. Any object works: "Put the Eiffel Tower next to Apollo 11" |
-| 6 | What are the nearest craters to Apollo 11? | The nearest named crater centers, marked and listed with surface distances |
-
-Backups: "Take me to Chang'e" (asks which one), "What was the first landing that
-wasn't by a government?", "Now put Mount Everest in Tycho", "How tall would a Saturn V look next to Apollo 11?", "Take me to Copernicus",
-"What crater did Chang'e 4 land in?", "Biggest craters on the Moon", "Show me where
-Apollo 11 launched from".
+See [demo.md](../demo.md): setup, the script with talking points, backups, and recovery.
 
 ## Data
 

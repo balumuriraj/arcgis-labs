@@ -6,7 +6,9 @@ import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
 import TileLayer from "@arcgis/core/layers/TileLayer.js";
 import LabelClass from "@arcgis/core/layers/support/LabelClass.js";
 import SimpleRenderer from "@arcgis/core/renderers/SimpleRenderer.js";
-import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol.js";
+import IconSymbol3DLayer from "@arcgis/core/symbols/IconSymbol3DLayer.js";
+import PointSymbol3D from "@arcgis/core/symbols/PointSymbol3D.js";
+import LineCallout3D from "@arcgis/core/symbols/callouts/LineCallout3D.js";
 import LabelSymbol3D from "@arcgis/core/symbols/LabelSymbol3D.js";
 import TextSymbol3DLayer from "@arcgis/core/symbols/TextSymbol3DLayer.js";
 import { LAUNCH_SITES_URL } from "../data";
@@ -22,8 +24,13 @@ export function createEarthScene() {
     title: "Launch sites",
     outFields: ["*"],
     popupTemplate: { title: "{name}", content: "{place}" },
+    // A rocket on a disc, in the same style as the mission icons, floating above the site on a leader line.
     renderer: new SimpleRenderer({
-      symbol: new SimpleMarkerSymbol({ color: "#5ad1e6", size: 10, outline: { color: "white", width: 1 } }),
+      symbol: new PointSymbol3D({
+        symbolLayers: [new IconSymbol3DLayer({ resource: { href: "/icons/launch-site.svg" }, size: 28, anchor: "bottom" })],
+        verticalOffset: { screenLength: 14, maxWorldLength: 200_000, minWorldLength: 0 },
+        callout: new LineCallout3D({ size: 1, color: [255, 255, 255, 0.75], border: { color: [6, 8, 14, 0.6] } }),
+      }),
     }),
     labelingInfo: [
       new LabelClass({
