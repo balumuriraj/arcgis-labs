@@ -1,0 +1,30 @@
+// Configure the portal before the components load.
+import "./config";
+// Only the components the app uses. The chart component loads on first use (cards/charts.ts).
+import "@esri/calcite-components/components/calcite-shell";
+import "@esri/calcite-components/components/calcite-shell-panel";
+import "@esri/calcite-components/components/calcite-navigation";
+import "@esri/calcite-components/components/calcite-navigation-logo";
+import "@esri/calcite-components/components/calcite-button";
+import "@esri/calcite-components/components/calcite-action";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-chip";
+import "@esri/calcite-components/components/calcite-link";
+import "@esri/calcite-components/components/calcite-loader";
+import "@esri/calcite-components/components/calcite-table";
+import "@esri/calcite-components/components/calcite-table-row";
+import "@esri/calcite-components/components/calcite-table-header";
+import "@esri/calcite-components/components/calcite-table-cell";
+import "@esri/calcite-components/components/calcite-list";
+import "@esri/calcite-components/components/calcite-list-item";
+import "@esri/calcite-components/components/calcite-notice";
+import "@arcgis/map-components/components/arcgis-scene";
+import "@arcgis/map-components/components/arcgis-popup";
+import "@arcgis/map-components/components/arcgis-navigation-toggle";
+import "@arcgis/map-components/components/arcgis-compass";
+import "@arcgis/map-components/components/arcgis-zoom";
+import "@arcgis/map-components/components/arcgis-time-slider";
+import "@arcgis/map-components/components/arcgis-legend";
+import "@arcgis/map-components/components/arcgis-expand";
+import "@arcgis/ai-components/components/arcgis-assistant";
+import "@arcgis/ai-components/components/arcgis-assistant-agent";

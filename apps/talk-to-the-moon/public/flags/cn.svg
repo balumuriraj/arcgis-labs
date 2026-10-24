@@ -1,0 +1,12 @@
+<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <path fill="#dc3037" d="M0 0h640v480H0z"/>
+  <defs>
+    <path id="cn-star" fill="#ffdf43" d="M0-10 2.4-3.3 9.5-3.1 3.8 1.2 5.9 8.1 0 4-5.9 8.1-3.8 1.2-9.5-3.1-2.4-3.3Z"/>
+  </defs>
+  <use href="#cn-star" transform="translate(110 120) scale(5)"/>
+  <use href="#cn-star" transform="translate(210 50) rotate(-125) scale(1.7)"/>
+  <use href="#cn-star" transform="translate(250 95) rotate(-100) scale(1.7)"/>
+  <use href="#cn-star" transform="translate(250 155) rotate(-76) scale(1.7)"/>
+  <use href="#cn-star" transform="translate(210 200) rotate(-51) scale(1.7)"/>
+  <rect width="640" height="480" fill="none" stroke="#0b1020" stroke-width="48"/>
+</svg>

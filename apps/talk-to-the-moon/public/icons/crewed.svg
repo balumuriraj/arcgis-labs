@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="29" fill="#f5c451" stroke="#0b1020" stroke-width="3"/>
+  <circle cx="32" cy="32" r="25" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.4"/>
+  <g transform="translate(13 13) scale(1.1875)" fill="#0b1020"><path fill-rule="evenodd" d="M16 1.5a6.2 6.2 0 1 1 0 12.4 6.2 6.2 0 0 1 0-12.4zm-3.4 4.3h6.8a1.6 1.6 0 0 1 1.6 1.6v.6a1.6 1.6 0 0 1-1.6 1.6h-6.8a1.6 1.6 0 0 1-1.6-1.6v-.6a1.6 1.6 0 0 1 1.6-1.6z"/><rect x="9.2" y="14.2" width="13.6" height="9.4" rx="3"/><rect x="5.2" y="15" width="4.6" height="8.4" rx="2"/><rect x="22.2" y="15" width="4.6" height="8.4" rx="2"/><rect x="10.2" y="22.6" width="5" height="8" rx="1.8"/><rect x="16.8" y="22.6" width="5" height="8" rx="1.8"/></g>
+</svg>

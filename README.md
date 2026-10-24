@@ -16,6 +16,10 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
+- [`talk-to-the-moon`](./apps/talk-to-the-moon): a Next.js/React lunar explorer
+  with Earth-to-Moon travel, an AI guide, a native time slider, and named lunar craters.
+  Run `pnpm --filter talk-to-the-moon dev` (port 3006).
+
 - [`aftershock-replay`](./apps/aftershock-replay): a Calcite earthquake replay demo
   using ArcGIS AI Components 5.2, a custom `SkillAgent`, interactive chat cards,
   and a shared map timeline. Run `pnpm --filter aftershock-replay dev` (port 3005).

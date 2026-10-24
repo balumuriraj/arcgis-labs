@@ -1,0 +1,13 @@
+<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <path fill="#ef963e" d="M0 0h640v160H0z"/>
+  <path fill="#fff" d="M0 160h640v160H0z"/>
+  <path fill="#258b45" d="M0 320h640v160H0z"/>
+  <g transform="translate(320 240)" stroke="#243776" fill="none">
+    <circle r="65" stroke-width="7"/>
+    <path id="in-spokes" stroke-width="3" d="M-62 0H62M0-62V62M-43.84-43.84 43.84 43.84M-43.84 43.84 43.84-43.84"/>
+    <use href="#in-spokes" transform="rotate(15)"/>
+    <use href="#in-spokes" transform="rotate(30)"/>
+    <circle r="8" fill="#243776"/>
+  </g>
+  <rect width="640" height="480" fill="none" stroke="#0b1020" stroke-width="48"/>
+</svg>

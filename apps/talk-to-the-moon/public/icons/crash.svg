@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="29" fill="#ff7a59" stroke="#0b1020" stroke-width="3"/>
+  <circle cx="32" cy="32" r="25" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.4"/>
+  <g transform="translate(13 13) scale(1.1875)" fill="#0b1020"><polygon points="16.00,1.50 18.37,10.27 26.25,5.75 21.73,13.63 30.50,16.00 21.73,18.37 26.25,26.25 18.37,21.73 16.00,30.50 13.63,21.73 5.75,26.25 10.27,18.37 1.50,16.00 10.27,13.63 5.75,5.75 13.63,10.27"/></g>
+</svg>

@@ -1,0 +1,22 @@
+<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <path fill="#fff" d="M0 0h640v480H0z"/>
+  <path stroke="#b22234" stroke-width="36.923" d="M0 18.462h640M0 92.308h640M0 166.154h640M0 240h640M0 313.846h640M0 387.692h640M0 461.538h640"/>
+  <path fill="#25366b" d="M0 0h272v258.462H0z"/>
+  <defs>
+    <path id="us-star" fill="#fff" d="M0-10 2.4-3.3 9.5-3.1 3.8 1.2 5.9 8.1 0 4-5.9 8.1-3.8 1.2-9.5-3.1-2.4-3.3Z"/>
+    <g id="us-six">
+      <use href="#us-star" x="23"/><use href="#us-star" x="68"/><use href="#us-star" x="113"/>
+      <use href="#us-star" x="159"/><use href="#us-star" x="204"/><use href="#us-star" x="249"/>
+    </g>
+    <g id="us-five">
+      <use href="#us-star" x="45"/><use href="#us-star" x="91"/><use href="#us-star" x="136"/>
+      <use href="#us-star" x="181"/><use href="#us-star" x="227"/>
+    </g>
+  </defs>
+  <use href="#us-six" y="26"/><use href="#us-five" y="52"/>
+  <use href="#us-six" y="78"/><use href="#us-five" y="104"/>
+  <use href="#us-six" y="130"/><use href="#us-five" y="156"/>
+  <use href="#us-six" y="182"/><use href="#us-five" y="208"/>
+  <use href="#us-six" y="234"/>
+  <rect width="640" height="480" fill="none" stroke="#0b1020" stroke-width="48"/>
+</svg>
