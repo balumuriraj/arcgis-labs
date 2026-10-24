@@ -88,9 +88,23 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
     await slider.stop();
   }
 
-  /** Close-up of one place. `scale` is a real lunar map scale. */
-  function flyTo(p: LatLon, { scale = 50_000, tilt = 68, heading = 0 } = {}): Promise<void> {
-    return view.goTo({ target: moonPoint(p), scale: sceneMeters(scale), tilt, heading }).catch(ignoreAbort);
+  /**
+   * Close-up of one place, then a slow orbit around it. `scale` is a real lunar map scale.
+   * Resolves `true` once the camera arrives, or `false` if something else took over the camera.
+   */
+  async function flyTo(p: LatLon, { scale = 50_000, tilt = 68, heading = 0 } = {}): Promise<boolean> {
+    const camera = { target: moonPoint(p), scale: sceneMeters(scale), tilt };
+    try {
+      await view.goTo({ ...camera, heading });
+    } catch (error) {
+      ignoreAbort(error);
+      return false;
+    }
+    // Turn a little around the point. Dragging, zooming, or any new goTo stops it.
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      view.goTo({ ...camera, heading: heading + 30 }, { duration: 9000, easing: "ease-in-out" }).catch(ignoreAbort);
+    }
+    return true;
   }
 
   /** Frame a set of places so all of them are in view. */
@@ -136,12 +150,7 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
       showAllTime();
       select([m.id]);
       state.focus = m.name;
-      try {
-        await view.goTo({ target: moonPoint(m), scale: sceneMeters(50_000), tilt: 68, heading: 0 });
-        moon.siteModel.show(view, m);
-      } catch (error) {
-        ignoreAbort(error);
-      }
+      if (await flyTo(m)) moon.siteModel.show(view, m);
     },
 
     /** Remove the guide's drawings and selections. The time slider stays where it is. */
