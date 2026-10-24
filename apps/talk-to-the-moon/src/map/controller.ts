@@ -60,8 +60,9 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
   const showAllTime = () => (slider.timeExtent = slider.fullTimeExtent);
   showAllTime();
 
-  const travel = new Travel(earthView, view, el.stage, (world) => {
-    moon.missions.opacity = world === "moon" ? 1 : 0;
+  // Mission icons appear once the camera has arrived; on a distant Moon they'd crowd the globe.
+  const travel = new Travel(earthView, view, el.stage, (stage, world) => {
+    moon.missions.opacity = stage === "arrived" && world === "moon" ? 1 : 0;
   });
   const charts = createChartTables(data, moon.craters);
 
