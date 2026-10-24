@@ -28,3 +28,4 @@ import "@arcgis/map-components/components/arcgis-legend";
 import "@arcgis/map-components/components/arcgis-expand";
 import "@arcgis/ai-components/components/arcgis-assistant";
 import "@arcgis/ai-components/components/arcgis-assistant-agent";
+import "@arcgis/ai-components/components/arcgis-assistant-observation-panel";

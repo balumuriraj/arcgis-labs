@@ -9,7 +9,6 @@ everything after that is driven by talking to the guide.
   service and the map cache. Then reload so the demo opens on Earth.
 - Use a wide window; the map and the chat panel both need room.
 - Turn off "reduce motion" in the OS, or the trips between worlds skip their animation.
-- Leave read-aloud off (`NEXT_PUBLIC_READ_ALOUD`); it talks over you.
 - For a public or commercial event, hide the LROC site photos with `?photos=off` (see
   [reference](./docs/reference.md#data)).
 
@@ -17,14 +16,13 @@ everything after that is driven by talking to the guide.
 
 Prompts to type are in *italics*; [brackets] are what happens on screen.
 
-"Here's an agentic app. You ask, it drives the map. Right now, it's showing launch sites
-for lunar missions.
+"Here is an agentic app that contains a map with lunar mission launch sites. 
 
 Let's ask it something. *'How many missions have been launched from each country?'*
 
 [A table appears: USA 21, USSR 14, China 5, Japan 5, India 3, Europe, Israel and Russia 1 each.]
 
-Okay. *'How many launched from Cape Canaveral?'*
+Okay. *'where did the Apollo missions launched from?'*
 
 [The answer: 23. The guide may mention that Israel's Beresheet and Japan's Hakuto-R
 missions launched from there too.]
@@ -40,9 +38,9 @@ Those are the Cape Canaveral missions. Let's see everyone. *'Show me every landi
 
 [Pause, while the globe fills: 28 successful landings.]
 
-*'Show me landings by year.'*
+*'Show all missions by year.'*
 
-[A bar chart of successful landings per year.]
+[A bar chart of missions per year.]
 
 Look at this. A burst of landings, and then nothing, for decades. *'Why did it go quiet?'*
 

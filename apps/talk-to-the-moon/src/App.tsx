@@ -8,15 +8,6 @@ import { createMoonApp, type MoonApp } from "./map/controller";
 import { createEarthScene } from "./map/earth";
 import { createMoonScene } from "./map/moon";
 
-const SUGGESTED_PROMPTS = [
-  "Go to the Moon",
-  "Show me every place we've landed on the Moon",
-  "Show the Moon as it was in 1969",
-  "Why did it go quiet?",
-  "Stand the Burj Khalifa in Tycho crater",
-  "What are the nearest craters to Apollo 11?",
-];
-
 // SDK 6.0.0-next.14 closes the popup's content but leaves the popup itself open.
 const closePopup = (event: { target: HTMLArcgisPopupElement }) => (event.target.open = false);
 
@@ -25,6 +16,7 @@ export default function App() {
   const [moon] = useState(createMoonScene);
   const [earth] = useState(createEarthScene);
   const [app, setApp] = useState<MoonApp>();
+  const [showWork, setShowWork] = useState(false);
   const agent = useMemo(() => app && createMoonAgent(app), [app]);
 
   const moonEl = useRef<HTMLArcgisSceneElement>(null);
@@ -89,16 +81,29 @@ export default function App() {
           </arcgis-scene>
         </div>
 
+        {/* The guide's work: every step it takes, the tools it calls, how long they take, and what they cost. */}
+        <calcite-shell-panel slot="panel-bottom" height="m" resizable collapsed={!showWork}>
+          <arcgis-assistant-observation-panel referenceElement="assistant" />
+        </calcite-shell-panel>
+
         <calcite-shell-panel slot="panel-end" width="l" resizable>
           <arcgis-assistant
             ref={assistant}
+            id="assistant"
+            runtime-events-enabled
             heading="Moon guide"
             entryMessage="Ask me anything. I'll drive the globe."
             alwaysUseAgentId={agent ? AGENT_ID : undefined}
-            suggestedPrompts={agent ? SUGGESTED_PROMPTS : undefined}
             voice-input-enabled
-            read-aloud-enabled={process.env.NEXT_PUBLIC_READ_ALOUD === "true"}
           >
+            <calcite-action
+              slot="entry-actions-start"
+              icon="activity-monitor"
+              text={showWork ? "Hide the guide's work" : "Show the guide's work"}
+              active={showWork}
+              scale="s"
+              onClick={() => setShowWork((shown) => !shown)}
+            />
             {agent ? <arcgis-assistant-agent agent={agent} /> : null}
             {app ? <Cards app={app} /> : null}
           </arcgis-assistant>

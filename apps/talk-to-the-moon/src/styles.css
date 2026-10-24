@@ -38,7 +38,8 @@ arcgis-time-slider {
   width: min(900px, calc(100cqw - 32px));
 }
 
-arcgis-assistant {
+arcgis-assistant,
+arcgis-assistant-observation-panel {
   height: 100%;
 }
 

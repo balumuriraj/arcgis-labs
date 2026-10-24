@@ -403,7 +403,7 @@ export function createTools(app: MoonApp) {
     .refine((input) => !input.preset !== !input.custom, "Give either a preset or a custom chart.");
   const showChart = new FunctionTool({
     name: "showChart",
-    description: `Shows a native chart card without changing the map. Returns display confirmation and caveats, not numbers: use queryData for facts and never estimate values from a chart. Presets:\n${PRESET_IDS.map((id) => `- ${id}: ${PRESETS[id].about}`).join("\n")}\nOr a custom chart: a type, an x field, an aggregation, an optional value field, and an SQL where on these fields (the mission fields match queryData's names and values; the SDK handles date binning):\n${describeChartFields(app.charts)}`,
+    description: `Shows a native chart card without changing the map. Returns display confirmation and caveats, not numbers: use queryData for facts and never estimate values from a chart. Presets:\n${PRESET_IDS.map((id) => `- ${id}: ${PRESETS[id].about}`).join("\n")}\nOr a custom chart: a type, an x field, an aggregation, an optional value field, and an SQL where on these fields (the mission fields match queryData's names and values; date fields are counted per year; use arrivalDecade or launchDecade for decades):\n${describeChartFields(app.charts)}`,
     inputSchema: chartSchema,
     execute: async ({ preset, custom }, config) => {
       let request: ChartRequest;

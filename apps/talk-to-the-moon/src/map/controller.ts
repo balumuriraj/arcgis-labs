@@ -8,7 +8,7 @@ import TimeInterval from "@arcgis/core/time/TimeInterval.js";
 import { createChartTables } from "../cards/charts";
 import { findMission, loadData, type Mission } from "../data";
 import type { EarthScene } from "./earth";
-import { describeDrawings } from "./graphics";
+import { describeDrawings, makeObjectsMovable } from "./graphics";
 import { missionLabels, missionRenderer, type MoonScene } from "./moon";
 import { loadGeodesy, moonPoint, sceneMeters, wholeMoon, type LatLon } from "./scale";
 import { Travel } from "./travel";
@@ -65,6 +65,7 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
     moon.missions.opacity = stage === "arrived" && world === "moon" ? 1 : 0;
   });
   const charts = createChartTables(data, moon.craters);
+  const movable = makeObjectsMovable(view, moon.objects);
 
   /** Shared with the agent's context: what the current answer is about. */
   const state = { selected: [] as string[], othersHidden: false, focus: undefined as string | undefined };
@@ -172,6 +173,7 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
       moon.siteModel.hide();
       highlight?.remove();
       charts.missions.destroy();
+      movable.remove();
     },
   };
 }

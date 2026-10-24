@@ -243,6 +243,13 @@ async function createChartModel(request: ChartRequest, layer: FeatureLayer) {
   model.aggregationType = c.stat;
   if (c.value) model.numericFields = [c.value];
   plain(model);
+  if (layer.fields.find((f) => f.name === c.x)?.type === "date") {
+    // Count dates per year, like the landings preset; otherwise every record gets its own bar.
+    model.binTemporalData = true;
+    model.temporalBinningSize = 1;
+    model.temporalBinningUnit = "years";
+    model.trimIncompleteTimeInterval = false;
+  }
   if (c.x.endsWith("Decade")) model.setDataSortOrder("xAxisAsc");
   await model.setDataFilters({ where: c.where });
   return model;

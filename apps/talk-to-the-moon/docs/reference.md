@@ -10,7 +10,6 @@ Copy `.env.example` to `.env.local` in this app directory and restart the dev se
 ```bash
 NEXT_PUBLIC_PORTAL_URL=...      # the AI-enabled portal (default https://devext.arcgis.com)
 NEXT_PUBLIC_ARCGIS_API_KEY=...  # only if your setup needs one
-NEXT_PUBLIC_READ_ALOUD=true     # have the assistant speak its replies (off by default)
 NEXT_PUBLIC_PHOTOS=off          # hide the LROC site photos (or add ?photos=off to the URL)
 ```
 
@@ -107,8 +106,8 @@ but that needs imagery and elevation services published in it.
 - **Popups.** Closing a popup clears its content but leaves the frame open, so
   [App.tsx](../src/App.tsx) closes it on `arcgisClose`. Automatic popup templates
   come up empty, so both layers define their popup templates.
-- **Assistant voice properties** aren't in the React typings yet, so
-  `voice-input-enabled` and `read-aloud-enabled` are passed as attributes.
+- **The assistant's voice-input property** isn't in the React typings yet, so
+  `voice-input-enabled` is passed as an attribute.
 - **Two WebGL scenes** render at once so the trip between worlds is instant. If a
   recording machine struggles, check the GPU in the browser's task manager.
 - **chooseMission** accepts the offered mission id or its label as the user's answer.

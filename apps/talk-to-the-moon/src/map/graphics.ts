@@ -1,4 +1,6 @@
 import Graphic from "@arcgis/core/Graphic.js";
+import type { ResourceHandle } from "@arcgis/core/core/Handles.js";
+import type Point from "@arcgis/core/geometry/Point.js";
 import Polyline from "@arcgis/core/geometry/Polyline.js";
 import SpatialReference from "@arcgis/core/geometry/SpatialReference.js";
 import type GraphicsLayer from "@arcgis/core/layers/GraphicsLayer.js";
@@ -9,6 +11,8 @@ import ObjectSymbol3DLayer from "@arcgis/core/symbols/ObjectSymbol3DLayer.js";
 import PointSymbol3D from "@arcgis/core/symbols/PointSymbol3D.js";
 import TextSymbol3DLayer from "@arcgis/core/symbols/TextSymbol3DLayer.js";
 import LineCallout3D from "@arcgis/core/symbols/callouts/LineCallout3D.js";
+import type SceneView from "@arcgis/core/views/SceneView.js";
+import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel.js";
 import type { Crater } from "../data";
 import { moonCircle, moonPoint, sceneMeters, type LatLon } from "./scale";
 
@@ -93,10 +97,10 @@ function outline(shape: Shape, heightM: number, widthM: number): ObjectSymbol3DL
 export function placeObject(layer: GraphicsLayer, shape: Shape, heightM: number, widthM: number, at: LatLon, label: string): void {
   layer.removeAll();
   layer.addMany([
-    new Graphic({ geometry: moonPoint(at), attributes: { label }, symbol: new PointSymbol3D({ symbolLayers: outline(shape, heightM, widthM) }) }),
+    new Graphic({ geometry: moonPoint(at), attributes: { label, role: "shape" }, symbol: new PointSymbol3D({ symbolLayers: outline(shape, heightM, widthM) }) }),
     new Graphic({
       geometry: moonPoint(at, sceneMeters(heightM)),
-      attributes: { label },
+      attributes: { label, role: "label" },
       symbol: new PointSymbol3D({
         symbolLayers: [new TextSymbol3DLayer({ text: label, size: 13, material: { color: "white" }, halo: HALO })],
         verticalOffset: { screenLength: 28 },
@@ -104,6 +108,32 @@ export function placeObject(layer: GraphicsLayer, shape: Shape, heightM: number,
       }),
     }),
   ]);
+}
+
+/**
+ * Lets people click a placed object and drag it somewhere else. It keeps its true size; its label,
+ * a separate graphic floating at the top, follows it.
+ */
+export function makeObjectsMovable(view: SceneView, objects: GraphicsLayer): ResourceHandle {
+  const sketch = new SketchViewModel({
+    view,
+    layer: objects,
+    updateOnGraphicClick: true,
+    defaultUpdateOptions: { tool: "move", enableRotation: false, enableScaling: false, enableZ: false, toggleToolOnClick: false },
+  });
+  const moving = sketch.on("update", ({ graphics: [graphic] }) => {
+    // Only the shape moves; the label goes wherever the shape goes.
+    if (graphic.attributes?.role !== "shape") return sketch.cancel();
+    const label = objects.graphics.find((g) => g.attributes?.role === "label");
+    const base = graphic.geometry as Point;
+    if (label) label.geometry = base.clone().set({ z: (label.geometry as Point).z });
+  });
+  return {
+    remove() {
+      moving.remove();
+      sketch.destroy();
+    },
+  };
 }
 
 /** What's drawn, for the guide's context: one entry per crater or object. */
