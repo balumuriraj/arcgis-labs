@@ -5,7 +5,7 @@ itself see [demo.md](../demo.md); for configuration and data terms see [referenc
 
 ## In one line
 
-A **Next.js/React app on the ArcGIS Maps SDK for JavaScript 6.0** (prerelease), where an
+A **Next.js/React app on the ArcGIS Maps SDK for JavaScript 5.2** (`5.2.0-next.159`), where an
 **`arcgis-assistant` chat** runs a **`SkillAgent`** that controls a **3D `SceneView`** through
 **11 typed tools**. Every fact comes from **three public hosted feature layers**. There's no custom
 backend: the language model runs on Esri's AI service through the portal you sign in to.
@@ -15,7 +15,7 @@ backend: the language model runs on Esri's AI service through the portal you sig
 | Layer | What's used |
 | --- | --- |
 | Framework | Next.js 16 (App Router), React 19, TypeScript. The page renders client-only (`ssr: false`) because the SDK needs the browser |
-| Map | `@arcgis/core` 6.0 and `@arcgis/map-components`: two `arcgis-scene` elements (Moon and Earth), `arcgis-time-slider`, legend, popups |
+| Map | `@arcgis/core` 5.2 and `@arcgis/map-components`: two `arcgis-scene` elements (Moon and Earth), `arcgis-time-slider`, legend, popups |
 | AI | `@arcgis/ai-components`: `arcgis-assistant` (chat UI and sign-in), `SkillAgent`, `FunctionTool` (built on LangChain) |
 | Charts | `@arcgis/charts-components`: native `arcgis-chart` |
 | UI | Calcite Design System (shell, panels, cards, tables, lists) |
@@ -121,7 +121,7 @@ guidance.
 - **Exact values in the tool description.** Countries, operators, launch-site ids, and crater sides
   are listed, so the model doesn't guess `'near'` for `'Near side'`.
 - **Errors go back to the model.** A `returnErrors` wrapper turns tool errors into a result the
-  model can correct. Without it, this SDK prerelease ends the whole request with "I couldn't
+  model can correct. Without it, SDK 5.2 ends the whole request with "I couldn't
   complete this request."
 - **Live context.** Before each turn the model is told which world is showing, the slider dates, the
   selection, the last place the camera went, and what's drawn. That's how "tell me more about it"
@@ -226,12 +226,12 @@ It's the best answer to "how do I know what the AI actually did?": open it and s
 - **Cost and model:** the model and its billing come from the portal's AI service; the app doesn't
   choose the model. The work panel shows tokens and estimated cost per run.
 
-## 11. Known limits and SDK workarounds (6.0.0-next.14 prerelease)
+## 11. Known limits and SDK workarounds (5.2)
 
-- **Tool errors are fatal by default:** hence the `returnErrors` wrapper.
-- **Popups:** closing clears the content but not the frame, so the app closes it on `arcgisClose`.
+- **Tool errors are fatal by default** (confirmed in 5.2): hence the `returnErrors` wrapper.
+- **Popups** (seen on prerelease builds): closing clears the content but not the frame, so the app closes it on `arcgisClose`.
   Automatic popup templates come up empty, so both layers define their own.
-- **Legend swatches:** the legend ignores `anchorPosition`, so swatches show the flag over the
+- **Legend swatches** (seen on prerelease builds): the legend ignores `anchorPosition`, so swatches show the flag over the
   disc. The map itself is correct.
 - **Voice input:** `voice-input-enabled` is passed as an attribute (not in the React typings yet) and
   uses the browser's speech recognition, so it works best in Chrome.

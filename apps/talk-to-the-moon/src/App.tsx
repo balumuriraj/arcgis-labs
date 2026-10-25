@@ -8,7 +8,7 @@ import { createMoonApp, type MoonApp } from "./map/controller";
 import { createEarthScene } from "./map/earth";
 import { createMoonScene } from "./map/moon";
 
-// SDK 6.0.0-next.14 closes the popup's content but leaves the popup itself open.
+// Prerelease SDK builds close the popup's content but leave the popup itself open.
 const closePopup = (event: { target: HTMLArcgisPopupElement }) => (event.target.open = false);
 
 export default function App() {

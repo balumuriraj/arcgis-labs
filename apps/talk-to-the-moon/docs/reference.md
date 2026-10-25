@@ -101,7 +101,7 @@ they're true lunar distances.
 The SceneView also supports GCS_Moon_2000 directly, as an experimental feature,
 but that needs imagery and elevation services published in it.
 
-## SDK caveats (6.0.0-next.14)
+## SDK caveats (5.2)
 
 - **Popups.** Closing a popup clears its content but leaves the frame open, so
   [App.tsx](../src/App.tsx) closes it on `arcgisClose`. Automatic popup templates

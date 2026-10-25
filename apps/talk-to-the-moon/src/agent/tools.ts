@@ -42,7 +42,7 @@ const json = (value: unknown) => JSON.stringify(value);
 
 /**
  * Hands a tool's error back to the model as its result, so the model can fix its input and try
- * again. Without this, SDK 6.0.0-next.14 treats any error thrown by a tool as fatal and ends the
+ * again. Without this, SDK 5.2 treats any error thrown by a tool as fatal and ends the
  * whole request with "I couldn't complete this request."
  */
 function returnErrors<I extends Record<string, unknown>, O>(tool: FunctionTool<I, O>): FunctionTool<I, O> {

@@ -122,4 +122,4 @@ behavior need a browser.
 - [Data sources and SDK caveats](./docs/reference.md). Check the
   asset terms there before reusing photos or models.
 
-This is a desktop-focused example on the ArcGIS 6.0 prerelease packages.
+This is a desktop-focused example on the ArcGIS Maps SDK for JavaScript 5.2 release candidate (`5.2.0-next.159`).
