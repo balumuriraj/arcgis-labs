@@ -118,6 +118,7 @@ behavior need a browser.
 - [Build your own: trace a request and add a tool](./docs/build-your-own.md)
 - [Test prompts: a manual pass through every tool and card](./docs/test-prompts.md)
 - [Demo script](./demo.md)
+- [Technical guide: how it all works, with answers to likely questions](./docs/technical-guide.md)
 - [Data sources and SDK caveats](./docs/reference.md). Check the
   asset terms there before reusing photos or models.
 
