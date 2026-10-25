@@ -25,7 +25,7 @@ backend: the language model runs on Esri's AI service through the portal you sig
 ## 2. Architecture
 
 ```text
-App.tsx            Layout in JSX: Moon scene + slider, Earth scene, assistant, work panel
+App.tsx            Layout in JSX: Moon scene + slider, Earth scene, assistant
    │ creates
 map/controller.ts  createMoonApp() → `app`: data + every map action (visit, select, frame, flyTo…)
    ▲                      ▲
@@ -203,16 +203,7 @@ mode, 2-month stops. The agent sets its extent through `setTime`.
 - A custom chart is checked against the table's fields, and its SQL is validated with a count query,
   before the card is shown.
 
-## 9. The "guide's work" panel
-
-An internal SDK component, `arcgis-assistant-observation-panel`, toggled by the button in the chat
-entry. It shows every run: its steps and tool calls with inputs and outputs, timings, failures, and
-**token usage with a cost estimate**. It observes the assistant through `runtimeEventsEnabled` and
-records from page load, even while hidden.
-
-It's the best answer to "how do I know what the AI actually did?": open it and show the tool calls.
-
-## 10. Security, privacy, cost
+## 9. Security, privacy, cost
 
 - **What the model sees:** the tool descriptions, your messages, the live context, and the rows its
   own queries return. Never the database, the code, or credentials.
@@ -224,9 +215,9 @@ It's the best answer to "how do I know what the AI actually did?": open it and s
 - **Secrets:** none in the app. Sign-in is OAuth with the portal, handled by `arcgis-assistant`.
   `NEXT_PUBLIC_*` variables hold only the portal URL and optional settings.
 - **Cost and model:** the model and its billing come from the portal's AI service; the app doesn't
-  choose the model. The work panel shows tokens and estimated cost per run.
+  choose the model.
 
-## 11. Known limits and SDK workarounds (5.2)
+## 10. Known limits and SDK workarounds (5.2)
 
 - **Tool errors are fatal by default** (confirmed in 5.2): hence the `returnErrors` wrapper.
 - **Popups** (seen on prerelease builds): closing clears the content but not the frame, so the app closes it on `arcgisClose`.
@@ -237,16 +228,16 @@ It's the best answer to "how do I know what the AI actually did?": open it and s
   uses the browser's speech recognition, so it works best in Chrome.
 - **Data scope:** surface arrivals only, named craters only, no depths.
 
-## 12. Likely questions
+## 11. Likely questions
 
 **"Is this scripted?"**
 No. There's no mapping from questions to actions. The model picks skills and tools from their
 descriptions. "Why did it go quiet?" works because the model queries the chronology and reasons over
-the dates it gets back. Open the work panel to show the actual tool calls.
+the dates it gets back.
 
 **"Which LLM is it?"**
 Whichever model the ArcGIS AI service provides through the portal; the app doesn't host or choose
-one. The work panel shows run details and token usage.
+one.
 
 **"Is there a backend?"**
 No. It's a static Next.js app. Data comes from ArcGIS Online feature services; reasoning from the
@@ -278,8 +269,7 @@ The two worlds have different imagery, terrain, and scale. Keeping both loaded m
 instant and the crossfade smooth.
 
 **"What does it cost to run?"**
-Hosting is static. AI usage is billed through the portal's AI service; the work panel shows tokens
-and estimated cost per request.
+Hosting is static. AI usage is billed through the portal's AI service.
 
 **"What happens with an ambiguous request?"**
 It asks. `chooseMission` uses the SDK's human-in-the-loop interrupt; try "Take me to Chang'e".
@@ -287,7 +277,7 @@ It asks. `chooseMission` uses the SDK's human-in-the-loop interrupt; try "Take m
 **"Does it work on mobile?"**
 It's built for desktop: two 3D scenes plus the chat panel need a wide screen.
 
-## 13. Numbers
+## 12. Numbers
 
 | Fact | Value |
 | --- | --- |
