@@ -13,17 +13,32 @@ export type CardData = {
   "mission-card": { id: string };
   "mission-list": { title: string; ids: string[] };
   "crater-card": Crater;
-  "crater-list": { title: string; total: number; items: (Crater & { km?: number })[]; from?: string };
-  "object-card": { name: string; heightM: number; widthM: number; at: string; craterDiameterKm?: number; craterWiderThanTallBy?: number };
+  "crater-list": {
+    title: string;
+    total: number;
+    items: (Crater & { km?: number })[];
+    from?: string;
+  };
+  "object-card": {
+    name: string;
+    heightM: number;
+    widthM: number;
+    at: string;
+    craterDiameterKm?: number;
+    craterWiderThanTallBy?: number;
+  };
   chart: ChartRequest;
 };
-type CardBlock = { [K in keyof CardData]: { type: K; data: CardData[K] } }[keyof CardData];
+type CardBlock = {
+  [K in keyof CardData]: { type: K; data: CardData[K] };
+}[keyof CardData];
 
 function useSlottableRequests(assistant: HTMLArcgisAssistantElement) {
   return useSyncExternalStore(
     (notify) => {
       assistant.addEventListener("arcgisSlottableRequest", notify);
-      return () => assistant.removeEventListener("arcgisSlottableRequest", notify);
+      return () =>
+        assistant.removeEventListener("arcgisSlottableRequest", notify);
     },
     () => assistant.slottableRequests,
   );
@@ -47,7 +62,10 @@ const CARD_TYPES = new Set<string>([
 export function Cards({ app }: { app: MoonApp }) {
   const requests = useSlottableRequests(app.assistant);
   return requests.map((request) => {
-    const block = request.name === "block" ? (request.data.block as CardBlock | undefined) : undefined;
+    const block =
+      request.name === "block"
+        ? (request.data.block as CardBlock | undefined)
+        : undefined;
     if (!block || !CARD_TYPES.has(block.type)) return null;
     return (
       <div key={request.slotName} slot={request.slotName}>

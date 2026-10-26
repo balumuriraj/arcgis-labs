@@ -94,7 +94,8 @@ export interface MoonData {
 }
 
 type Attributes = Record<string, unknown>;
-const text = (value: unknown) => (typeof value === "string" && value.trim()) || undefined;
+const text = (value: unknown) =>
+  (typeof value === "string" && value.trim()) || undefined;
 
 function toMission(a: Attributes, objectId: number): Mission {
   return {
@@ -110,7 +111,9 @@ function toMission(a: Attributes, objectId: number): Mission {
     lat: a.lat as number,
     lon: a.lon as number,
     site: text(a.site),
-    crew: text(a.crew)?.split(";").map((name) => name.trim()),
+    crew: text(a.crew)
+      ?.split(";")
+      .map((name) => name.trim()),
     orbitingCrew: text(a.orbitingCrew),
     rover: text(a.rover),
     sampleReturn: a.sampleReturn === 1,
@@ -124,21 +127,43 @@ function toMission(a: Attributes, objectId: number): Mission {
   };
 }
 
-export async function loadData(missions: FeatureLayer, launchSites: FeatureLayer): Promise<MoonData> {
+export async function loadData(
+  missions: FeatureLayer,
+  launchSites: FeatureLayer,
+): Promise<MoonData> {
   const [m, s] = await Promise.all([
-    missions.queryFeatures({ where: "1=1", outFields: ["*"], orderByFields: ["arrivalDate"] }),
-    launchSites.queryFeatures({ where: "1=1", outFields: ["id", "name", "place", "lat", "lon"] }),
+    missions.queryFeatures({
+      where: "1=1",
+      outFields: ["*"],
+      orderByFields: ["arrivalDate"],
+    }),
+    launchSites.queryFeatures({
+      where: "1=1",
+      outFields: ["id", "name", "place", "lat", "lon"],
+    }),
   ]);
   return {
-    missions: m.features.map((f) => toMission(f.attributes, f.getObjectId() as number)),
+    missions: m.features.map((f) =>
+      toMission(f.attributes, f.getObjectId() as number),
+    ),
     launchSites: s.features.map((f) => f.attributes as LaunchSite),
   };
 }
 
-const CRATER_FIELDS = ["name", "lat", "lon", "diameterKm", "origin", "yearApproved"];
+const CRATER_FIELDS = [
+  "name",
+  "lat",
+  "lon",
+  "diameterKm",
+  "origin",
+  "yearApproved",
+];
 
 /** All craters matching an ArcGIS SQL `where` clause. */
-export async function queryCraters(layer: FeatureLayer, where = "1=1"): Promise<Crater[]> {
+export async function queryCraters(
+  layer: FeatureLayer,
+  where = "1=1",
+): Promise<Crater[]> {
   const { features } = await layer.queryFeatures({
     where,
     outFields: CRATER_FIELDS,
@@ -149,15 +174,24 @@ export async function queryCraters(layer: FeatureLayer, where = "1=1"): Promise<
   return features.map((f) => f.attributes as Crater);
 }
 
-export async function findCrater(layer: FeatureLayer, name: string): Promise<Crater> {
+export async function findCrater(
+  layer: FeatureLayer,
+  name: string,
+): Promise<Crater> {
   const [crater] = await queryCraters(layer, `name = ${sql(name)}`);
-  if (!crater) throw new Error(`No crater named ${name}. Query craters for the exact name.`);
+  if (!crater)
+    throw new Error(
+      `No crater named ${name}. Query craters for the exact name.`,
+    );
   return crater;
 }
 
 export function findMission(data: MoonData, id: string): Mission {
   const mission = data.missions.find((m) => m.id === id);
-  if (!mission) throw new Error(`Unknown mission id: ${id}. Query missions for a valid id.`);
+  if (!mission)
+    throw new Error(
+      `Unknown mission id: ${id}. Query missions for a valid id.`,
+    );
   return mission;
 }
 
@@ -181,9 +215,16 @@ export type Place = (typeof PLACES)[number];
 
 const DAY = 86_400_000;
 export const yearOf = (m: Mission) => new Date(m.arrivalDate).getUTCFullYear();
-export const daysToSurface = (m: Mission) => Math.round((m.arrivalDate - m.launchDate) / DAY);
-export const isLanding = (m: Mission) => m.outcome === "soft" || m.outcome === "crewed";
+export const daysToSurface = (m: Mission) =>
+  Math.round((m.arrivalDate - m.launchDate) / DAY);
+export const isLanding = (m: Mission) =>
+  m.outcome === "soft" || m.outcome === "crewed";
 export const isFarSide = (p: { lon: number }) => Math.abs(p.lon) > 90;
 
 export const formatDate = (ms: number | string) =>
-  new Date(ms).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+  new Date(ms).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });

@@ -14,8 +14,10 @@ import TextSymbol3DLayer from "@arcgis/core/symbols/TextSymbol3DLayer.js";
 import { LAUNCH_SITES_URL } from "../data";
 
 /** Public Esri services, no sign-in needed. */
-const EARTH_IMAGERY = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer";
-const EARTH_TERRAIN = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+const EARTH_IMAGERY =
+  "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer";
+const EARTH_TERRAIN =
+  "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
 /** Earth, where the app opens, with the spaceports the missions launched from. */
 export function createEarthScene() {
@@ -27,9 +29,23 @@ export function createEarthScene() {
     // A rocket on a disc, in the same style as the mission icons, floating above the site on a leader line.
     renderer: new SimpleRenderer({
       symbol: new PointSymbol3D({
-        symbolLayers: [new IconSymbol3DLayer({ resource: { href: "/icons/launch-site.svg" }, size: 28, anchor: "bottom" })],
-        verticalOffset: { screenLength: 14, maxWorldLength: 200_000, minWorldLength: 0 },
-        callout: new LineCallout3D({ size: 1, color: [255, 255, 255, 0.75], border: { color: [6, 8, 14, 0.6] } }),
+        symbolLayers: [
+          new IconSymbol3DLayer({
+            resource: { href: "/icons/launch-site.svg" },
+            size: 28,
+            anchor: "bottom",
+          }),
+        ],
+        verticalOffset: {
+          screenLength: 14,
+          maxWorldLength: 200_000,
+          minWorldLength: 0,
+        },
+        callout: new LineCallout3D({
+          size: 1,
+          color: [255, 255, 255, 0.75],
+          border: { color: [6, 8, 14, 0.6] },
+        }),
       }),
     }),
     labelingInfo: [
@@ -37,7 +53,13 @@ export function createEarthScene() {
         labelExpressionInfo: { expression: "$feature.name" },
         labelPlacement: "above-center",
         symbol: new LabelSymbol3D({
-          symbolLayers: [new TextSymbol3DLayer({ material: { color: "white" }, halo: { color: "#06080e", size: 1 }, size: 11 })],
+          symbolLayers: [
+            new TextSymbol3DLayer({
+              material: { color: "white" },
+              halo: { color: "#06080e", size: 1 },
+              size: 11,
+            }),
+          ],
         }),
       }),
     ],
@@ -46,8 +68,12 @@ export function createEarthScene() {
   });
 
   const map = new Map({
-    basemap: new Basemap({ baseLayers: [new TileLayer({ url: EARTH_IMAGERY })] }),
-    ground: new Ground({ layers: [new ElevationLayer({ url: EARTH_TERRAIN })] }),
+    basemap: new Basemap({
+      baseLayers: [new TileLayer({ url: EARTH_IMAGERY })],
+    }),
+    ground: new Ground({
+      layers: [new ElevationLayer({ url: EARTH_TERRAIN })],
+    }),
     layers: [launchSites],
   });
 

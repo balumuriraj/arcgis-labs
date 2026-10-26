@@ -28,8 +28,18 @@ export function markCraters(layer: GraphicsLayer, craters: Crater[]): void {
     if (rim) {
       layer.add(
         new Graphic({
-          geometry: new Polyline({ paths: [moonCircle(crater, crater.diameterKm / 2)], spatialReference: SpatialReference.WGS84 }),
-          symbol: new LineSymbol3D({ symbolLayers: [new LineSymbol3DLayer({ size: 2, material: { color: [255, 214, 102, 0.9] } })] }),
+          geometry: new Polyline({
+            paths: [moonCircle(crater, crater.diameterKm / 2)],
+            spatialReference: SpatialReference.WGS84,
+          }),
+          symbol: new LineSymbol3D({
+            symbolLayers: [
+              new LineSymbol3DLayer({
+                size: 2,
+                material: { color: [255, 214, 102, 0.9] },
+              }),
+            ],
+          }),
         }),
       );
     }
@@ -37,28 +47,58 @@ export function markCraters(layer: GraphicsLayer, craters: Crater[]): void {
       new Graphic({
         geometry: moonPoint(crater),
         attributes: { ...crater },
-        popupTemplate: { title: "{name}", content: "{diameterKm} km across. {origin}" },
+        popupTemplate: {
+          title: "{name}",
+          content: "{diameterKm} km across. {origin}",
+        },
         symbol: new PointSymbol3D({
           symbolLayers: [
             ...(rim
               ? []
-              : [new IconSymbol3DLayer({ resource: { primitive: "kite" }, size: 12, material: { color: "#ffd666" }, outline: { color: [6, 8, 14, 0.9], size: 1 } })]),
-            new TextSymbol3DLayer({ text: crater.name, size: 12, material: { color: "#ffe9a8" }, halo: HALO }),
+              : [
+                  new IconSymbol3DLayer({
+                    resource: { primitive: "kite" },
+                    size: 12,
+                    material: { color: "#ffd666" },
+                    outline: { color: [6, 8, 14, 0.9], size: 1 },
+                  }),
+                ]),
+            new TextSymbol3DLayer({
+              text: crater.name,
+              size: 12,
+              material: { color: "#ffe9a8" },
+              halo: HALO,
+            }),
           ],
           verticalOffset: { screenLength: rim ? 18 : 30 },
-          callout: rim ? undefined : new LineCallout3D({ size: 1, color: [255, 214, 102, 0.7] }),
+          callout: rim
+            ? undefined
+            : new LineCallout3D({ size: 1, color: [255, 214, 102, 0.7] }),
         }),
       }),
     );
   }
 }
 
-export const SHAPES = ["tower", "mountain", "block", "cylinder", "sphere"] as const;
+export const SHAPES = [
+  "tower",
+  "mountain",
+  "block",
+  "cylinder",
+  "sphere",
+] as const;
 export type Shape = (typeof SHAPES)[number];
 
 /** Footprint width as a share of height, for when the guide doesn't give one. */
-const TYPICAL_WIDTH: Record<Shape, number> = { tower: 0.13, mountain: 3.2, block: 1, cylinder: 0.3, sphere: 1 };
-export const typicalWidthM = (shape: Shape, heightM: number) => Math.round(heightM * TYPICAL_WIDTH[shape] * 10) / 10;
+const TYPICAL_WIDTH: Record<Shape, number> = {
+  tower: 0.13,
+  mountain: 3.2,
+  block: 1,
+  cylinder: 0.3,
+  sphere: 1,
+};
+export const typicalWidthM = (shape: Shape, heightM: number) =>
+  Math.round(heightM * TYPICAL_WIDTH[shape] * 10) / 10;
 
 /** A tower tapers in three stacked tiers: width (share of the base) and height (share of the total). */
 const TOWER_TIERS = [
@@ -68,7 +108,11 @@ const TOWER_TIERS = [
 ];
 
 /** An object's outline from SDK primitives, at true scale (sizes in lunar meters). */
-function outline(shape: Shape, heightM: number, widthM: number): ObjectSymbol3DLayer[] {
+function outline(
+  shape: Shape,
+  heightM: number,
+  widthM: number,
+): ObjectSymbol3DLayer[] {
   const height = sceneMeters(heightM);
   const width = sceneMeters(widthM);
   const material = { color: "#ff6b9a" };
@@ -89,20 +133,54 @@ function outline(shape: Shape, heightM: number, widthM: number): ObjectSymbol3DL
       return layer;
     });
   }
-  const primitive = { mountain: "cone", block: "cube", cylinder: "cylinder", sphere: "sphere" } as const;
-  return [new ObjectSymbol3DLayer({ resource: { primitive: primitive[shape] }, width, depth: width, height, anchor: "bottom", material })];
+  const primitive = {
+    mountain: "cone",
+    block: "cube",
+    cylinder: "cylinder",
+    sphere: "sphere",
+  } as const;
+  return [
+    new ObjectSymbol3DLayer({
+      resource: { primitive: primitive[shape] },
+      width,
+      depth: width,
+      height,
+      anchor: "bottom",
+      material,
+    }),
+  ];
 }
 
 /** Any object at true scale, standing at `at`, with a label above it. */
-export function placeObject(layer: GraphicsLayer, shape: Shape, heightM: number, widthM: number, at: LatLon, label: string): void {
+export function placeObject(
+  layer: GraphicsLayer,
+  shape: Shape,
+  heightM: number,
+  widthM: number,
+  at: LatLon,
+  label: string,
+): void {
   layer.removeAll();
   layer.addMany([
-    new Graphic({ geometry: moonPoint(at), attributes: { label, role: "shape" }, symbol: new PointSymbol3D({ symbolLayers: outline(shape, heightM, widthM) }) }),
+    new Graphic({
+      geometry: moonPoint(at),
+      attributes: { label, role: "shape" },
+      symbol: new PointSymbol3D({
+        symbolLayers: outline(shape, heightM, widthM),
+      }),
+    }),
     new Graphic({
       geometry: moonPoint(at, sceneMeters(heightM)),
       attributes: { label, role: "label" },
       symbol: new PointSymbol3D({
-        symbolLayers: [new TextSymbol3DLayer({ text: label, size: 13, material: { color: "white" }, halo: HALO })],
+        symbolLayers: [
+          new TextSymbol3DLayer({
+            text: label,
+            size: 13,
+            material: { color: "white" },
+            halo: HALO,
+          }),
+        ],
         verticalOffset: { screenLength: 28 },
         callout: new LineCallout3D({ size: 1, color: [255, 255, 255, 0.7] }),
       }),
@@ -114,19 +192,29 @@ export function placeObject(layer: GraphicsLayer, shape: Shape, heightM: number,
  * Lets people click a placed object and drag it somewhere else. It keeps its true size; its label,
  * a separate graphic floating at the top, follows it.
  */
-export function makeObjectsMovable(view: SceneView, objects: GraphicsLayer): ResourceHandle {
+export function makeObjectsMovable(
+  view: SceneView,
+  objects: GraphicsLayer,
+): ResourceHandle {
   const sketch = new SketchViewModel({
     view,
     layer: objects,
     updateOnGraphicClick: true,
-    defaultUpdateOptions: { tool: "move", enableRotation: false, enableScaling: false, enableZ: false, toggleToolOnClick: false },
+    defaultUpdateOptions: {
+      tool: "move",
+      enableRotation: false,
+      enableScaling: false,
+      enableZ: false,
+      toggleToolOnClick: false,
+    },
   });
   const moving = sketch.on("update", ({ graphics: [graphic] }) => {
     // Only the shape moves; the label goes wherever the shape goes.
     if (graphic.attributes?.role !== "shape") return sketch.cancel();
     const label = objects.graphics.find((g) => g.attributes?.role === "label");
     const base = graphic.geometry as Point;
-    if (label) label.geometry = base.clone().set({ z: (label.geometry as Point).z });
+    if (label)
+      label.geometry = base.clone().set({ z: (label.geometry as Point).z });
   });
   return {
     remove() {
@@ -137,8 +225,17 @@ export function makeObjectsMovable(view: SceneView, objects: GraphicsLayer): Res
 }
 
 /** What's drawn, for the guide's context: one entry per crater or object. */
-export function describeDrawings(craterMarks: GraphicsLayer, objects: GraphicsLayer): string[] {
-  const craters = craterMarks.graphics.toArray().flatMap((g) => (g.attributes?.name ? [`${g.attributes.name} (crater)`] : []));
-  const labels = objects.graphics.toArray().map((g) => String(g.attributes?.label));
+export function describeDrawings(
+  craterMarks: GraphicsLayer,
+  objects: GraphicsLayer,
+): string[] {
+  const craters = craterMarks.graphics
+    .toArray()
+    .flatMap((g) =>
+      g.attributes?.name ? [`${g.attributes.name} (crater)`] : [],
+    );
+  const labels = objects.graphics
+    .toArray()
+    .map((g) => String(g.attributes?.label));
   return [...new Set([...craters, ...labels])];
 }

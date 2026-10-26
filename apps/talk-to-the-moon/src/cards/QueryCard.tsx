@@ -6,10 +6,18 @@ export type QueryResults = {
 
 /** Statistics such as averages come back unrounded; whole numbers (years, counts) stay as they are. */
 const display = (value: string | number | null) =>
-  value === null ? "-" : typeof value === "number" && !Number.isInteger(value) ? Math.round(value * 100) / 100 : value;
+  value === null
+    ? "-"
+    : typeof value === "number" && !Number.isInteger(value)
+      ? Math.round(value * 100) / 100
+      : value;
 
 /** A snapshot of a queryData result. Only sent when there are rows. */
-export function QueryCard({ data: { title, columns, rows, truncated } }: { data: QueryResults & { title: string } }) {
+export function QueryCard({
+  data: { title, columns, rows, truncated },
+}: {
+  data: QueryResults & { title: string };
+}) {
   return (
     <calcite-card>
       <h3 slot="heading">{title}</h3>
@@ -26,7 +34,9 @@ export function QueryCard({ data: { title, columns, rows, truncated } }: { data:
         {rows.map((row, index) => (
           <calcite-table-row key={index}>
             {columns.map((column) => (
-              <calcite-table-cell key={column}>{display(row[column])}</calcite-table-cell>
+              <calcite-table-cell key={column}>
+                {display(row[column])}
+              </calcite-table-cell>
             ))}
           </calcite-table-row>
         ))}

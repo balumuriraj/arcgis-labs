@@ -5,7 +5,9 @@ import { chartInfo, renderChart, type ChartRequest } from "./charts";
 export function ChartCard({ app, data }: { app: MoonApp; data: ChartRequest }) {
   const chart = useRef<HTMLArcgisChartElement>(null);
   const [attempt, setAttempt] = useState(0);
-  const [status, setStatus] = useState<{ loading: boolean; error?: string }>({ loading: true });
+  const [status, setStatus] = useState<{ loading: boolean; error?: string }>({
+    loading: true,
+  });
   const { title, note } = chartInfo(data);
 
   useEffect(() => {
@@ -14,7 +16,11 @@ export function ChartCard({ app, data }: { app: MoonApp; data: ChartRequest }) {
       () => current && setStatus({ loading: false }),
       (error: unknown) => {
         console.error("Could not load the chart:", error);
-        if (current) setStatus({ loading: false, error: `The chart could not load. ${error instanceof Error ? error.message : ""}` });
+        if (current)
+          setStatus({
+            loading: false,
+            error: `The chart could not load. ${error instanceof Error ? error.message : ""}`,
+          });
       },
     );
     return () => {
@@ -26,7 +32,14 @@ export function ChartCard({ app, data }: { app: MoonApp; data: ChartRequest }) {
     <calcite-card>
       <h3 slot="heading">{title}</h3>
       <span slot="description">{note}</span>
-      {status.loading ? <calcite-loader inline label="Loading chart" text="Loading chart..." scale="s" /> : null}
+      {status.loading ? (
+        <calcite-loader
+          inline
+          label="Loading chart"
+          text="Loading chart..."
+          scale="s"
+        />
+      ) : null}
       {status.error ? (
         <calcite-notice open kind="danger" role="alert">
           <span slot="message">{status.error}</span>

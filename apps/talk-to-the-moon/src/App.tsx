@@ -9,7 +9,8 @@ import { createEarthScene } from "./map/earth";
 import { createMoonScene } from "./map/moon";
 
 // Prerelease SDK builds close the popup's content but leave the popup itself open.
-const closePopup = (event: { target: HTMLArcgisPopupElement }) => (event.target.open = false);
+const closePopup = (event: { target: HTMLArcgisPopupElement }) =>
+  (event.target.open = false);
 
 export default function App() {
   // The maps and layers are declared up front; the scene components own their views.
@@ -28,7 +29,13 @@ export default function App() {
   useEffect(() => {
     let created: MoonApp | undefined;
     let unmounted = false;
-    const elements = { moon: moonEl.current!, earth: earthEl.current!, slider: slider.current!, assistant: assistant.current!, stage: stage.current! };
+    const elements = {
+      moon: moonEl.current!,
+      earth: earthEl.current!,
+      slider: slider.current!,
+      assistant: assistant.current!,
+      stage: stage.current!,
+    };
     createMoonApp(elements, moon, earth).then(
       (result) => {
         if (unmounted) return result.destroy();
@@ -56,12 +63,22 @@ export default function App() {
         </calcite-navigation>
 
         <div ref={stage} className="stage" data-world="earth">
-          <arcgis-scene ref={moonEl} id="moon" map={moon.map} aria-label="The Moon">
+          <arcgis-scene
+            ref={moonEl}
+            id="moon"
+            map={moon.map}
+            aria-label="The Moon"
+          >
             <arcgis-popup slot="popup" onarcgisClose={closePopup} />
             <arcgis-zoom slot="top-left" />
             <arcgis-navigation-toggle slot="top-left" />
             <arcgis-compass slot="top-left" />
-            <arcgis-expand slot="top-right" expandIcon="legend" expandTooltip="Legend" mode="floating">
+            <arcgis-expand
+              slot="top-right"
+              expandIcon="legend"
+              expandTooltip="Legend"
+              mode="floating"
+            >
               <arcgis-legend legendStyle="classic" />
             </arcgis-expand>
             <arcgis-time-slider
@@ -74,7 +91,12 @@ export default function App() {
             />
           </arcgis-scene>
 
-          <arcgis-scene ref={earthEl} id="earth" map={earth.map} aria-label="Earth">
+          <arcgis-scene
+            ref={earthEl}
+            id="earth"
+            map={earth.map}
+            aria-label="Earth"
+          >
             <arcgis-popup slot="popup" onarcgisClose={closePopup} />
             <arcgis-zoom slot="top-left" />
             <arcgis-compass slot="top-left" />
@@ -82,7 +104,12 @@ export default function App() {
         </div>
 
         {/* The guide's work: every step it takes, the tools it calls, how long they take, and what they cost. */}
-        <calcite-shell-panel slot="panel-bottom" height="m" resizable collapsed={!showWork}>
+        <calcite-shell-panel
+          slot="panel-bottom"
+          height="m"
+          resizable
+          collapsed={!showWork}
+        >
           <arcgis-assistant-observation-panel referenceElement="assistant" />
         </calcite-shell-panel>
 
@@ -99,7 +126,9 @@ export default function App() {
             <calcite-action
               slot="entry-actions-start"
               icon="activity-monitor"
-              text={showWork ? "Hide the guide's work" : "Show the guide's work"}
+              text={
+                showWork ? "Hide the guide's work" : "Show the guide's work"
+              }
               active={showWork}
               scale="s"
               onClick={() => setShowWork((shown) => !shown)}

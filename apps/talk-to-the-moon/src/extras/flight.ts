@@ -25,7 +25,8 @@ const BEHIND_KM = 5;
 const ABOVE_M = 2000;
 const TURN_DEG_PER_S = 60;
 
-const ground = (view: SceneView, p: LatLon) => view.groundView.elevationSampler?.queryElevation(moonPoint(p))?.z ?? 0;
+const ground = (view: SceneView, p: LatLon) =>
+  view.groundView.elevationSampler?.queryElevation(moonPoint(p))?.z ?? 0;
 
 /** The point `km` along `headingDeg` (clockwise from north) from `p`. */
 function along(p: LatLon, headingDeg: number, km: number): LatLon {
@@ -35,7 +36,13 @@ function along(p: LatLon, headingDeg: number, km: number): LatLon {
 
 const landerSymbol = (heading: number) =>
   new PointSymbol3D({
-    symbolLayers: [new ObjectSymbol3DLayer({ resource: { href: "/models/lunar-module.glb" }, height: sceneMeters(LANDER_HEIGHT_M), heading })],
+    symbolLayers: [
+      new ObjectSymbol3DLayer({
+        resource: { href: "/models/lunar-module.glb" },
+        height: sceneMeters(LANDER_HEIGHT_M),
+        heading,
+      }),
+    ],
   });
 
 /** Starts flying from `start`. Returns a function that ends the flight. */
@@ -44,7 +51,11 @@ export function startFlight(view: SceneView, start: LatLon): () => void {
   const keys = new Set<string>();
   view.animation?.stop();
 
-  const layer = new GraphicsLayer({ title: "Lander flight", listMode: "hide", elevationInfo: { mode: "relative-to-ground" } });
+  const layer = new GraphicsLayer({
+    title: "Lander flight",
+    listMode: "hide",
+    elevationInfo: { mode: "relative-to-ground" },
+  });
   const lander = new Graphic({ symbol: landerSymbol(0) });
   layer.add(lander);
   view.map?.add(layer);
@@ -68,8 +79,16 @@ export function startFlight(view: SceneView, start: LatLon): () => void {
     last = now;
     if (keys.has("ArrowLeft")) state.heading -= TURN_DEG_PER_S * seconds;
     if (keys.has("ArrowRight")) state.heading += TURN_DEG_PER_S * seconds;
-    if (keys.has("ArrowUp")) state.altitudeM = Math.min(MAX_ALTITUDE_M, state.altitudeM + CLIMB_M_PER_S * seconds);
-    if (keys.has("ArrowDown")) state.altitudeM = Math.max(MIN_ALTITUDE_M, state.altitudeM - CLIMB_M_PER_S * seconds);
+    if (keys.has("ArrowUp"))
+      state.altitudeM = Math.min(
+        MAX_ALTITUDE_M,
+        state.altitudeM + CLIMB_M_PER_S * seconds,
+      );
+    if (keys.has("ArrowDown"))
+      state.altitudeM = Math.max(
+        MIN_ALTITUDE_M,
+        state.altitudeM - CLIMB_M_PER_S * seconds,
+      );
     Object.assign(state, along(state, state.heading, SPEED_KM_S * seconds));
 
     lander.geometry = moonPoint(state, sceneMeters(state.altitudeM));
@@ -80,7 +99,10 @@ export function startFlight(view: SceneView, start: LatLon): () => void {
     const camera = along(state, state.heading + 180, BEHIND_KM);
     const tilt = 90 - (Math.atan2(ABOVE_M, BEHIND_KM * 1000) * 180) / Math.PI;
     view.camera = new Camera({
-      position: moonPoint(camera, ground(view, state) + sceneMeters(state.altitudeM + ABOVE_M)),
+      position: moonPoint(
+        camera,
+        ground(view, state) + sceneMeters(state.altitudeM + ABOVE_M),
+      ),
       heading: state.heading,
       tilt,
     });

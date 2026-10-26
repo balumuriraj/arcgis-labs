@@ -10,7 +10,8 @@ export function createMoonAgent(app: MoonApp): SkillAgent {
   return new SkillAgent({
     id: AGENT_ID,
     name: "Moon Guide",
-    description: "Explores lunar missions, Earth launch sites, named craters, mission history, charts, and true-scale objects.",
+    description:
+      "Explores lunar missions, Earth launch sites, named craters, mission history, charts, and true-scale objects.",
     systemPrompt:
       "You are the guide in a 3D Moon app. Use tools to control the map and show chat cards. Reply conversationally in one or two sentences for a non-expert; explain the result rather than repeating its table. Mission icons show a gold astronaut for crewed landings, cyan lander for robotic landings, coral burst for crashes, and grey target for planned impacts, each with a country flag. The map has a legend and clickable popups. Stay within the Moon map's subject.",
     instructions: `Interpret the user's intent and choose tools from their capabilities, not a fixed question-to-tool recipe.
@@ -22,14 +23,18 @@ The crater data holds only named craters; other feature types and lettered satel
 Craters named after specific people the user names (for example a mission's crew) can be found: query crater names matching their surnames, keep only those whose origin text confirms the person, then show them. Broad honoree searches (every astronaut, every scientist from a country) aren't supported. A crater's recorded name origin may be explained once it's identified.
 Standalone point-to-point measurements, radius cutoffs, and nearest-mission searches aren't supported. Brief widely known history is fine, but keep it distinct from recorded facts and never invent dates or numbers.`,
     skillLoaders: [async () => explore, async () => history, async () => scale],
-    toolLoaders: Object.fromEntries(tools.map((tool) => [tool.name, async () => tool])),
+    toolLoaders: Object.fromEntries(
+      tools.map((tool) => [tool.name, async () => tool]),
+    ),
     // What the map shows right now, so follow-ups like "tell me about it" or "pause" resolve.
     runtimeContextLoader: async () => {
       const { state, slider } = app;
       const selected =
         state.selected.length > 15
           ? `${state.selected.length} missions`
-          : state.selected.map((id) => app.data.missions.find((m) => m.id === id)?.name).join(", ") || "none";
+          : state.selected
+              .map((id) => app.data.missions.find((m) => m.id === id)?.name)
+              .join(", ") || "none";
       const drawn = app.drawings();
       const date = (d?: Date | null) => d?.toISOString().slice(0, 10) ?? "none";
       return [

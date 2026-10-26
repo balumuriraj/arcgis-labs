@@ -14,11 +14,23 @@ import LabelSymbol3D from "@arcgis/core/symbols/LabelSymbol3D.js";
 import PointSymbol3D from "@arcgis/core/symbols/PointSymbol3D.js";
 import TextSymbol3DLayer from "@arcgis/core/symbols/TextSymbol3DLayer.js";
 import LineCallout3D from "@arcgis/core/symbols/callouts/LineCallout3D.js";
-import { CRATERS_URL, MISSIONS_URL, OUTCOMES, OUTCOME_LABEL, flagUrl, sql, type Country, type Mission, type Outcome } from "../data";
+import {
+  CRATERS_URL,
+  MISSIONS_URL,
+  OUTCOMES,
+  OUTCOME_LABEL,
+  flagUrl,
+  sql,
+  type Country,
+  type Mission,
+  type Outcome,
+} from "../data";
 import { SiteModel } from "../extras/siteModel";
 
-const MOON_IMAGERY = "https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/Moon_Basemap_Tile0to9/MapServer";
-const MOON_ELEVATION = "https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/Moon_Elevation_Surface/ImageServer";
+const MOON_IMAGERY =
+  "https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/Moon_Basemap_Tile0to9/MapServer";
+const MOON_ELEVATION =
+  "https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/Moon_Elevation_Surface/ImageServer";
 
 /** The Moon map and the layers the app works with. Created once per page. */
 export function createMoonScene() {
@@ -44,7 +56,13 @@ export function createMoonScene() {
     // Labels only: the points themselves are invisible.
     renderer: new SimpleRenderer({
       symbol: new PointSymbol3D({
-        symbolLayers: [new IconSymbol3DLayer({ resource: { primitive: "circle" }, size: 0.5, material: { color: [0, 0, 0, 0] } })],
+        symbolLayers: [
+          new IconSymbol3DLayer({
+            resource: { primitive: "circle" },
+            size: 0.5,
+            material: { color: [0, 0, 0, 0] },
+          }),
+        ],
       }),
     }),
     labelsVisible: false,
@@ -52,20 +70,36 @@ export function createMoonScene() {
       new LabelClass({
         labelExpressionInfo: { expression: "$feature.name" },
         labelPlacement: "center-center",
-        symbol: label({ color: [214, 219, 228, 0.82], size: 11, style: "italic" }),
+        symbol: label({
+          color: [214, 219, 228, 0.82],
+          size: 11,
+          style: "italic",
+        }),
       }),
     ],
   });
 
   /** Crater rims and pins drawn by the guide. */
-  const craterMarks = new GraphicsLayer({ title: "Crater marks", listMode: "hide", elevationInfo: { mode: "on-the-ground" } });
+  const craterMarks = new GraphicsLayer({
+    title: "Crater marks",
+    listMode: "hide",
+    elevationInfo: { mode: "on-the-ground" },
+  });
   /** True-scale objects standing on the terrain. */
-  const objects = new GraphicsLayer({ title: "Objects", listMode: "hide", elevationInfo: { mode: "relative-to-ground" } });
+  const objects = new GraphicsLayer({
+    title: "Objects",
+    listMode: "hide",
+    elevationInfo: { mode: "relative-to-ground" },
+  });
   const siteModel = new SiteModel();
 
   const map = new Map({
-    basemap: new Basemap({ baseLayers: [new TileLayer({ url: MOON_IMAGERY, title: "Moon imagery" })] }),
-    ground: new Ground({ layers: [new ElevationLayer({ url: MOON_ELEVATION })] }),
+    basemap: new Basemap({
+      baseLayers: [new TileLayer({ url: MOON_IMAGERY, title: "Moon imagery" })],
+    }),
+    ground: new Ground({
+      layers: [new ElevationLayer({ url: MOON_ELEVATION })],
+    }),
     layers: [craters, craterMarks, ...siteModel.layers, objects, missions],
   });
 
@@ -75,10 +109,18 @@ export function createMoonScene() {
 export type MoonScene = ReturnType<typeof createMoonScene>;
 
 function missionPopup() {
-  const outcomes = OUTCOMES.map((o) => `"${o}", "${OUTCOME_LABEL[o]}"`).join(", ");
+  const outcomes = OUTCOMES.map((o) => `"${o}", "${OUTCOME_LABEL[o]}"`).join(
+    ", ",
+  );
   return new PopupTemplate({
     title: "{name}",
-    expressionInfos: [{ name: "outcome", title: "Outcome", expression: `Decode($feature.outcome, ${outcomes}, "")` }],
+    expressionInfos: [
+      {
+        name: "outcome",
+        title: "Outcome",
+        expression: `Decode($feature.outcome, ${outcomes}, "")`,
+      },
+    ],
     content: [
       {
         type: "fields",
@@ -107,7 +149,11 @@ const GROUP_HEADING: Record<Outcome, string> = {
 /** One icon per outcome (public/icons/) with the country's flag on its corner, for each pair that occurs. */
 export function missionRenderer(missions: Mission[]): UniqueValueRenderer {
   const groups = OUTCOMES.map((outcome) => {
-    const countries = [...new Set(missions.filter((m) => m.outcome === outcome).map((m) => m.country))].sort();
+    const countries = [
+      ...new Set(
+        missions.filter((m) => m.outcome === outcome).map((m) => m.country),
+      ),
+    ].sort();
     return {
       heading: GROUP_HEADING[outcome],
       classes: countries.map((country) => ({
@@ -124,7 +170,12 @@ export function missionRenderer(missions: Mission[]): UniqueValueRenderer {
   });
 }
 
-const ICON_SIZE: Record<Outcome, number> = { crewed: 40, soft: 34, crash: 28, impact: 24 };
+const ICON_SIZE: Record<Outcome, number> = {
+  crewed: 40,
+  soft: 34,
+  crash: 28,
+  impact: 24,
+};
 
 /**
  * The icon floats a little above the site with a thin line down to the exact spot, so it never
@@ -134,7 +185,11 @@ function missionSymbol(outcome: Outcome, country: Country): PointSymbol3D {
   const size = ICON_SIZE[outcome];
   return new PointSymbol3D({
     symbolLayers: [
-      new IconSymbol3DLayer({ resource: { href: `/icons/${outcome}.svg` }, size, anchor: "bottom" }),
+      new IconSymbol3DLayer({
+        resource: { href: `/icons/${outcome}.svg` },
+        size,
+        anchor: "bottom",
+      }),
       // The flag sits on the disc's top-right; anchorPosition is measured in flag sizes.
       new IconSymbol3DLayer({
         resource: { href: flagUrl(country) },
@@ -143,8 +198,16 @@ function missionSymbol(outcome: Outcome, country: Country): PointSymbol3D {
         anchorPosition: { x: -0.7, y: 1.6 },
       }),
     ],
-    verticalOffset: { screenLength: 18, maxWorldLength: 200_000, minWorldLength: 0 },
-    callout: new LineCallout3D({ size: 1, color: [255, 255, 255, 0.75], border: { color: [6, 8, 14, 0.6] } }),
+    verticalOffset: {
+      screenLength: 18,
+      maxWorldLength: 200_000,
+      minWorldLength: 0,
+    },
+    callout: new LineCallout3D({
+      size: 1,
+      color: [255, 255, 255, 0.75],
+      border: { color: [6, 8, 14, 0.6] },
+    }),
   });
 }
 
@@ -161,7 +224,17 @@ export function missionLabels(ids: string[]): LabelClass[] {
   ];
 }
 
-function label({ color, size, style, weight }: { color: string | number[]; size: number; style?: "italic"; weight?: "bold" }) {
+function label({
+  color,
+  size,
+  style,
+  weight,
+}: {
+  color: string | number[];
+  size: number;
+  style?: "italic";
+  weight?: "bold";
+}) {
   return new LabelSymbol3D({
     symbolLayers: [
       new TextSymbol3DLayer({

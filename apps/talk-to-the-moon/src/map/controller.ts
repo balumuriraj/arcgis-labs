@@ -11,7 +11,13 @@ import { findMission, loadData, type Mission } from "../data";
 import type { EarthScene } from "./earth";
 import { describeDrawings, makeObjectsMovable } from "./graphics";
 import { missionLabels, missionRenderer, type MoonScene } from "./moon";
-import { loadGeodesy, moonPoint, sceneMeters, wholeMoon, type LatLon } from "./scale";
+import {
+  loadGeodesy,
+  moonPoint,
+  sceneMeters,
+  wholeMoon,
+  type LatLon,
+} from "./scale";
 import { Travel } from "./travel";
 
 export interface MoonElements {
@@ -31,7 +37,11 @@ const ignoreAbort = (error: unknown) => {
  * Waits for both scenes, reads the data, and returns the map actions that the agent's tools and
  * the chat cards share. Everything the guide does to the map goes through this object.
  */
-export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: EarthScene) {
+export async function createMoonApp(
+  el: MoonElements,
+  moon: MoonScene,
+  earth: EarthScene,
+) {
   const [data] = await Promise.all([
     loadData(moon.missions, earth.launchSites),
     el.moon.viewOnReady(),
@@ -69,7 +79,11 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
   const movable = makeObjectsMovable(view, moon.objects);
 
   /** Shared with the agent's context: what the current answer is about. */
-  const state = { selected: [] as string[], othersHidden: false, focus: undefined as string | undefined };
+  const state = {
+    selected: [] as string[],
+    othersHidden: false,
+    focus: undefined as string | undefined,
+  };
   let highlight: ResourceHandle | undefined;
   let endFlight: (() => void) | undefined;
 
@@ -79,9 +93,13 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
     state.selected = ids;
     state.othersHidden = only;
     highlight?.remove();
-    highlight = objectIds.length ? missionsView.highlight(objectIds) : undefined;
+    highlight = objectIds.length
+      ? missionsView.highlight(objectIds)
+      : undefined;
     moon.missions.labelingInfo = ids.length <= 6 ? missionLabels(ids) : [];
-    missionsView.filter = only ? new FeatureFilter(objectIds.length ? { objectIds } : { where: "1=0" }) : null;
+    missionsView.filter = only
+      ? new FeatureFilter(objectIds.length ? { objectIds } : { where: "1=0" })
+      : null;
   }
 
   /** Stop what's going on and make sure the Moon is showing, before a new map action. */
@@ -96,7 +114,10 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
    * Close-up of one place, then a slow orbit around it. `scale` is a real lunar map scale.
    * Resolves `true` once the camera arrives, or `false` if something else took over the camera.
    */
-  async function flyTo(p: LatLon, { scale = 50_000, tilt = 68, heading = 0 } = {}): Promise<boolean> {
+  async function flyTo(
+    p: LatLon,
+    { scale = 50_000, tilt = 68, heading = 0 } = {},
+  ): Promise<boolean> {
     const camera = { target: moonPoint(p), scale: sceneMeters(scale), tilt };
     try {
       await view.goTo({ ...camera, heading });
@@ -106,7 +127,12 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
     }
     // Turn a little around the point. Dragging, zooming, or any new goTo stops it.
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      view.goTo({ ...camera, heading: heading + 30 }, { duration: 9000, easing: "ease-in-out" }).catch(ignoreAbort);
+      view
+        .goTo(
+          { ...camera, heading: heading + 30 },
+          { duration: 9000, easing: "ease-in-out" },
+        )
+        .catch(ignoreAbort);
     }
     return true;
   }
@@ -118,14 +144,21 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
     if (points.length > 1) {
       // Shift longitudes into the shortest span across the antimeridian, so the camera doesn't
       // frame the long way around. The extent is in degrees, which works the same on the Moon.
-      const bounds = getDenormalizedExtent(new Multipoint({ points: points.map((p) => [p.lon, p.lat]), spatialReference: { wkid: 4326 } }));
+      const bounds = getDenormalizedExtent(
+        new Multipoint({
+          points: points.map((p) => [p.lon, p.lat]),
+          spatialReference: { wkid: 4326 },
+        }),
+      );
       for (const point of target) {
         if (bounds && point.x < bounds.xmin) point.x += 360;
         else if (bounds && point.x > bounds.xmax) point.x -= 360;
       }
     }
     const scale = points.length === 1 ? { scale: sceneMeters(500_000) } : {};
-    return view.goTo({ target, ...scale, tilt: 0, heading: 0 }).catch(ignoreAbort);
+    return view
+      .goTo({ target, ...scale, tilt: 0, heading: 0 })
+      .catch(ignoreAbort);
   }
 
   return {
@@ -145,7 +178,10 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
 
     /** Show the Moon as it was at the end of `year`. */
     showYear(year: number): void {
-      slider.timeExtent = new TimeExtent({ start: null, end: new Date(`${year}-12-31T23:59:59Z`) });
+      slider.timeExtent = new TimeExtent({
+        start: null,
+        end: new Date(`${year}-12-31T23:59:59Z`),
+      });
     },
 
     /** Select a mission, fly down to it, and stand its craft at the site. Shared by cards and tools. */
@@ -161,7 +197,10 @@ export async function createMoonApp(el: MoonElements, moon: MoonScene, earth: Ea
     async fly(): Promise<void> {
       await prepare();
       const { latitude = 0, longitude = 0 } = view.center;
-      endFlight = startFlight(view, { lat: latitude ?? 0, lon: longitude ?? 0 });
+      endFlight = startFlight(view, {
+        lat: latitude ?? 0,
+        lon: longitude ?? 0,
+      });
     },
 
     /** Remove the guide's drawings and selections. The time slider stays where it is. */

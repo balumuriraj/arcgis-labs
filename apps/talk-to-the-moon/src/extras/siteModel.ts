@@ -30,14 +30,18 @@ const HIDE_BEYOND = 4;
 /** Stand this many model heights south of the site, so the mission icon above the site stays clear. */
 const STAND_SOUTH = 1.6;
 
-const LOOK: Partial<Record<Mission["outcome"], { color?: string; tilt?: number; roll?: number }>> = {
+const LOOK: Partial<
+  Record<Mission["outcome"], { color?: string; tilt?: number; roll?: number }>
+> = {
   crewed: {},
   soft: { color: "#5ad1e6" },
   crash: { color: "#ff7a59", tilt: 12, roll: 72 },
 };
 
 /** Soft ground marks: faint rings stacked from the outside in, so the center is darkest. */
-const MARKS: Partial<Record<Mission["outcome"], { radius: number; rgba: number[] }[]>> = {
+const MARKS: Partial<
+  Record<Mission["outcome"], { radius: number; rgba: number[] }[]>
+> = {
   crash: [{ radius: 1.3, rgba: [18, 16, 14, 0.12] }],
   impact: [
     { radius: 1.6, rgba: [226, 220, 208, 0.035] },
@@ -54,8 +58,16 @@ function headingOf(id: string): number {
 }
 
 export class SiteModel {
-  private readonly model = new GraphicsLayer({ title: "Site model", listMode: "hide", elevationInfo: { mode: "relative-to-ground" } });
-  private readonly marks = new GraphicsLayer({ title: "Site marks", listMode: "hide", elevationInfo: { mode: "on-the-ground" } });
+  private readonly model = new GraphicsLayer({
+    title: "Site model",
+    listMode: "hide",
+    elevationInfo: { mode: "relative-to-ground" },
+  });
+  private readonly marks = new GraphicsLayer({
+    title: "Site marks",
+    listMode: "hide",
+    elevationInfo: { mode: "on-the-ground" },
+  });
   private watch: ResourceHandle | undefined;
 
   readonly layers = [this.marks, this.model];
@@ -89,11 +101,24 @@ export class SiteModel {
     }
     for (const mark of MARKS[m.outcome] ?? []) {
       for (let r = 0; r < RINGS; r++) {
-        const radiusKm = Math.max(0.05, mark.radius * heightKm * (1 - r / RINGS));
+        const radiusKm = Math.max(
+          0.05,
+          mark.radius * heightKm * (1 - r / RINGS),
+        );
         this.marks.add(
           new Graphic({
-            geometry: new Polygon({ rings: [moonCircle(m, radiusKm, 64)], spatialReference: SpatialReference.WGS84 }),
-            symbol: new PolygonSymbol3D({ symbolLayers: [new FillSymbol3DLayer({ material: { color: mark.rgba }, outline: { size: 0 } })] }),
+            geometry: new Polygon({
+              rings: [moonCircle(m, radiusKm, 64)],
+              spatialReference: SpatialReference.WGS84,
+            }),
+            symbol: new PolygonSymbol3D({
+              symbolLayers: [
+                new FillSymbol3DLayer({
+                  material: { color: mark.rgba },
+                  outline: { size: 0 },
+                }),
+              ],
+            }),
           }),
         );
       }
@@ -120,7 +145,8 @@ export class SiteModel {
  */
 function distance(view: SceneView, m: Mission): number {
   const { camera } = view;
-  const ground = view.groundView.elevationSampler?.queryElevation(moonPoint(m))?.z ?? 0;
+  const ground =
+    view.groundView.elevationSampler?.queryElevation(moonPoint(m))?.z ?? 0;
   const above = Math.max(1, (camera.position.z ?? 0) - ground);
   return above / Math.max(0.33, Math.cos((camera.tilt * Math.PI) / 180));
 }
