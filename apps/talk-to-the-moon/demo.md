@@ -39,30 +39,31 @@ So far, a pretty normal agentic map. You ask about the data, you get an answer.
 [Stop talking. Let the camera leave Earth and land on the Moon. The map shows only the
 23 Cape Canaveral missions, with a list.]
 
-Those are the Cape Canaveral missions. Let's see everyone. *'Show me every landing.'*
-
-[Pause, while the globe fills: 28 successful landings.]
-
-*'Show all missions by year.'*
+Those are the Cape Canaveral missions. Now everyone, over time. *'Show all missions by year.'*
 
 [A bar chart of missions per year.]
 
 Look at this. A burst of landings, and then nothing, for decades: nothing landed between
 Luna 24, in 1976, and Chang'e 3, in 2013.
 
-Let's go back to the most famous one. *'What's named after the Apollo 11 crew?'*
+Let's visit one. *'Go to an Apollo mission.'*
 
-[Collins, Aldrin, and Armstrong are marked around the landing site.]
+[There were six Apollo landings, so the guide asks which one: a built-in
+human-in-the-loop step. Pick Apollo 11. Close-up, a lunar module on the surface, a slow
+orbit, and the site photo from orbit.]
 
-Three craters, named for Michael Collins, Buzz Aldrin, and Neil Armstrong. All within
-fifty kilometers of where they landed.
+It asked instead of guessing. *'Show the nearest crater.'*
 
-One more. *'Stand the Burj Khalifa in Armstrong crater.'*
+[Collins crater is marked, 20 km from the landing site.]
 
-[The tower appears at true scale, with a comparison card.]
+Named for Michael Collins, who stayed in orbit while Armstrong and Aldrin walked on the
+Moon. How big is it? *'Place the tallest building on Earth inside it.'*
 
-The tallest building on Earth. Armstrong crater is about four kilometers across: you
-could lay five of these end to end inside it.
+[The guide works out that "it" is Collins crater and that the building is the Burj
+Khalifa, 828 m. The tower appears at true scale, with a comparison card.]
+
+Collins crater is about two and a half kilometers across: you could lay three Burj
+Khalifas end to end inside it.
 
 None of those answers were scripted. The agent has a few skills, and tools over real
 NASA and IAU data, and it decides the steps itself. And this pattern works on any data,
@@ -76,10 +77,10 @@ All from the app's data, so the guide's answers will match what you say:
 | --- | --- |
 | Missions by country | USA 21, USSR 14, China 5, Japan 5, India 3, Europe (ESA) 1, Israel 1, Russia 1 (51 total) |
 | Cape Canaveral | 23 missions, including Beresheet (Israel) and Hakuto-R Missions 1 and 2 (Japan) |
-| Every landing | 28 successful landings (crewed and robotic) |
 | The quiet years | Luna 24 (August 1976) to Chang'e 3 (December 2013) |
-| Apollo 11 crew craters | Collins 20 km, Aldrin 47 km, Armstrong 49 km from the landing site |
-| Armstrong crater | 4.2 km across; the Burj Khalifa is 828 m tall |
+| Apollo landings | Six: Apollo 11, 12, 14, 15, 16, and 17 |
+| Nearest crater to Apollo 11 | Collins, 20 km from the landing site (Aldrin 47 km and Armstrong 49 km are also close) |
+| Collins crater | 2.6 km across; the Burj Khalifa is 828 m tall (the crater is about 3 times wider) |
 
 Avoid comparing the tower with the crater's depth: depths aren't in the data, and the
 guide won't confirm it.
@@ -88,9 +89,7 @@ guide won't confirm it.
 
 Use these if you have time, or if a step above doesn't land:
 
-- "Take me to Apollo 11": close-up, a lunar module on the surface, a slow orbit, and the
-  site photo from orbit.
-- "What are the nearest craters to Apollo 11?": Collins, Moltke, Aldrin, Armstrong… with distances.
+- "What's named after the Apollo 11 crew?": Collins, Aldrin, and Armstrong marked around the site.
 - "Take me to Chang'e": the guide asks which one, a built-in human-in-the-loop step.
 - "Show the Moon as it was in 1969": the time slider jumps to the end of 1969.
 - "Now put Mount Everest in Tycho", or "How big is a Saturn V next to Apollo 11?"

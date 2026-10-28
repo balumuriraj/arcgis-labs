@@ -7,10 +7,10 @@ export const TOUR = [
   "How many missions have been launched from each country?",
   "Where did the Apollo missions launch from?",
   "Where did those missions land?",
-  "Show me every landing.",
   "Show all missions by year.",
-  "What's named after the Apollo 11 crew?",
-  "Stand the Burj Khalifa in Armstrong crater.",
+  "Go to an Apollo mission.",
+  "Show the nearest crater.",
+  "Place the tallest building on Earth inside it.",
   "Let me fly the lander.",
 ];
 

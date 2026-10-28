@@ -42,10 +42,11 @@ test("an off-script question keeps the tour where it was", () => {
 test("jumping ahead continues from there; a failed step is offered again", () => {
   const { assistant, target, ask } = fakeAssistant();
   const stop = startTour(assistant);
-  ask(TOUR[6]);
-  assert.deepEqual(target.suggestedPrompts, [TOUR[7]]);
-  ask(TOUR[7], true);
-  assert.deepEqual(target.suggestedPrompts, [TOUR[7]]);
+  const last = TOUR.length - 1;
+  ask(TOUR[last - 1]);
+  assert.deepEqual(target.suggestedPrompts, [TOUR[last]]);
+  ask(TOUR[last], true);
+  assert.deepEqual(target.suggestedPrompts, [TOUR[last]]);
   stop();
   assert.deepEqual(target.suggestedPrompts, [], "stopping clears the chips");
 });
