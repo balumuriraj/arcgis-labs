@@ -1,6 +1,7 @@
 import { createFunctionTool, createLLMAgent, createSchema } from "@arcgis/ai-components/agent-utils/index.js";
 import { sendUXSuggestion } from "@arcgis/ai-components/utils/index.js";
-import { getWeather, type WeatherCardData } from "../../support/utils";
+import { blockTypes, type WeatherCardData } from "../../support/types";
+import { getWeather } from "../../support/weather";
 import prompt from "./prompt.md";
 
 type WeatherInput = Record<string, unknown>;
@@ -21,8 +22,6 @@ const getWeatherTool = await createFunctionTool({
   inputSchema: weatherSchema,
   resultMode: "terminal",
   execute: async (input: WeatherInput, config): Promise<string> => {
-    console.log("get_weather input: ", input);
-
     const city = input.city;
     const date = input.date;
 
@@ -37,7 +36,7 @@ const getWeatherTool = await createFunctionTool({
 
     await sendUXSuggestion(
       {
-        type: "weather-card",
+        type: blockTypes.weather,
         data: { ...weather } satisfies WeatherCardData,
       },
       config,

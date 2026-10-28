@@ -1,12 +1,9 @@
 import { createFunctionTool, createLLMAgent, createSchema } from "@arcgis/ai-components/agent-utils/index.js";
 import type { ResourceHandle } from "@arcgis/core/core/Handles.js";
 import { sendUXSuggestion } from "@arcgis/ai-components/utils/index.js";
-import {
-  type AgentConfigWithContext,
-  getWorldCupMapContextFromAgentConfig,
-  getOptionalString,
-  queryScheduledMatches,
-} from "../../support/utils";
+import { type AgentConfigWithContext, getWorldCupMapContextFromAgentConfig } from "../../support/map-context";
+import { getOptionalString, queryScheduledMatches } from "../../support/scheduled-matches";
+import { blockTypes, type TeamMatchesCardData } from "../../support/types";
 import prompt from "./prompt.md";
 
 // A handler can be used to remove any previous highlight when applying a new one
@@ -41,7 +38,6 @@ const findMatches = await createFunctionTool({
   resultMode: "terminal",
   execute: async (input: FindMatchesInput, config?: AgentConfigWithContext): Promise<string> => {
     const context = getWorldCupMapContextFromAgentConfig(config, "matches-agent");
-    console.log("find_matches input: ", input, context);
 
     const teamName = getOptionalString(input.teamName);
 
@@ -66,7 +62,7 @@ const findMatches = await createFunctionTool({
     }
 
     await mapView.goTo(features);
-    const layerView = await mapView?.whenLayerView(layer);
+    const layerView = await mapView.whenLayerView(layer);
 
     if (layerView) {
       highlight?.remove();
@@ -76,11 +72,11 @@ const findMatches = await createFunctionTool({
     try {
       await sendUXSuggestion(
         {
-          type: "team-matches",
+          type: blockTypes.teamMatches,
           data: {
             teamName,
             features: features.map((feature) => feature.toJSON()),
-          },
+          } satisfies TeamMatchesCardData,
         },
         config,
       );

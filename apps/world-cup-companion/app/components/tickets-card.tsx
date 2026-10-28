@@ -1,43 +1,48 @@
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-chip";
 import "@esri/calcite-components/components/calcite-button";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-chip";
 import "@esri/calcite-components/components/calcite-list";
 import "@esri/calcite-components/components/calcite-list-item";
-import type { TicketPriceCardData } from "../support/utils";
+import { useState } from "react";
+import type { TicketPriceCardData } from "../support/types";
 
-export type TicketsCardData = TicketPriceCardData;
-
-export type TicketsCardProps = {
+type TicketsCardProps = {
   slotName: string;
-  data?: TicketsCardData;
+  data: TicketPriceCardData;
 };
 
-export function TicketsCard({
-  slotName,
-  data,
-}: TicketsCardProps) {
-  if (!data) {
-    return null;
-  }
-
-  const defaultSelectedTier = data.tiers[1] ?? data.tiers[0];
+export function TicketsCard({ slotName, data }: TicketsCardProps) {
+  const { fixture, tiers } = data;
+  const [selectedTier, setSelectedTier] = useState(
+    (tiers[1] ?? tiers[0])?.tier,
+  );
 
   return (
     <div slot={slotName}>
       <calcite-card scale="m">
         <span slot="heading">
-          {data.fixture.team} vs {data.fixture.opponent}
+          {fixture.team} vs {fixture.opponent}
         </span>
         <span slot="description">
-          {data.fixture.displayDate} · {data.fixture.city}
+          {fixture.date} · {fixture.city}
         </span>
-        <calcite-list selection-mode="single" label="Ticket tiers">
-          {data.tiers.map((tier, index) => (
+        <calcite-list
+          selection-mode="single"
+          label="Ticket tiers"
+          oncalciteListChange={(event) => {
+            const value = event.currentTarget.selectedItems[0]?.value;
+
+            if (typeof value === "string") {
+              setSelectedTier(value as typeof selectedTier);
+            }
+          }}
+        >
+          {tiers.map((tier) => (
             <calcite-list-item
-              key={tier.tier ?? index}
+              key={tier.tier}
               label={tier.tier}
               value={tier.tier}
-              selected={tier.tier === defaultSelectedTier?.tier}
+              selected={tier.tier === selectedTier}
               description={`${tier.availability} availability`}
             >
               <calcite-chip slot="content-end" label={`$${tier.price}`}>
@@ -50,13 +55,9 @@ export function TicketsCard({
           slot="footer-end"
           scale="l"
           onClick={async (event) => {
-            const card = event.currentTarget.closest("calcite-card");
-            const tierList = card?.querySelector("calcite-list") as HTMLCalciteListElement | null;
-            const selectedListItem = tierList?.selectedItems?.[0] as HTMLCalciteListItemElement | undefined;
-            const selectedTier = selectedListItem?.value ?? selectedListItem?.label ?? defaultSelectedTier?.tier;
-            const assistant = document.querySelector("arcgis-assistant");
+            const assistant = event.currentTarget.closest("arcgis-assistant");
             await assistant?.submitMessage(
-              `Buy a ticket for the match between ${data.fixture.team} and ${data.fixture.opponent} on ${data.fixture.displayDate} at ${data.fixture.city} in ${selectedTier}`,
+              `Buy a ticket for the match between ${fixture.team} and ${fixture.opponent} on ${fixture.date} at ${fixture.city} in ${selectedTier}`,
             );
           }}
         >

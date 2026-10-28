@@ -1,49 +1,18 @@
-import { type UXSuggestion } from "@arcgis/ai-components/utils/index.js";
-import type { WeatherCardData } from "../support/utils";
+import {
+  blockTypes,
+  type TeamMatchesCardData,
+  type TicketOrderConfirmationData,
+  type TicketPriceCardData,
+  type WeatherCardData,
+} from "../support/types";
 
-import { type TeamMatchFeature, TeamMatchesCard } from "./team-matches-card";
-import { ReceiptCard, type ReceiptCardData } from "./receipt-card";
-import { TicketsCard, type TicketsCardData } from "./tickets-card";
+import { ReceiptCard } from "./receipt-card";
+import { TeamMatchesCard } from "./team-matches-card";
+import { TicketsCard } from "./tickets-card";
 import { WeatherCard } from "./weather-card";
 
-type TeamMatchesBlock = {
-  type: "team-matches";
-  data?: {
-    features?: TeamMatchFeature[];
-  };
-};
-
-type WeatherCardBlock = {
-  type: "weather-card";
-  data?: WeatherCardData;
-};
-
-type TicketsCardBlock = {
-  type: "tickets-card";
-  data?: TicketsCardData;
-};
-
-type ReceiptCardBlock = {
-  type: "receipt-card";
-  data?: ReceiptCardData;
-};
-
-type AssistantSlottableRequestData = {
-  block?:
-    | UXSuggestion
-    | TeamMatchesBlock
-    | WeatherCardBlock
-    | TicketsCardBlock
-    | ReceiptCardBlock;
-  index?: number;
-  message: unknown;
-};
-
-export type AssistantSlottableRequestDetail = {
-  data?: AssistantSlottableRequestData;
-  name: "block" | "message";
-  slotName: string;
-};
+export type AssistantSlottableRequestDetail =
+  HTMLArcgisAssistantElement["arcgisSlottableRequest"]["detail"];
 
 type AssistantSlottableContentProps = {
   slottableRequests: AssistantSlottableRequestDetail[];
@@ -51,6 +20,11 @@ type AssistantSlottableContentProps = {
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   !!value && typeof value === "object";
+
+const isTeamMatchesCardData = (
+  value: unknown,
+): value is TeamMatchesCardData =>
+  isRecord(value) && Array.isArray(value.features);
 
 const isWeatherCardData = (value: unknown): value is WeatherCardData => {
   if (!isRecord(value)) {
@@ -63,13 +37,16 @@ const isWeatherCardData = (value: unknown): value is WeatherCardData => {
     typeof value.date === "string" &&
     typeof value.high === "number" &&
     typeof value.low === "number" &&
-    typeof value.precipitationChance === "number" &&
+    (typeof value.precipitationChance === "number" ||
+      typeof value.precipitationInches === "number") &&
     typeof value.provider === "string" &&
     typeof value.windMph === "number"
   );
 };
 
-const isTicketsCardData = (value: unknown): value is TicketsCardData => {
+const isTicketPriceCardData = (
+  value: unknown,
+): value is TicketPriceCardData => {
   if (!isRecord(value)) {
     return false;
   }
@@ -77,7 +54,9 @@ const isTicketsCardData = (value: unknown): value is TicketsCardData => {
   return Array.isArray(value.tiers) && isRecord(value.fixture);
 };
 
-const isReceiptCardData = (value: unknown): value is ReceiptCardData => {
+const isTicketOrderConfirmationData = (
+  value: unknown,
+): value is TicketOrderConfirmationData => {
   if (!isRecord(value)) {
     return false;
   }
@@ -94,65 +73,28 @@ const isReceiptCardData = (value: unknown): value is ReceiptCardData => {
 export function AssistantSlottableContent({
   slottableRequests,
 }: AssistantSlottableContentProps) {
-  return slottableRequests.map((request) => {
-    const block = request.data?.block;
+  return slottableRequests.map(({ data, slotName }) => {
+    const block = data?.block;
 
-    if (!block) {
-      return null;
-    }
-
-    if (block.type === "team-matches") {
-      return (
-        <TeamMatchesCard
-          key={request.slotName}
-          slotName={request.slotName}
-          data={block.data}
-        />
-      );
-    }
-
-    if (block.type === "weather-card") {
-      if (!isWeatherCardData(block.data)) {
+    switch (block?.type) {
+      case blockTypes.teamMatches:
+        return isTeamMatchesCardData(block.data) ? (
+          <TeamMatchesCard key={slotName} slotName={slotName} data={block.data} />
+        ) : null;
+      case blockTypes.weather:
+        return isWeatherCardData(block.data) ? (
+          <WeatherCard key={slotName} slotName={slotName} data={block.data} />
+        ) : null;
+      case blockTypes.tickets:
+        return isTicketPriceCardData(block.data) ? (
+          <TicketsCard key={slotName} slotName={slotName} data={block.data} />
+        ) : null;
+      case blockTypes.receipt:
+        return isTicketOrderConfirmationData(block.data) ? (
+          <ReceiptCard key={slotName} slotName={slotName} data={block.data} />
+        ) : null;
+      default:
         return null;
-      }
-
-      return (
-        <WeatherCard
-          key={request.slotName}
-          slotName={request.slotName}
-          data={block.data}
-        />
-      );
     }
-
-    if (block.type === "tickets-card") {
-      if (!isTicketsCardData(block.data)) {
-        return null;
-      }
-
-      return (
-        <TicketsCard
-          key={request.slotName}
-          slotName={request.slotName}
-          data={block.data}
-        />
-      );
-    }
-
-    if (block.type === "receipt-card") {
-      if (!isReceiptCardData(block.data)) {
-        return null;
-      }
-
-      return (
-        <ReceiptCard
-          key={request.slotName}
-          slotName={request.slotName}
-          data={block.data}
-        />
-      );
-    }
-
-    return null;
   });
 }

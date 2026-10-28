@@ -14,6 +14,11 @@
     "typescript": "5.9.2"
   },
   "packageManager": "pnpm@9.0.0",
+  "pnpm": {
+    "overrides": {
+      "@arcgis/core@5.1.0-next.136>@esri/calcite-components": "5.1.2-next.2"
+    }
+  },
   "engines": {
     "node": ">=18"
   }

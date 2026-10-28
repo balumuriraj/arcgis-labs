@@ -1,28 +1,31 @@
 import { createFunctionTool, createLLMAgent, createSchema } from "@arcgis/ai-components/agent-utils/index.js";
 import { createHumanInTheLoopToolMiddleware } from "@arcgis/ai-components/agent-utils/middlewares/humanInTheLoop.js";
 import { sendUXSuggestion } from "@arcgis/ai-components/utils/index.js";
+import { type AgentConfigWithContext, getWorldCupMapContextFromAgentConfig } from "../../support/map-context";
 import {
-  type AgentConfigWithContext,
-  getWorldCupMapContextFromAgentConfig,
   getOptionalString,
   getScheduledFixtureLookupLabel,
   queryScheduledFixturesFromInput,
+} from "../../support/scheduled-matches";
+import {
+  blockTypes,
   type TicketOrderConfirmationData,
   type TicketPriceCardData,
   type TicketPriceTier,
   type TicketTier,
-} from "../../support/utils";
+  type WorldCupFixture,
+} from "../../support/types";
 import prompt from "./prompt.md";
 
 type TicketPriceInput = Record<string, unknown>;
 
 type PurchaseTicketsInput = Record<string, unknown>;
 
-const getRequiredNumber = (input: Record<string, unknown>, key: string): number => {
-  const value = input[key];
+const getRequiredQuantity = (input: Record<string, unknown>): number => {
+  const value = input.quantity;
 
-  if (typeof value !== "number") {
-    throw new Error(`Expected ${key} to be a number.`);
+  if (typeof value !== "number" || !Number.isInteger(value) || value < 1) {
+    throw new Error("Expected quantity to be a positive whole number.");
   }
 
   return value;
@@ -41,7 +44,7 @@ const getRequiredTicketTier = (input: Record<string, unknown>): TicketTier => {
 const resolveFixture = async (
   input: Record<string, unknown>,
   config?: AgentConfigWithContext,
-): Promise<TicketPriceCardData["fixture"] | undefined> =>
+): Promise<WorldCupFixture | undefined> =>
   (await queryScheduledFixturesFromInput(getWorldCupMapContextFromAgentConfig(config, "tickets-agent").mapView, input))[0];
 
 const fixtureLookupSchema = {
@@ -80,7 +83,7 @@ const getTicketPrices = await createFunctionTool({
     "Gets mocked ticket price tiers for a requested World Cup fixture and emits a ticket-price custom UI card. Use this for ticket price and availability prompts.",
   inputSchema: ticketPriceSchema,
   resultMode: "terminal",
-  execute: async (input: TicketPriceInput, config?: AgentConfigWithContext): Promise<string | void> => {
+  execute: async (input: TicketPriceInput, config?: AgentConfigWithContext): Promise<string> => {
     const fixture = await resolveFixture(input, config);
 
     if (!fixture) {
@@ -89,7 +92,7 @@ const getTicketPrices = await createFunctionTool({
 
     await sendUXSuggestion(
       {
-        type: "tickets-card",
+        type: blockTypes.tickets,
         data: {
           fixture,
           tiers: ticketTiers,
@@ -126,7 +129,7 @@ const purchaseTickets = await createFunctionTool({
   ],
   resultMode: "terminal",
   execute: async (input: PurchaseTicketsInput, config?: AgentConfigWithContext): Promise<string> => {
-    const quantity = getRequiredNumber(input, "quantity");
+    const quantity = getRequiredQuantity(input);
     const tier = getRequiredTicketTier(input);
     const fixture = await resolveFixture(input, config);
 
@@ -137,25 +140,16 @@ const purchaseTickets = await createFunctionTool({
     const tierPrice = ticketTiers.find((ticketTier) => ticketTier.tier === tier)?.price ?? 0;
     const orderTotal = tierPrice * quantity;
     const orderId = `MOCK-${fixture.matchId.toUpperCase()}-${tier.replace(/[^0-9]/gu, "")}-${quantity}`;
-    const confirmationData: TicketOrderConfirmationData = {
-      orderId,
-      fixture,
-      quantity,
-      tier,
-      orderTotal,
-    };
-    const confirmationPayload: Record<string, unknown> = {
-      orderId: confirmationData.orderId,
-      fixture: confirmationData.fixture as unknown as Record<string, unknown>,
-      quantity: confirmationData.quantity,
-      tier: confirmationData.tier,
-      orderTotal: confirmationData.orderTotal,
-    };
-
     await sendUXSuggestion(
       {
-        type: "receipt-card",
-        data: confirmationPayload,
+        type: blockTypes.receipt,
+        data: {
+          orderId,
+          fixture,
+          quantity,
+          tier,
+          orderTotal,
+        } satisfies TicketOrderConfirmationData,
       },
       config,
     );

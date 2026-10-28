@@ -1,21 +1,14 @@
-import "@esri/calcite-components/dist/components/calcite-card";
+import "@esri/calcite-components/components/calcite-card";
 import "@esri/calcite-components/components/calcite-list";
 import "@esri/calcite-components/components/calcite-list-item";
-import type { TicketOrderConfirmationData } from "../support/utils";
+import type { TicketOrderConfirmationData } from "../support/types";
 
-export type ReceiptCardData = TicketOrderConfirmationData;
-
-export function ReceiptCard({
-  slotName,
-  data,
-}: {
+type ReceiptCardProps = {
   slotName: string;
-  data?: ReceiptCardData;
-}) {
-  if (!data) {
-    return null;
-  }
+  data: TicketOrderConfirmationData;
+};
 
+export function ReceiptCard({ slotName, data }: ReceiptCardProps) {
   const fixtureLine = `${data.fixture.team} vs ${data.fixture.opponent}`;
 
   return (
@@ -23,7 +16,7 @@ export function ReceiptCard({
       <calcite-card scale="m">
         <span slot="heading">Ticket Order Receipt</span>
         <span slot="description">
-          Mock purchase confirmed for {fixtureLine} on {data.fixture.displayDate}.
+          Mock purchase confirmed for {fixtureLine} on {data.fixture.date}.
         </span>
         <calcite-list selection-mode="none" label="Ticket order receipt details">
           <calcite-list-item label="Order ID" description={data.orderId}></calcite-list-item>

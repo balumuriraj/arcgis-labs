@@ -6,6 +6,7 @@ import "@arcgis/map-components/components/arcgis-expand";
 import "@arcgis/map-components/components/arcgis-legend";
 import "@arcgis/map-components/components/arcgis-map";
 
+import "@esri/calcite-components/components/calcite-icon";
 import "@esri/calcite-components/components/calcite-notice";
 import "@esri/calcite-components/components/calcite-panel";
 import "@esri/calcite-components/components/calcite-shell";
@@ -15,7 +16,7 @@ import { useState } from "react";
 import { agent as conditionsAgent } from "../agents/conditions-agent";
 import { agent as matchesAgent } from "../agents/matches-agent";
 import { agent as ticketsAgent } from "../agents/tickets-agent";
-import { getWorldCupMapContext } from "../support/utils";
+import { getWorldCupMapContext } from "../support/map-context";
 import {
   AssistantSlottableContent,
   type AssistantSlottableRequestDetail,
@@ -52,7 +53,7 @@ export function WorldCupCompanionApp() {
             const nextRequest = event.detail;
 
             setSlottableRequests(
-              (currentRequests: AssistantSlottableRequestDetail[]) => {
+              (currentRequests) => {
                 const remainingRequests = currentRequests.filter(
                   (request) => request.slotName !== nextRequest.slotName,
                 );

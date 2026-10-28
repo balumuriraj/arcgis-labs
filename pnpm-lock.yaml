@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@arcgis/core@5.1.0-next.136>@esri/calcite-components': 5.1.2-next.2
+
 importers:
 
   .:
@@ -3502,7 +3505,7 @@ snapshots:
       '@amcharts/amcharts5': 5.18.0
       '@arcgis/toolkit': 5.1.0-next.138
       '@esri/arcgis-html-sanitizer': 4.1.0
-      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
+      '@esri/calcite-components': 5.1.2-next.2
       '@vaadin/grid': 25.1.4
       '@zip.js/zip.js': 2.8.26
       luxon: 3.7.2
@@ -3510,10 +3513,6 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@lit/context'
-      - date-fns
-      - date-fns-tz
-      - dayjs
-      - moment-timezone
 
   '@arcgis/core@5.2.0-next.155':
     dependencies:
