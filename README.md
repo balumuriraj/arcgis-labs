@@ -20,10 +20,6 @@ This Turborepo includes the following packages/apps:
   with Earth-to-Moon travel, an AI guide, a native time slider, and named lunar craters.
   Run `pnpm --filter talk-to-the-moon dev` (port 3006).
 
-- [`aftershock-replay`](./apps/aftershock-replay): a Calcite earthquake replay demo
-  using ArcGIS AI Components 5.2, a custom `SkillAgent`, interactive chat cards,
-  and a shared map timeline. Run `pnpm --filter aftershock-replay dev` (port 3005).
-
 - `docs`: a [Next.js](https://nextjs.org/) app
 - `web`: another [Next.js](https://nextjs.org/) app
 - `@repo/ui`: a stub React component library shared by both `web` and `docs` applications

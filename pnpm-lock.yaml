@@ -21,52 +21,6 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
-  apps/aftershock-replay:
-    dependencies:
-      '@arcgis/ai-components':
-        specifier: 5.2.0-next.155
-        version: 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/map-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2)))(@esri/calcite-components@5.2.0(luxon@3.7.2))(openai@7.41.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@arcgis/core':
-        specifier: 5.2.0-next.155
-        version: 5.2.0-next.155
-      '@arcgis/map-components':
-        specifier: 5.2.0-next.155
-        version: 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))
-      '@esri/calcite-components':
-        specifier: 5.2.0
-        version: 5.2.0(luxon@3.7.2)
-      next:
-        specifier: 16.1.5
-        version: 16.1.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      react:
-        specifier: ^19.2.0
-        version: 19.2.0
-      react-dom:
-        specifier: ^19.2.0
-        version: 19.2.0(react@19.2.0)
-    devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@types/node':
-        specifier: ^22.15.3
-        version: 22.15.3
-      '@types/react':
-        specifier: 19.2.2
-        version: 19.2.2
-      '@types/react-dom':
-        specifier: 19.2.2
-        version: 19.2.2(@types/react@19.2.2)
-      eslint:
-        specifier: ^9.39.1
-        version: 9.39.1
-      typescript:
-        specifier: 5.9.2
-        version: 5.9.2
-
   apps/coopers-console:
     dependencies:
       '@arcgis/ai-components':
@@ -386,13 +340,6 @@ packages:
       '@arcgis/map-components': ~5.1.0-next.138
       '@esri/calcite-components': ^5.1.1
 
-  '@arcgis/ai-components@5.2.0-next.155':
-    resolution: {integrity: sha512-t/Me4g4/FgDdXPyG+6OZSEkXxIncNBb+xJ37N6DsIvoMWoHfoWtWC90oWos+QU/AE6yjWKPBA1wHhfCuWgbezg==}
-    peerDependencies:
-      '@arcgis/core': 5.2.0-next.155
-      '@arcgis/map-components': ~5.2.0-next.155
-      '@esri/calcite-components': ^5.2.0-next.89
-
   '@arcgis/ai-components@5.2.0-next.159':
     resolution: {integrity: sha512-m56LjuwCMMEtddPvvWDkXns7MVafTv8LxOwt7++QGAmK/RLM//MoaIT29V/rTAq+v8LZu//SlwYEYrq0elCzBA==}
     peerDependencies:
@@ -412,12 +359,6 @@ packages:
       '@arcgis/core': ^5.1.0-next
       '@esri/calcite-components': ^5.1.1
 
-  '@arcgis/common-components@5.2.0-next.155':
-    resolution: {integrity: sha512-3qRW3Vls4IamNNbptzsnnP95AaKNaVd934i+8WyL6OQW4O0zfcQVP1bkrmAZBR87uVk0BFMFhl4Oq2uhMJrMSA==}
-    peerDependencies:
-      '@arcgis/core': 5.2.0-next.155
-      '@esri/calcite-components': ^5.2.0-next.89
-
   '@arcgis/common-components@5.2.0-next.159':
     resolution: {integrity: sha512-dHx/EDJYGXMp5dW43mMSdMO75SF2ebzfefPoiIUctU/ovzH2SQ88KH389EHnMgXb8Gk8XdhlKSvB1dCZybnfwQ==}
     peerDependencies:
@@ -427,17 +368,8 @@ packages:
   '@arcgis/core@5.1.0-next.136':
     resolution: {integrity: sha512-xKjXrMK7idqJobBy4KktvLDIRnt25onlGFQCXZ3zEZ+zLVEtwisWAuhpF4PERPJ5Fo4M/Hyn91RIW49qcYIcpw==}
 
-  '@arcgis/core@5.2.0-next.155':
-    resolution: {integrity: sha512-i0Is8ZTJqRcVf3lAn8hNhh/s0MbtBnKSTfjj7xW2R+NxEfCU0gG3M77+zFhFk2aMJvBJ2/h5Qy1syXcAhHIbSg==}
-
   '@arcgis/core@5.2.0-next.159':
     resolution: {integrity: sha512-mEp1FkmjuPmsgPv+F9R12mI3G/NgIOoTaNUAQ4bK41vF27pBudYJO668F8ZB3P4lGxNG38DhestuewRARrhDxg==}
-
-  '@arcgis/lumina-toolkit@5.2.0-next.155':
-    resolution: {integrity: sha512-OTXIePnl/4Ln+Xscg8mXVcy5o5PEy4AmUyigLQQJ1viJw6KSUyiHqUsyt9U96+ViBWMnhC/wqYaSXHCQLt5TeA==}
-    peerDependencies:
-      '@arcgis/core': 5.2.0-next.155
-      '@arcgis/lumina': 5.2.0-next.155
 
   '@arcgis/lumina-toolkit@5.2.0-next.159':
     resolution: {integrity: sha512-fZsDKYDxQ0bgHlIemuwBDoEYSil+5WPPfk9WtgYtTaGPifhmCqoxLWRJGtJ1xDKmfj97rZfWc+yyX4D/ZoJ28g==}
@@ -477,12 +409,6 @@ packages:
     peerDependencies:
       '@arcgis/core': ^5.1.0-next
       '@esri/calcite-components': ^5.1.1
-
-  '@arcgis/map-components@5.2.0-next.155':
-    resolution: {integrity: sha512-zIRC+EDgGgrq122zhfl1jdPAT7IIMs+Vt+YCyz7ualbEgup1imrcefnZROm7IR73cc+HEk5cyu1pR3P8Gydy3A==}
-    peerDependencies:
-      '@arcgis/core': 5.2.0-next.155
-      '@esri/calcite-components': ^5.2.0-next.89
 
   '@arcgis/map-components@5.2.0-next.159':
     resolution: {integrity: sha512-i4G8nf8CpaosIhk0jkJ7w/FEwr3zZfkRvO6E0d2EqEoikgyJTz0b2tjcqi6yKrPXiRstkPmLXigdGJSvrZPuHg==}
@@ -3373,38 +3299,6 @@ snapshots:
       - ws
       - zod-to-json-schema
 
-  '@arcgis/ai-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/map-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2)))(@esri/calcite-components@5.2.0(luxon@3.7.2))(openai@7.41.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@arcgis/core': 5.2.0-next.155
-      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
-      '@arcgis/map-components': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))
-      '@arcgis/toolkit': 5.2.0-next.155
-      '@esri/arcgis-html-sanitizer': 4.2.0-next.2
-      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
-      '@langchain/core': 1.2.20(openai@7.41.0(zod@4.6.7))
-      '@langchain/langgraph': 1.5.2(@langchain/core@1.2.20(openai@7.41.0(zod@4.6.7)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(zod@4.6.7)
-      '@langchain/openai': 1.6.3(@langchain/core@1.2.20(openai@7.41.0(zod@4.6.7)))
-      '@modelcontextprotocol/client': 2.3.1
-      langchain: 1.5.18(@langchain/core@1.2.20(openai@7.41.0(zod@4.6.7)))(openai@7.41.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      lit: 3.3.2
-      marked: 18.1.1
-      tslib: 2.8.1
-      zod: 4.6.7
-    transitivePeerDependencies:
-      - '@aws-sdk/credential-provider-node'
-      - '@lit/context'
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - '@smithy/hash-node'
-      - '@smithy/signature-v4'
-      - google-auth-library
-      - openai
-      - react
-      - react-dom
-      - undici
-      - ws
-
   '@arcgis/ai-components@5.2.0-next.159(@arcgis/core@5.2.0-next.159)(@arcgis/map-components@5.2.0-next.159(@arcgis/core@5.2.0-next.159)(@esri/calcite-components@5.2.0(luxon@3.7.2)))(@esri/calcite-components@5.2.0(luxon@3.7.2))(openai@7.41.0(zod@4.6.7))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@arcgis/core': 5.2.0-next.159
@@ -3472,20 +3366,6 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/common-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
-    dependencies:
-      '@arcgis/core': 5.2.0-next.155
-      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
-      '@arcgis/lumina-toolkit': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/lumina@5.2.0-next.155(lit@3.3.2))
-      '@arcgis/toolkit': 5.2.0-next.155
-      '@esri/arcgis-html-sanitizer': 4.2.0-next.2
-      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
-      '@lit/task': 1.0.3
-      lit: 3.3.2
-      tslib: 2.8.1
-    transitivePeerDependencies:
-      - '@lit/context'
-
   '@arcgis/common-components@5.2.0-next.159(@arcgis/core@5.2.0-next.159)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
     dependencies:
       '@arcgis/core': 5.2.0-next.159
@@ -3514,24 +3394,6 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/core@5.2.0-next.155':
-    dependencies:
-      '@amcharts/amcharts5': 5.20.8
-      '@arcgis/toolkit': 5.2.0-next.155
-      '@esri/arcgis-html-sanitizer': 4.2.0-next.2
-      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
-      '@vaadin/grid': 25.3.3
-      '@zip.js/zip.js': 2.23.0
-      luxon: 3.7.2
-      marked: 18.1.1
-      tslib: 2.8.1
-    transitivePeerDependencies:
-      - '@lit/context'
-      - date-fns
-      - date-fns-tz
-      - dayjs
-      - moment-timezone
-
   '@arcgis/core@5.2.0-next.159':
     dependencies:
       '@amcharts/amcharts5': 5.20.8
@@ -3549,12 +3411,6 @@ snapshots:
       - date-fns-tz
       - dayjs
       - moment-timezone
-
-  '@arcgis/lumina-toolkit@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/lumina@5.2.0-next.155(lit@3.3.2))':
-    dependencies:
-      '@arcgis/core': 5.2.0-next.155
-      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
-      tslib: 2.8.1
 
   '@arcgis/lumina-toolkit@5.2.0-next.159(@arcgis/core@5.2.0-next.159)(@arcgis/lumina@5.2.0-next.159(lit@3.3.2))':
     dependencies:
@@ -3593,21 +3449,6 @@ snapshots:
       '@esri/calcite-components': 5.1.2-next.2
       lit: 3.3.2
       lodash-es: 4.18.1
-      tslib: 2.8.1
-    transitivePeerDependencies:
-      - '@lit/context'
-
-  '@arcgis/map-components@5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
-    dependencies:
-      '@amcharts/amcharts5': 5.20.8
-      '@arcgis/common-components': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@esri/calcite-components@5.2.0(luxon@3.7.2))
-      '@arcgis/core': 5.2.0-next.155
-      '@arcgis/lumina': 5.2.0-next.155(lit@3.3.2)
-      '@arcgis/lumina-toolkit': 5.2.0-next.155(@arcgis/core@5.2.0-next.155)(@arcgis/lumina@5.2.0-next.155(lit@3.3.2))
-      '@arcgis/toolkit': 5.2.0-next.155
-      '@esri/calcite-components': 5.2.0(luxon@3.7.2)
-      es-toolkit: 1.52.0
-      lit: 3.3.2
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@lit/context'
