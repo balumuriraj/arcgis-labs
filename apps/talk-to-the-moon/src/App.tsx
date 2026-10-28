@@ -7,6 +7,7 @@ import { Cards } from "./cards/Cards";
 import { createMoonApp, type MoonApp } from "./map/controller";
 import { createEarthScene } from "./map/earth";
 import { createMoonScene } from "./map/moon";
+import { startTour } from "./tour";
 
 // Prerelease SDK builds close the popup's content but leave the popup itself open.
 const closePopup = (event: { target: HTMLArcgisPopupElement }) =>
@@ -49,6 +50,9 @@ export default function App() {
       created?.destroy();
     };
   }, [moon, earth]);
+
+  // Suggested prompts that walk through the demo, one step at a time (tour.ts).
+  useEffect(() => startTour(assistant.current!), []);
 
   return (
     <div className="moon-app">

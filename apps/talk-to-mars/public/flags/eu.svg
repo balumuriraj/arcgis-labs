@@ -1,0 +1,13 @@
+<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <path fill="#163e91" d="M0 0h640v480H0z"/>
+  <defs>
+    <path id="eu-star" fill="#ffdc37" d="M0-20 4.7-6.5 19-6.2 7.6 2.5 11.8 16.2 0 8-11.8 16.2-7.6 2.5-19-6.2-4.7-6.5Z"/>
+  </defs>
+  <use href="#eu-star" x="320" y="98"/><use href="#eu-star" x="391" y="117"/>
+  <use href="#eu-star" x="443" y="169"/><use href="#eu-star" x="462" y="240"/>
+  <use href="#eu-star" x="443" y="311"/><use href="#eu-star" x="391" y="363"/>
+  <use href="#eu-star" x="320" y="382"/><use href="#eu-star" x="249" y="363"/>
+  <use href="#eu-star" x="197" y="311"/><use href="#eu-star" x="178" y="240"/>
+  <use href="#eu-star" x="197" y="169"/><use href="#eu-star" x="249" y="117"/>
+  <rect width="640" height="480" fill="none" stroke="#0b1020" stroke-width="48"/>
+</svg>

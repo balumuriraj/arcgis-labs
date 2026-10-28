@@ -1,0 +1,55 @@
+@import "@arcgis/ai-components/main.css";
+@import "@esri/calcite-components/main.css";
+@import "@arcgis/core/assets/esri/themes/dark/main.css";
+
+/* Only app layout and scene switching; Calcite owns component presentation. */
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.mars-app {
+  height: 100dvh;
+}
+
+.stage {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+.stage arcgis-scene {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transition: opacity 0.9s ease;
+}
+
+/* Crossfade between the two worlds; Travel sets data-world. */
+.stage[data-world="earth"] #mars,
+.stage[data-world="mars"] #earth {
+  opacity: 0;
+  pointer-events: none;
+}
+
+arcgis-time-slider {
+  width: min(900px, calc(100cqw - 32px));
+}
+
+arcgis-assistant,
+arcgis-assistant-observation-panel {
+  height: 100%;
+}
+
+arcgis-chart {
+  --chart-height: 280px;
+  --chart-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage arcgis-scene {
+    transition: none;
+  }
+}

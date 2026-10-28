@@ -26,7 +26,7 @@ To change the portal, copy [.env.example](./.env.example) to `.env.local` and se
 never put secrets in them.
 
 Try **"Take me to Apollo 11"**, **"Show me every place we've landed on the Moon"**,
-**"Why did it go quiet?"** and **"Stand the Burj Khalifa in Tycho crater"**.
+**"What's named after the Apollo 11 crew?"** and **"Stand the Burj Khalifa in Tycho crater"**.
 
 ## How it works
 

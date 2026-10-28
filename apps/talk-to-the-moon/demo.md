@@ -12,6 +12,11 @@ everything after that is driven by talking to the guide.
 - For a public or commercial event, hide the LROC site photos with `?photos=off` (see
   [reference](./docs/reference.md#data)).
 
+The guide suggests each prompt below in turn as a chip above the chat box, ending with the
+lander easter egg: click it, then Ask. A visitor can click through the whole demo on their
+own the same way. Off-script questions don't lose the place; the next chip waits. The chips
+come from [src/tour.ts](./src/tour.ts), so change the prompts there and here together.
+
 ## The script
 
 Prompts to type are in *italics*; [brackets] are what happens on screen.
@@ -22,7 +27,7 @@ Let's ask it something. *'How many missions have been launched from each country
 
 [A table appears: USA 21, USSR 14, China 5, Japan 5, India 3, Europe, Israel and Russia 1 each.]
 
-Okay. *'where did the Apollo missions launched from?'*
+Okay. *'Where did the Apollo missions launch from?'*
 
 [The answer: 23. The guide may mention that Israel's Beresheet and Japan's Hakuto-R
 missions launched from there too.]
@@ -42,9 +47,8 @@ Those are the Cape Canaveral missions. Let's see everyone. *'Show me every landi
 
 [A bar chart of missions per year.]
 
-Look at this. A burst of landings, and then nothing, for decades. *'Why did it go quiet?'*
-
-[Let it answer. Nothing landed between Luna 24, in 1976, and Chang'e 3, in 2013.]
+Look at this. A burst of landings, and then nothing, for decades: nothing landed between
+Luna 24, in 1976, and Chang'e 3, in 2013.
 
 Let's go back to the most famous one. *'What's named after the Apollo 11 crew?'*
 
