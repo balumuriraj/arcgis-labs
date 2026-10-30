@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "talk-to-the-moon",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "talk-to-the-moon", "dev"],
+      "port": 3006
+    }
+  ]
+}
